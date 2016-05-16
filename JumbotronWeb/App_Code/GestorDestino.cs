@@ -10,14 +10,19 @@ using System.Web;
 /// </summary>
 public class GestorDestino
 {
+    public static string cadena_conexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=4K1_62726;Integrated Security=True";
 	public GestorDestino()
 	{
+		
 	}
 
     public static DataTable ObtenerTodas()
     {              
-             SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-             Hotel h = null;
+       
+
+             //string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
+        SqlConnection cn = new SqlConnection(cadena_conexion);
+             Hotel c2 = null;
              DataTable dt = new DataTable();
 
              try
@@ -32,9 +37,10 @@ public class GestorDestino
                 dt.Load(cmd.ExecuteReader());
              
            }
+
             catch (Exception)
             {
-                throw;
+                throw;  
             }
 
             finally
@@ -44,5 +50,6 @@ public class GestorDestino
             }   
 
                return dt;
+	
     }
 }

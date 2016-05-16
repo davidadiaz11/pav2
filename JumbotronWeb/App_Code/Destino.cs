@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class Destino
 {
-		 public int id { get; set; }
+		 public int codigo { get; set; }
         public string descripcion { get; set; }
    
 }

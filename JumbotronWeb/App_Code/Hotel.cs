@@ -9,13 +9,21 @@ using System.Web;
 public class Hotel
 {
 
-        public int id { get; set; }
+        public int codigo { get; set; }
         
         public int capacidad { get; set; }
 
-        public string descripcion { get; set; }
+        public string nombre { get; set; }
 
-        public int destino { get; set; }
+        public int? destino { get; set; }
 
         public string destino_descripcion { get; set; }
+
+        public Boolean aceptaMascota { get; set; }
+
+        public int cuit { get; set; }
+
+        public DateTime inicioActividad { get; set; }
+        
+	
 }
