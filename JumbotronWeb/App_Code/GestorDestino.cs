@@ -17,7 +17,6 @@ public class GestorDestino
     public static DataTable ObtenerTodas()
     {              
              SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-             Hotel h = null;
              DataTable dt = new DataTable();
 
              try

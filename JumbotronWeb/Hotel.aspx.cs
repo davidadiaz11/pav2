@@ -33,7 +33,7 @@ using System.Text.RegularExpressions;
 
 public partial class Hotelwf : System.Web.UI.Page
 {
-    public string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=TPPAV2;Integrated Security=True";
+    public string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=4K1_62726;Integrated Security=True";
     protected void Page_Load(object sender, EventArgs e)
     {
         Panel1.Visible = true;
@@ -142,6 +142,13 @@ public partial class Hotelwf : System.Web.UI.Page
         txtId.Text = h.id.ToString();
         txtdescripcion.Text = h.descripcion;
         ddlDestino.SelectedValue = h.destino.ToString();
+        txtCuit.Text = h.cuit.ToString();
+        txtCapacidad.Text = h.capacidad.ToString();
+        if (h.aceptaMascota)
+            rbtnSi.Checked = true;
+        else
+            rbrtnNo.Checked = true;
+
     }
 
 

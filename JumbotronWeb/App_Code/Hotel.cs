@@ -18,4 +18,8 @@ public class Hotel
         public int? destino { get; set; }
 
         public string destino_descripcion { get; set; }
+
+        public int cuit { get; set; }
+
+        public Boolean aceptaMascota { get; set; }
 }

@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 public class GestorHotel
 {   
     //ACÁ SE INSTANCIA LA CADENA DE CONEXIÓN, UNA ÚNICA VEZ
-    public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=TPPAV2;Integrated Security=True";
+    public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=asd;Integrated Security=True";
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 	
 
@@ -98,13 +98,8 @@ public class GestorHotel
                      h.descripcion = dr["descripcion"].ToString();
                      h.destino = (int)dr["destino"];
                      h.capacidad = (int)dr["capacidad"];
-
-                     h1 = new Hotel();
-                     h1.codigo = (int)dr["codigo"];
-                     h1.nombre = dr["nombre"].ToString();
-                     h1.cuit = (int)dr["cuit"];
-                     h1.capacidad = (int)dr["capacidad"];
-                     h1.destino = (int)dr["destino"];
+                     h.cuit = (int)dr["cuit"];
+                     h.aceptaMascota = (Boolean)dr["aceptaMascota"];
                      //------- da error de convercion cuando se hace la consula
                      //h1.aceptaMascota = (bool)dr["aceptamascota"];  
                     
@@ -129,7 +124,6 @@ public class GestorHotel
          public static void Eliminar(int id)
          {
              SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-             Hotel h = null;
              try
              {
                  cn.Open();
@@ -159,18 +153,16 @@ public class GestorHotel
                      cn.Close();
              }
          }
-
+            //NO GRABA MASCOTA
             public static void Grabar(Hotel h, Boolean accion)
             {
                   string sql="";
                   SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
                   Hotel h1 = buscarPorId(h.id);
-                    sql = @"insert  into Hotel (nombre,capacidad,destino,cuit) values(@nombre,@capacidad,@destino,@cuit);";
-
-                    if(accion)
-                        sql = @"insert  into Hotel (descripcion, id, capacidad, destino) values(@descripcion, @id, @capacidad, @destino);";
-                    else
-                        sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino where id=@id;";
+                  if(accion)
+                      sql = @"insert  into Hotel (descripcion, id, capacidad, destino, cuit, aceptaMascota) values(@descripcion, @id, @capacidad, @destino, @cuit, @aceptaMascota);";
+                  else
+                      sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino, cuit=@cuit, aceptaMascota=@aceptaMascota where id=@id;";
 
              try
              {
@@ -186,6 +178,7 @@ public class GestorHotel
                  cmd.Parameters.Add(new SqlParameter("@destino", h.destino.ToString()));
                  cmd.Parameters.Add(new SqlParameter("@id", h.id));
                  cmd.Parameters.Add(new SqlParameter("@cuit", h.cuit));
+                 cmd.Parameters.Add(new SqlParameter("@aceptaMascota", h.aceptaMascota));
                  //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
                  int filasAfetadas = cmd.ExecuteNonQuery();
                   if (filasAfetadas==0)
@@ -195,7 +188,7 @@ public class GestorHotel
                  
                 }
 
-            catch (Exception ex)
+            catch (Exception)
             {
                   throw;
             }
