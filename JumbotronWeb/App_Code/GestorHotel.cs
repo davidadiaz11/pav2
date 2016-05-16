@@ -53,7 +53,7 @@ public class GestorHotel
                         h2.destino_descripcion = (string)(dr["destino_descripcion"]);
                     }
                     listaHotel.Add(h2);
-                }
+                }   
                 dr.Close();
              
            }
@@ -99,20 +99,29 @@ public class GestorHotel
                      h.destino = (int)dr["destino"];
                      h.capacidad = (int)dr["capacidad"];
 
+                     h1 = new Hotel();
+                     h1.codigo = (int)dr["codigo"];
+                     h1.nombre = dr["nombre"].ToString();
+                     h1.cuit = (int)dr["cuit"];
+                     h1.capacidad = (int)dr["capacidad"];
+                     h1.destino = (int)dr["destino"];
+                     //------- da error de convercion cuando se hace la consula
+                     //h1.aceptaMascota = (bool)dr["aceptamascota"];  
+                    
                  }
                  dr.Close();
              }
 
-             catch (Exception)
-             {
-                 throw;
-             }
+            catch (Exception)
+            {
+                     throw;
+            }
 
-             finally
-             {
+            finally
+            {
                  if (cn != null && cn.State == ConnectionState.Open)
                      cn.Close();
-             }
+            }
 
              return h;
          }
@@ -156,13 +165,14 @@ public class GestorHotel
                   string sql="";
                   SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
                   Hotel h1 = buscarPorId(h.id);
+                    sql = @"insert  into Hotel (nombre,capacidad,destino,cuit) values(@nombre,@capacidad,@destino,@cuit);";
 
                     if(accion)
                         sql = @"insert  into Hotel (descripcion, id, capacidad, destino) values(@descripcion, @id, @capacidad, @destino);";
                     else
                         sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino where id=@id;";
 
-                try
+             try
              {
                  cn.Open();
                  SqlCommand cmd = new SqlCommand();
@@ -175,18 +185,20 @@ public class GestorHotel
                  cmd.Parameters.Add(new SqlParameter("@capacidad", h.capacidad));
                  cmd.Parameters.Add(new SqlParameter("@destino", h.destino.ToString()));
                  cmd.Parameters.Add(new SqlParameter("@id", h.id));
+                 cmd.Parameters.Add(new SqlParameter("@cuit", h.cuit));
                  //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
                  int filasAfetadas = cmd.ExecuteNonQuery();
                   if (filasAfetadas==0)
                  {
                      throw new Exception("El registro ya existe en la base");
-                 }
-             }
+                 }      
+                 
+                }
 
-             catch (Exception ex)
-             {
+            catch (Exception ex)
+            {
                   throw;
-             }
+            }
 
              finally
              {
