@@ -34,11 +34,10 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <p style="height: 34px">
+
     <h2> Hotel
         <asp:Label ID="lblAccion" runat="server" Text="Label"></asp:Label>
     </h2>
-</p>
     <asp:Panel ID="Panel1" runat="server">
         <strong>Nombre a buscar:&nbsp;</strong>
         
@@ -48,12 +47,12 @@
 
         
     <table class="table table-bordered">
-        <asp:GridView ID="GridView1" runat="server"   CellPadding="4"  DataKeyNames="codigo" ForeColor="#333333" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
+        <asp:GridView ID="GridView1" runat="server"   CellPadding="4"  DataKeyNames="id" ForeColor="#333333" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
                 <asp:CommandField ShowSelectButton="True" />
-                <asp:BoundField DataField="nombre" HeaderText="Nombre" SortExpression="nombre" />
-                <asp:BoundField DataField="codigo" HeaderText="Codigo" SortExpression="codigo" />
+                <asp:BoundField DataField="descripcion" HeaderText="Nombre" SortExpression="descripcion" />
+                <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id" />
                 <asp:BoundField DataField="capacidad" HeaderText="Capacidad" />
                 <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicacion" />
             </Columns>
@@ -95,7 +94,7 @@
             <tr>
                 <td class="auto-style8">Nombre:</td>
                 <td class="auto-style7">
-                    <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtdescripcion" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
