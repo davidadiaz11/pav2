@@ -6267,516 +6267,26 @@ button.close {
          -o-transition:      -o-transform .6s ease-in-out;
             transition:         transform .6s ease-in-out;
 
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-            perspective: 1000px;
-  }
-  .carousel-inner > .item.next,
-  .carousel-inner > .item.active.right {
-    left: 0;
-    -webkit-transform: translate3d(100%, 0, 0);
-            transform: translate3d(100%, 0, 0);
-  }
-  .carousel-inner > .item.prev,
-  .carousel-inner > .item.active.left {
-    left: 0;
-    -webkit-transform: translate3d(-100%, 0, 0);
-            transform: translate3d(-100%, 0, 0);
-  }
-  .carousel-inner > .item.next.left,
-  .carousel-inner > .item.prev.right,
-  .carousel-inner > .item.active {
-    left: 0;
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-  }
-}
-.carousel-inner > .active,
-.carousel-inner > .next,
-.carousel-inner > .prev {
-  display: block;
-}
-.carousel-inner > .active {
-  left: 0;
-}
-.carousel-inner > .next,
-.carousel-inner > .prev {
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-.carousel-inner > .next {
-  left: 100%;
-}
-.carousel-inner > .prev {
-  left: -100%;
-}
-.carousel-inner > .next.left,
-.carousel-inner > .prev.right {
-  left: 0;
-}
-.carousel-inner > .active.left {
-  left: -100%;
-}
-.carousel-inner > .active.right {
-  left: 100%;
-}
-.carousel-control {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 15%;
-  font-size: 20px;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
-  background-color: rgba(0, 0, 0, 0);
-  filter: alpha(opacity=50);
-  opacity: .5;
-}
-.carousel-control.left {
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
-  background-image:      -o-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
-  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, .0001)));
-  background-image:         linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
-  background-repeat: repeat-x;
-}
-.carousel-control.right {
-  right: 0;
-  left: auto;
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
-  background-image:      -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
-  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .0001)), to(rgba(0, 0, 0, .5)));
-  background-image:         linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
-  background-repeat: repeat-x;
-}
-.carousel-control:hover,
-.carousel-control:focus {
-  color: #fff;
-  text-decoration: none;
-  filter: alpha(opacity=90);
-  outline: 0;
-  opacity: .9;
-}
-.carousel-control .icon-prev,
-.carousel-control .icon-next,
-.carousel-control .glyphicon-chevron-left,
-.carousel-control .glyphicon-chevron-right {
-  position: absolute;
-  top: 50%;
-  z-index: 5;
-  display: inline-block;
-  margin-top: -10px;
-}
-.carousel-control .icon-prev,
-.carousel-control .glyphicon-chevron-left {
-  left: 50%;
-  margin-left: -10px;
-}
-.carousel-control .icon-next,
-.carousel-control .glyphicon-chevron-right {
-  right: 50%;
-  margin-right: -10px;
-}
-.carousel-control .icon-prev,
-.carousel-control .icon-next {
-  width: 20px;
-  height: 20px;
-  font-family: serif;
-  line-height: 1;
-}
-.carousel-control .icon-prev:before {
-  content: '\2039';
-}
-.carousel-control .icon-next:before {
-  content: '\203a';
-}
-.carousel-indicators {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  z-index: 15;
-  width: 60%;
-  padding-left: 0;
-  margin-left: -30%;
-  text-align: center;
-  list-style: none;
-}
-.carousel-indicators li {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 1px;
-  text-indent: -999px;
-  cursor: pointer;
-  background-color: #000 \9;
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #fff;
-  border-radius: 10px;
-}
-.carousel-indicators .active {
-  width: 12px;
-  height: 12px;
-  margin: 0;
-  background-color: #fff;
-}
-.carousel-caption {
-  position: absolute;
-  right: 15%;
-  bottom: 20px;
-  left: 15%;
-  z-index: 10;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
-}
-.carousel-caption .btn {
-  text-shadow: none;
-}
-@media screen and (min-width: 768px) {
-  .carousel-control .glyphicon-chevron-left,
-  .carousel-control .glyphicon-chevron-right,
-  .carousel-control .icon-prev,
-  .carousel-control .icon-next {
-    width: 30px;
-    height: 30px;
-    margin-top: -10px;
-    font-size: 30px;
-  }
-  .carousel-control .glyphicon-chevron-left,
-  .carousel-control .icon-prev {
-    margin-left: -10px;
-  }
-  .carousel-control .glyphicon-chevron-right,
-  .carousel-control .icon-next {
-    margin-right: -10px;
-  }
-  .carousel-caption {
-    right: 20%;
-    left: 20%;
-    padding-bottom: 30px;
-  }
-  .carousel-indicators {
-    bottom: 20px;
-  }
-}
-.clearfix:before,
-.clearfix:after,
-.dl-horizontal dd:before,
-.dl-horizontal dd:after,
-.container:before,
-.container:after,
-.container-fluid:before,
-.container-fluid:after,
-.row:before,
-.row:after,
-.form-horizontal .form-group:before,
-.form-horizontal .form-group:after,
-.btn-toolbar:before,
-.btn-toolbar:after,
-.btn-group-vertical > .btn-group:before,
-.btn-group-vertical > .btn-group:after,
-.nav:before,
-.nav:after,
-.navbar:before,
-.navbar:after,
-.navbar-header:before,
-.navbar-header:after,
-.navbar-collapse:before,
-.navbar-collapse:after,
-.pager:before,
-.pager:after,
-.panel-body:before,
-.panel-body:after,
-.modal-header:before,
-.modal-header:after,
-.modal-footer:before,
-.modal-footer:after {
-  display: table;
-  content: " ";
-}
-.clearfix:after,
-.dl-horizontal dd:after,
-.container:after,
-.container-fluid:after,
-.row:after,
-.form-horizontal .form-group:after,
-.btn-toolbar:after,
-.btn-group-vertical > .btn-group:after,
-.nav:after,
-.navbar:after,
-.navbar-header:after,
-.navbar-collapse:after,
-.pager:after,
-.panel-body:after,
-.modal-header:after,
-.modal-footer:after {
-  clear: both;
-}
-.center-block {
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-}
-.pull-right {
-  float: right !important;
-}
-.pull-left {
-  float: left !important;
-}
-.hide {
-  display: none !important;
-}
-.show {
-  display: block !important;
-}
-.invisible {
-  visibility: hidden;
-}
-.text-hide {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-.hidden {
-  display: none !important;
-}
-.affix {
-  position: fixed;
-}
-@-ms-viewport {
-  width: device-width;
-}
-.visible-xs,
-.visible-sm,
-.visible-md,
-.visible-lg {
-  display: none !important;
-}
-.visible-xs-block,
-.visible-xs-inline,
-.visible-xs-inline-block,
-.visible-sm-block,
-.visible-sm-inline,
-.visible-sm-inline-block,
-.visible-md-block,
-.visible-md-inline,
-.visible-md-inline-block,
-.visible-lg-block,
-.visible-lg-inline,
-.visible-lg-inline-block {
-  display: none !important;
-}
-@media (max-width: 767px) {
-  .visible-xs {
-    display: block !important;
-  }
-  table.visible-xs {
-    display: table !important;
-  }
-  tr.visible-xs {
-    display: table-row !important;
-  }
-  th.visible-xs,
-  td.visible-xs {
-    display: table-cell !important;
-  }
-}
-@media (max-width: 767px) {
-  .visible-xs-block {
-    display: block !important;
-  }
-}
-@media (max-width: 767px) {
-  .visible-xs-inline {
-    display: inline !important;
-  }
-}
-@media (max-width: 767px) {
-  .visible-xs-inline-block {
-    display: inline-block !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .visible-sm {
-    display: block !important;
-  }
-  table.visible-sm {
-    display: table !important;
-  }
-  tr.visible-sm {
-    display: table-row !important;
-  }
-  th.visible-sm,
-  td.visible-sm {
-    display: table-cell !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .visible-sm-block {
-    display: block !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .visible-sm-inline {
-    display: inline !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .visible-sm-inline-block {
-    display: inline-block !important;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .visible-md {
-    display: block !important;
-  }
-  table.visible-md {
-    display: table !important;
-  }
-  tr.visible-md {
-    display: table-row !important;
-  }
-  th.visible-md,
-  td.visible-md {
-    display: table-cell !important;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .visible-md-block {
-    display: block !important;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .visible-md-inline {
-    display: inline !important;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .visible-md-inline-block {
-    display: inline-block !important;
-  }
-}
-@media (min-width: 1200px) {
-  .visible-lg {
-    display: block !important;
-  }
-  table.visible-lg {
-    display: table !important;
-  }
-  tr.visible-lg {
-    display: table-row !important;
-  }
-  th.visible-lg,
-  td.visible-lg {
-    display: table-cell !important;
-  }
-}
-@media (min-width: 1200px) {
-  .visible-lg-block {
-    display: block !important;
-  }
-}
-@media (min-width: 1200px) {
-  .visible-lg-inline {
-    display: inline !important;
-  }
-}
-@media (min-width: 1200px) {
-  .visible-lg-inline-block {
-    display: inline-block !important;
-  }
-}
-@media (max-width: 767px) {
-  .hidden-xs {
-    display: none !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .hidden-sm {
-    display: none !important;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .hidden-md {
-    display: none !important;
-  }
-}
-@media (min-width: 1200px) {
-  .hidden-lg {
-    display: none !important;
-  }
-}
-.visible-print {
-  display: none !important;
-}
-@media print {
-  .visible-print {
-    display: block !important;
-  }
-  table.visible-print {
-    display: table !important;
-  }
-  tr.visible-print {
-    display: table-row !important;
-  }
-  th.visible-print,
-  td.visible-print {
-    display: table-cell !important;
-  }
-}
-.visible-print-block {
-  display: none !important;
-}
-@media print {
-  .visible-print-block {
-    display: block !important;
-  }
-}
-.visible-print-inline {
-  display: none !important;
-}
-@media print {
-  .visible-print-inline {
-    display: inline !important;
-  }
-}
-.visible-print-inline-block {
-  display: none !important;
-}
-@media print {
-  .visible-print-inline-block {
-    display: inline-block !important;
-  }
-}
-@media print {
-  .hidden-print {
-    display: none !important;
-  }
-}
-/*# sourceMappingURL=bootstrap.css.map */
 
-    </style> <%--NO DESPLIEGUEN ESTOO JAJA--%>
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <p style="height: 34px">
-    Hotel
+    <h2> Hotel
         <asp:Label ID="lblAccion" runat="server" Text="Label"></asp:Label>
+    </h2>
 </p>
     <asp:Panel ID="Panel1" runat="server">
-        Nombre:&nbsp;
-        <asp:TextBox ID="txtbxBuscar" runat="server" CssClass="form-inline"></asp:TextBox>
-        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" CssClass="btn-primary" />
-        <br />
-        <asp:GridView ID="GridView1" runat="server"   CellPadding="4"  DataKeyNames="id" ForeColor="#333333" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False" AllowSorting="True" BorderColor="#CCCCCC" CssClass="table-hover" BorderStyle="Solid" PageSize="3">
+        <strong>Nombre a buscar:&nbsp;</strong>
+        
+        <asp:TextBox ID="txtbxBuscar"  class="form-control" runat="server" Width="150px"></asp:TextBox>
+           <asp:Button ID="btnBuscar"  class="btn btn-primary" role="button" type="submit" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
+          <br />
+
+        
+    <table class="table table-bordered">
+        <asp:GridView ID="GridView1" runat="server"   CellPadding="4"  DataKeyNames="codigo" ForeColor="#333333" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
+            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
                 <asp:CommandField ShowSelectButton="True" />
                 <asp:BoundField DataField="descripcion" HeaderText="descripcion" SortExpression="descripcion" />
@@ -6784,48 +6294,83 @@ button.close {
                 <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicación" SortExpression="destino_descripcion" />
                 <asp:BoundField DataField="capacidad" HeaderText="Capacidad" SortExpression="capacidad" />
             </Columns>
-           
-           
-            <HeaderStyle BackColor="#0066CC" ForeColor="White" />
-            <SelectedRowStyle BackColor="#CCCCFF" />
-           
-           
+            <EditRowStyle BackColor="#999999" />
+            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+            <SortedAscendingCellStyle BackColor="#E9E7E2" />
+            <SortedAscendingHeaderStyle BackColor="#506C8C" />
+            <SortedDescendingCellStyle BackColor="#FFFDF8" />
+            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
         </asp:GridView>
+   </table>
         <br />
-        <asp:Button ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" Text="Agregar" Width="65px" style="height: 26px" CssClass="btn-success" />
-        <asp:Button ID="btnConsultar" runat="server" Height="26px" OnClick="btnConsultar_Click" style="margin-left: 5px" Text="Consultar" Width="83px" CssClass="btn-info" />
-        <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" style="margin-left: 6px" Text="Eliminar" Width="65px" CssClass="btn-danger" />
-        <asp:Button ID="btnEditar" runat="server" OnClick="btnEditar_Click" style="margin-left: 6px" Text="Editar" Width="65px" CssClass="btn-warning" />
+        <asp:Button ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" Text="Agregar" Width="65px" style="height: 26px" />
+        <asp:Button ID="btnConsultar" runat="server" Height="26px" OnClick="btnConsultar_Click" style="margin-left: 5px" Text="Consultar" Width="65px" />
+        <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" style="margin-left: 6px" Text="Eliminar" Width="65px" />
+        <asp:Button ID="btnEditar" runat="server" OnClick="btnEditar_Click" style="margin-left: 6px" Text="Editar" Width="65px" />
         <br />
     </asp:Panel>
     <asp:Panel ID="pnlRegistro" runat="server">
-        <table class="form-horizontal">
+        <table class="auto-style1">
             <tr>
                 <td class="auto-style3">Hotel Id:</td>
                 <td class="auto-style2">
-                    <asp:TextBox ID="txtId" runat="server" style="margin-left: 0px" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtId" runat="server" class="form-control input-lg" style="margin-left: 0px" Enabled="False"></asp:TextBox>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style4">descripcion:</td>
+                <td class="auto-style3">
+                    <asp:Label ID="lblCuit" runat="server" Text="CUIT:"></asp:Label>
+                </td>
+                <td class="auto-style2">
+                    <asp:TextBox ID="txtCuit" class="form-control" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style8">Nombre:</td>
+                <td class="auto-style7">
+                    <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style8">
+                    <asp:Label ID="lblCapacidad" runat="server" Text="Capacidad"></asp:Label>
+                </td>
                 <td class="auto-style7">
                     <asp:TextBox ID="txtdescripcion" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtCapacidad" runat="server" style="margin-top: 9px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style4">Destino</td>
+                <td class="auto-style8">Destino</td>
                 <td class="auto-style7">
-                    <asp:DropDownList ID="ddlDestino" runat="server" Enabled="False" CssClass="form-control">
+                    <asp:DropDownList ID="ddlDestino" runat="server" Enabled="False" >
                     </asp:DropDownList>
                 </td>
             </tr>
             <tr>
+                <td class="auto-style8">
+                    <asp:Label ID="lblPermiteMascota" runat="server" Text="Admite Mascotas"></asp:Label>
+                </td>
+                <td class="auto-style7">
+
+                    <%--borre el codigo:OnCheckedChanged="rbrtnNo_CheckedChanged" , en ambos radiobutton para que mecompilara 
+                        preguntar al profe como hacer para que funcionen al seleccionarse y deseleccionarlos --%>
+                    <asp:RadioButton ID="rbtnSi" runat="server" Text="SI" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:RadioButton ID="rbrtnNo" runat="server"  Text="No" />
+                    &nbsp;</td>
+            </tr>
+            <tr>
                 <td class="auto-style5"></td>
                 <td class="auto-style6">
-                    <asp:Button ID="btnGrabar" runat="server" OnClick="btnGrabar_Click" Text="Grabar" Width="71px" CssClass="btn-success" />
+                    <asp:Button ID="btnGrabar" runat="server" OnClick="btnGrabar_Click" Text="Grabar" Width="71px" />
                     &nbsp;&nbsp;
-                    <asp:Button ID="btnCancelar" runat="server" OnClick="btnCancelar_Click" style="margin-left: 12px" Text="Cancelar/Volver" Width="116px" CssClass="btn-warning" />
-                    &nbsp;<asp:Button ID="btn_confirmarEliminar" runat="server" OnClick="btn_confirmarEliminar_Click" style="margin-left: 22px" Text="Confirmar Eliminar" Width="133px" CssClass="btn-danger" />
+                    <asp:Button ID="btnCancelar" runat="server" OnClick="btnCancelar_Click" style="margin-left: 12px" Text="Cancelar/Volver" Width="103px" />
+                    &nbsp;<asp:Button ID="btn_confirmarEliminar" runat="server" OnClick="btn_confirmarEliminar_Click" style="margin-left: 22px" Text="confirmar Eliminar" Width="119px" />
                 </td>
             </tr>
         </table>

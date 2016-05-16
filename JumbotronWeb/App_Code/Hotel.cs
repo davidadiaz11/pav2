@@ -15,7 +15,7 @@ public class Hotel
 
         public string descripcion { get; set; }
 
-        public int destino { get; set; }
+        public int? destino { get; set; }
 
         public string destino_descripcion { get; set; }
 }
