@@ -52,10 +52,10 @@
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
                 <asp:CommandField ShowSelectButton="True" />
-                <asp:BoundField DataField="descripcion" HeaderText="descripcion" SortExpression="descripcion" />
-                <asp:BoundField DataField="id" HeaderText="id" SortExpression="id" />
-                <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicación" SortExpression="destino_descripcion" />
-                <asp:BoundField DataField="capacidad" HeaderText="Capacidad" SortExpression="capacidad" />
+                <asp:BoundField DataField="nombre" HeaderText="Nombre" SortExpression="nombre" />
+                <asp:BoundField DataField="codigo" HeaderText="Codigo" SortExpression="codigo" />
+                <asp:BoundField DataField="capacidad" HeaderText="Capacidad" />
+                <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicacion" />
             </Columns>
             <EditRowStyle BackColor="#999999" />
             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -103,7 +103,6 @@
                     <asp:Label ID="lblCapacidad" runat="server" Text="Capacidad"></asp:Label>
                 </td>
                 <td class="auto-style7">
-                    <asp:TextBox ID="txtdescripcion" runat="server" CssClass="form-control"></asp:TextBox>
                     <asp:TextBox ID="txtCapacidad" runat="server" style="margin-top: 9px"></asp:TextBox>
                 </td>
             </tr>
