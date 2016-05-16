@@ -34,7 +34,7 @@ public class GestorDestino
            }
             catch (Exception)
             {
-                throw;
+                throw;  
             }
 
             finally

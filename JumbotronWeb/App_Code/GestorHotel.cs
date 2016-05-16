@@ -200,11 +200,13 @@ public class GestorHotel
                   throw;
             }
 
-             finally
-             {
-                 if (cn != null && cn.State == ConnectionState.Open)
-                     cn.Close();
-             }
+           finally
+           {
+               if (cn != null && cn.State == ConnectionState.Open)
+               cn.Close();
+           }
+
+             
          }
     }
         
