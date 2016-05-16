@@ -1,9 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Hotel.aspx.cs" Inherits="Hotelwf" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <%--<style href="css/bootstrap.css" rel="stylesheet" type="text/css" />--%> 
-    <style 
-        /*!
+/*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -6763,74 +6758,3 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
-
-    </style> <%--NO DESPLIEGUEN ESTOO JAJA--%>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <p style="height: 34px">
-    Hotel
-        <asp:Label ID="lblAccion" runat="server" Text="Label"></asp:Label>
-</p>
-    <asp:Panel ID="Panel1" runat="server">
-        Nombre:&nbsp;
-        <asp:TextBox ID="txtbxBuscar" runat="server" CssClass="form-inline"></asp:TextBox>
-        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" CssClass="btn-primary" />
-        <br />
-        <asp:GridView ID="GridView1" runat="server"   CellPadding="4"  DataKeyNames="id" ForeColor="#333333" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False" AllowSorting="True" BorderColor="#CCCCCC" CssClass="table-hover" BorderStyle="Solid" PageSize="3">
-            <Columns>
-                <asp:CommandField ShowSelectButton="True" />
-                <asp:BoundField DataField="descripcion" HeaderText="descripcion" SortExpression="descripcion" />
-                <asp:BoundField DataField="id" HeaderText="id" SortExpression="id" />
-                <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicación" SortExpression="destino_descripcion" />
-                <asp:BoundField DataField="capacidad" HeaderText="Capacidad" SortExpression="capacidad" />
-            </Columns>
-           
-           
-            <HeaderStyle BackColor="#0066CC" ForeColor="White" />
-            <SelectedRowStyle BackColor="#CCCCFF" />
-           
-           
-        </asp:GridView>
-        <br />
-        <asp:Button ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" Text="Agregar" Width="65px" style="height: 26px" CssClass="btn-success" />
-        <asp:Button ID="btnConsultar" runat="server" Height="26px" OnClick="btnConsultar_Click" style="margin-left: 5px" Text="Consultar" Width="83px" CssClass="btn-info" />
-        <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" style="margin-left: 6px" Text="Eliminar" Width="65px" CssClass="btn-danger" />
-        <asp:Button ID="btnEditar" runat="server" OnClick="btnEditar_Click" style="margin-left: 6px" Text="Editar" Width="65px" CssClass="btn-warning" />
-        <br />
-    </asp:Panel>
-    <asp:Panel ID="pnlRegistro" runat="server">
-        <table class="form-horizontal">
-            <tr>
-                <td class="auto-style3">Hotel Id:</td>
-                <td class="auto-style2">
-                    <asp:TextBox ID="txtId" runat="server" style="margin-left: 0px" CssClass="form-control"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style4">descripcion:</td>
-                <td class="auto-style7">
-                    <asp:TextBox ID="txtdescripcion" runat="server" CssClass="form-control"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style4">Destino</td>
-                <td class="auto-style7">
-                    <asp:DropDownList ID="ddlDestino" runat="server" Enabled="False" CssClass="form-control">
-                    </asp:DropDownList>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style5"></td>
-                <td class="auto-style6">
-                    <asp:Button ID="btnGrabar" runat="server" OnClick="btnGrabar_Click" Text="Grabar" Width="71px" CssClass="btn-success" />
-                    &nbsp;&nbsp;
-                    <asp:Button ID="btnCancelar" runat="server" OnClick="btnCancelar_Click" style="margin-left: 12px" Text="Cancelar/Volver" Width="116px" CssClass="btn-warning" />
-                    &nbsp;<asp:Button ID="btn_confirmarEliminar" runat="server" OnClick="btn_confirmarEliminar_Click" style="margin-left: 22px" Text="Confirmar Eliminar" Width="133px" CssClass="btn-danger" />
-                </td>
-            </tr>
-        </table>
-        
-    </asp:Panel>
-    <asp:Label ID="lbl_mensaje" runat="server"></asp:Label>
-</asp:Content>
-
