@@ -923,20 +923,9 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-    <h2> Hotel
+    <h3> Hoteles
         <asp:Label ID="lblAccion" runat="server" Text="Label"></asp:Label>
-    </h2>
-    <ul class="nav nav-pills">
-        <li role="presentation" class="active"><a href="#">Home</a></li>
-        <li role="presentation"><a href="#">Profile</a></li>
-        <li role="presentation"><a href="#">Messages</a></li>
-    </ul>
-    <asp:Menu ID="Menu1" runat="server" CssClass="nav">
-        <Items>
-            <asp:MenuItem Text="Inicio" Value="inicio"></asp:MenuItem>
-            <asp:MenuItem Text="Hoteles" Value="hotel"></asp:MenuItem>
-        </Items>
-    </asp:Menu>
+    </h3>
     <asp:Panel ID="Panel1" runat="server">
         <strong>Nombre a buscar:&nbsp;</strong>
         
