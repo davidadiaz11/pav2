@@ -26,12 +26,7 @@
         }
 
 
-        .auto-style10 {
-            width: 399px;
-        }
-
-
-    </style>
+        </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -120,10 +115,11 @@
 
                     <%--borre el codigo:OnCheckedChanged="rbrtnNo_CheckedChanged" , en ambos radiobutton para que mecompilara 
                         preguntar al profe como hacer para que funcionen al seleccionarse y deseleccionarlos --%>
-                    <asp:RadioButton ID="rbtnSi" runat="server" Text="SI" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:RadioButton ID="rbrtnNo" runat="server"  Text="No" />
-                    &nbsp;</td>
+                    &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<asp:RadioButtonList ID="rb_list" runat="server" Height="16px" Width="191px">
+                        <asp:ListItem Value="1">Sí</asp:ListItem>
+                        <asp:ListItem Value="0">No</asp:ListItem>  
+                    </asp:RadioButtonList>
+                </td>
             </tr>
             <tr>
                 <td class="auto-style5"></td>

@@ -30,6 +30,9 @@ using System.Text.RegularExpressions;
     
 
 
+//INCLUÍ UN RADIO BUTON LIST Q ES PARA INCLUIR LAS OPCIONES.. HAY Q CAMBIAR DONDE SE USEN LOS OTROS BOTONES
+
+
 
 public partial class Hotelwf : System.Web.UI.Page
 {
@@ -39,14 +42,14 @@ public partial class Hotelwf : System.Web.UI.Page
         Panel1.Visible = true;
         pnlRegistro.Visible = false;
 
-        lbl_mensaje.Text = "";
+        //lbl_mensaje.Text = "";
 
-        ddlDestino.DataTextField = "descripcion";
-        ddlDestino.DataValueField = "id";
-        ddlDestino.DataSource = GestorDestino.ObtenerTodas();
-        ddlDestino.DataBind();
-        ddlDestino.Items.Insert(0, new ListItem("Elija una provincia", "0"));
-        lblAccion.Text = "";
+        //ddlDestino.DataTextField = "descripcion";
+        //ddlDestino.DataValueField = "id";
+        //ddlDestino.DataSource = GestorDestino.ObtenerTodas();
+        //ddlDestino.DataBind();
+        //ddlDestino.Items.Insert(0, new ListItem("Elija una provincia", "0"));
+        //lblAccion.Text = "";
 
         if (!Page.IsPostBack)
         {
@@ -57,20 +60,17 @@ public partial class Hotelwf : System.Web.UI.Page
             GridView1.PageSize = 7;
             cargarGrilla();
             lblAccion.Text = "";
+            cargarCombo();
         }
     }
     protected void btnAgregar_Click(object sender, EventArgs e)
     {
-        Panel1.Visible = false;
-        pnlRegistro.Visible = true;
         lblAccion.Text = "Agregando..";
         habilitar(true);
-        ddlDestino.ClearSelection();
+        reiniciarPaneles();
         btnGrabar.Visible= true;
         btnCancelar.Visible = true;
         btn_confirmarEliminar.Visible = false;
-        txtdescripcion.Text="";
-        txtId.Text = "";
     }
 
     protected void btnConsultar_Click(object sender, EventArgs e)
@@ -132,7 +132,9 @@ public partial class Hotelwf : System.Web.UI.Page
         txtId.Enabled = estado;
         txtdescripcion.Enabled = estado;
         ddlDestino.Enabled = estado;
-        
+        txtCapacidad.Enabled = estado;
+        txtCuit.Enabled = estado;
+        rb_list.Enabled = estado;
     }
 
     private void recuperar()
@@ -141,14 +143,15 @@ public partial class Hotelwf : System.Web.UI.Page
         Hotel h = GestorHotel.buscarPorId(id);
         txtId.Text = h.id.ToString();
         txtdescripcion.Text = h.descripcion;
+        // TODO: ddlDestino.SelectedIndex = (int)h.destino;
+        // TODO: a ver si funciona esta bosta
         ddlDestino.SelectedValue = h.destino.ToString();
         txtCuit.Text = h.cuit.ToString();
         txtCapacidad.Text = h.capacidad.ToString();
-        if (h.aceptaMascota)
-            rbtnSi.Checked = true;
+        if (rb_list.SelectedValue == "1")
+            rb_list.Items[1].Selected = true;
         else
-            rbrtnNo.Checked = true;
-
+            rb_list.Items[0].Selected = true;
     }
 
 
@@ -165,10 +168,8 @@ public partial class Hotelwf : System.Web.UI.Page
             Panel1.Visible = false;
             pnlRegistro.Visible = true;
             lblAccion.Text = "Editando..";
-            ddlDestino.Enabled = true;
-            txtdescripcion.Enabled = true;
+            habilitar(true);
             txtId.Enabled = false; //PERMITIMOS Q PUEDA EDITAR EL ID?
-
             recuperar();
         }
     }
@@ -181,10 +182,18 @@ public partial class Hotelwf : System.Web.UI.Page
 
         if(validar())
         {
-            h.id = Convert.ToInt32(txtId.Text);
+            if (txtId.Text != "")
+                h.id = Convert.ToInt32(txtId.Text);
+            else
+                h.id = -1;
+            h.cuit = Convert.ToInt32(txtCuit.Text);
             h.descripcion = txtdescripcion.Text;
-            h.destino = 1; //DE DÓNDE SACAR EL DESTINO?
-            h.capacidad = 5;
+            h.capacidad = Convert.ToInt32(txtCapacidad.Text);
+            h.destino = Convert.ToInt32(ddlDestino.SelectedValue); //DE DÓNDE SACAR EL DESTINO?
+            if (rb_list.SelectedValue == "1")
+                h.aceptaMascota = true;
+            else
+                h.aceptaMascota = false;
             GestorHotel.Grabar(h, txtId.Enabled); //si está habilitado el ID es porq graba, sino actualiza
             cargarGrilla();
         }
@@ -193,9 +202,13 @@ public partial class Hotelwf : System.Web.UI.Page
     Regex Validar_numeros = new Regex(@"[0-9]{1,9}(\.[0-9]{0,2})?$");
     private Boolean validar()
     {
-        if (txtId.Text != "" && !Validar_numeros.IsMatch(txtId.Text))
+        // TODO: ver esto.
+        //Si no ingresó nada, no entra al IF porque el ID es autoincremental por defecto en la BD
+        ////Si ingresó algo, y no son letras, entra al if
+        //Si ingresó algo y son letras, entra al if y retorna falso.. y termina el método ;)
+        if (txtCuit.Text == "" && !Validar_numeros.IsMatch(txtCuit.Text))
         {
-            rechazar_grabado(txtId);
+            rechazar_grabado(txtCuit);
             return false;
         }
         if (txtdescripcion.Text == "")
@@ -203,12 +216,27 @@ public partial class Hotelwf : System.Web.UI.Page
             rechazar_grabado(txtdescripcion);
             return false;
         }
-        //ESTO TODAVÍA NO LO VALIDO PORQ HAY PROBLEMAS CON EL SELECTEDVALUE. VER MÁS ARRIBA
-        //if (ddlDestino.SelectedValue == "0" || ddlDestino.SelectedValue == null)
-        //{
-        //    rechazar_grabado(ddlDestino);
-        //    return false;
-        //}
+        if (txtCapacidad.Text == "" && !Validar_numeros.IsMatch(txtCapacidad.Text))
+        {
+            rechazar_grabado(txtCapacidad);
+            return false;
+        }
+        if (rb_list.SelectedItem == null)
+        {
+            rechazar_grabado(rb_list);
+            return false;
+        }
+        if (txtId.Text != "" && !Validar_numeros.IsMatch(txtId.Text))
+        {
+            rechazar_grabado(txtId);
+            return false;
+        }
+        if(ddlDestino.SelectedValue == "0" || ddlDestino.SelectedValue== "" || ddlDestino.SelectedValue=="-1")
+        { 
+            rechazar_grabado(ddlDestino);
+            return false;
+        }
+        
         return true;
     }
     private void rechazar_grabado(Control c )
@@ -252,11 +280,26 @@ public partial class Hotelwf : System.Web.UI.Page
 
     public void reiniciarPaneles()
     {
-        pnlRegistro.Visible = false;
-        Panel1.Visible = true;
+        pnlRegistro.Visible = true;
+        Panel1.Visible = false;
         lblAccion.Text = "";
+        txtId.Text = "";
+        txtCuit.Text = "";
+        ddlDestino.ClearSelection();
+        rb_list.ClearSelection();
+        txtCapacidad.Text = "";
+        txtdescripcion.Text = "";
+
     }
 
+    private void cargarCombo()
+    {
+        ddlDestino.DataTextField = "descripcion";
+        ddlDestino.DataValueField = "id";
+        ddlDestino.DataSource = GestorDestino.ObtenerTodas();
+        ddlDestino.DataBind();
+        ddlDestino.Items.Insert(0, new ListItem("Elija una provincia", "0"));
+    }
     public void cargarGrilla()
     {
         string orden = ViewState["GvDatosOrden"].ToString();
