@@ -41,11 +41,7 @@ public partial class Hotelwf : System.Web.UI.Page
 
         lbl_mensaje.Text = "";
 
-        ddlDestino.DataTextField = "descripcion";
-        ddlDestino.DataValueField = "id";
-        ddlDestino.DataSource = GestorDestino.ObtenerTodas();
-        ddlDestino.DataBind();
-        ddlDestino.Items.Insert(0, new ListItem("Elija una provincia", "0"));
+       
         lblAccion.Text = "";
 
         if (!Page.IsPostBack)
@@ -57,7 +53,19 @@ public partial class Hotelwf : System.Web.UI.Page
             GridView1.PageSize = 7;
             cargarGrilla();
             lblAccion.Text = "";
+            cargarCombo();
         }
+
+    }
+
+
+    private void cargarCombo()
+    {
+        ddlDestino.DataTextField = "descripcion";
+        ddlDestino.DataValueField = "codigo";
+        ddlDestino.DataSource = GestorDestino.ObtenerTodas();
+        ddlDestino.DataBind();
+        ddlDestino.Items.Insert(0, new ListItem("Elija una provincia", "0"));
     }
     protected void btnAgregar_Click(object sender, EventArgs e)
     {
@@ -71,6 +79,7 @@ public partial class Hotelwf : System.Web.UI.Page
         btn_confirmarEliminar.Visible = false;
         txtdescripcion.Text="";
         txtId.Text = "";
+        reiniciarCamposIngreso();
     }
 
     protected void btnConsultar_Click(object sender, EventArgs e)
@@ -90,6 +99,7 @@ public partial class Hotelwf : System.Web.UI.Page
             lblAccion.Text = "Consultando..";
             lbl_mensaje.Text = "";
 
+            int codigo = (int)GridView1.SelectedValue;
             try
             {
                 recuperar();
@@ -168,6 +178,9 @@ public partial class Hotelwf : System.Web.UI.Page
             ddlDestino.Enabled = true;
             txtdescripcion.Enabled = true;
             txtId.Enabled = false; //PERMITIMOS Q PUEDA EDITAR EL ID?
+            btnGrabar.Visible = true;
+            btn_confirmarEliminar.Visible = false;
+            btnCancelar.Visible = true;
 
             recuperar();
         }
@@ -194,11 +207,14 @@ public partial class Hotelwf : System.Web.UI.Page
     private Boolean validar()
     {
         if (txtId.Text != "" && !Validar_numeros.IsMatch(txtId.Text))
+        if (ddlDestino.SelectedValue != "0")
         {
             rechazar_grabado(txtId);
             return false;
+            h2.destino = int.Parse(ddlDestino.SelectedValue);
         }
         if (txtdescripcion.Text == "")
+        else
         {
             rechazar_grabado(txtdescripcion);
             return false;
@@ -279,6 +295,18 @@ public partial class Hotelwf : System.Web.UI.Page
 
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
+
     }
-  
+
+    public void reiniciarCamposIngreso()
+    {
+
+        txtId.Text = "";
+        txtCuit.Text = "";
+        txtCapacidad.Text = "";
+        txtNombre.Text = "";
+        ddlDestino.SelectedIndex = 0;
+
+    }
+
 }
