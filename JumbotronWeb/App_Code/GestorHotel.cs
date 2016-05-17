@@ -162,7 +162,7 @@ public class GestorHotel
                   if(accion)
                       if(h.id==-1)//que grabe de forma autonumérica. 
                           sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota);";
-                      else //que grabe imponiendo un id NO FUNCIONA
+                      else //que grabe imponiendo un id
                           sql = @"set identity_insert dbo.Hotel on 
                                   insert  into Hotel (id, descripcion, capacidad, destino, cuit, aceptaMascota) values(@id, @descripcion, @capacidad, @destino, @cuit, @aceptaMascota)
                                   set identity_insert dbo.Hotel off";

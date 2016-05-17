@@ -206,7 +206,7 @@ public partial class Hotelwf : System.Web.UI.Page
         //Si no ingresó nada, no entra al IF porque el ID es autoincremental por defecto en la BD
         ////Si ingresó algo, y no son letras, entra al if
         //Si ingresó algo y son letras, entra al if y retorna falso.. y termina el método ;)
-        if (txtCuit.Text == "" && !Validar_numeros.IsMatch(txtCuit.Text))
+        if (txtCuit.Text != "" && !Validar_numeros.IsMatch(txtCuit.Text))
         {
             rechazar_grabado(txtCuit);
             return false;
