@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    ASI DE CHOTO ES NUESTRO INDEX<br />
+    
     <br />
     <asp:Login ID="ctrl_login" runat="server" OnAuthenticate="ctrl_login_Authenticate"></asp:Login>
     usuarios: pasajero, admin

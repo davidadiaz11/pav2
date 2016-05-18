@@ -29,11 +29,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>--%>
-                    <a class="navbar-brand" href="#">Jumbo</a>
+                    <a class="navbar-brand" href="Inicio.aspx">Jumbo</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li runat="server" id="mnuInicio"><a href="#">Inicio</a></li>
+                        <li runat="server" id="mnuInicio"><a href="Inicio.aspx">Inicio</a></li>
                         <li runat="server" id="mnuHoteles"><a href="Hotel.aspx">Hoteles</a></li>
                         <li runat="server" id="mnuAcercaDe"><a href="AcercaDe.aspx">Acerca de</a></li>
                     </ul>
