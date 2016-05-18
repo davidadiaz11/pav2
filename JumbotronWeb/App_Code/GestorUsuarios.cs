@@ -19,11 +19,11 @@ public class GestorUsuarios
         if (EsAdministrador == null)
             return new string[] { "" };
         else if (EsAdministrador == true)
-            return new string[] {"Administradores"};
+            return new string[] { "Administradores" };
         else
-            return new string[] {"Pasajeros"}; 
+            return new string[] { "Pasajeros" };
     }
-    
+
     public static bool VerificarUsuarioClave(string usuario, string clave)
     {
         // aqui iria codigo que verificaria si el usuario y clave existe en la base de datos;

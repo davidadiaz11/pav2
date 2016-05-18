@@ -8,23 +8,23 @@ using System.Text.RegularExpressions;
 
 
 
-    
-    //AL EDITAR, SE BLOQUEA EL TXT, Y DE ESO DEPENDERÁ QUE DESPUÉS GRABAR() HAGA UN INSERT O UN UPDATE
-    //SI TXT_ID ESTA HABILITADO ES PORQUE SE TRATA DE UN INSERT
-    //SI TXT_ID ESTA DESHABILITADO ES PORQUE SE TRATA DE UNA MODIFICACIÓN, OSEA UPDATE
 
-    //La cadena de conexión se escribe una sola vez, en la clase GestorHotel
-    //se escribieron métodos para validar el relleno de los campos.. validar()
-    //se escribió un método para habilitar/deshabilitar los campos.. habilitar(true para q habilite, false para q deshabilite)
-    //se escribió un método para rechazar la grabación de campos defectuosos, haciendo foco en el control q lo produjo
-    
+//AL EDITAR, SE BLOQUEA EL TXT, Y DE ESO DEPENDERÁ QUE DESPUÉS GRABAR() HAGA UN INSERT O UN UPDATE
+//SI TXT_ID ESTA HABILITADO ES PORQUE SE TRATA DE UN INSERT
+//SI TXT_ID ESTA DESHABILITADO ES PORQUE SE TRATA DE UNA MODIFICACIÓN, OSEA UPDATE
 
-    //hay q controlar el grabado de nuevos hoteles con ID existente
-    //Hay que incluir paginación.. no se q onda pero se rompe tooo
-    
-    //TODO agregué métodos para habilitar paneles, botones y mensajes/acciones(labels)
-    //TODO ya se está validando el ingreso de sólo números en los campos ID, CUIT y capacidad.
-    //si no ingresa nada, el ID será autoincrementado y el CUIT y capacidad serán -1
+//La cadena de conexión se escribe una sola vez, en la clase GestorHotel
+//se escribieron métodos para validar el relleno de los campos.. validar()
+//se escribió un método para habilitar/deshabilitar los campos.. habilitar(true para q habilite, false para q deshabilite)
+//se escribió un método para rechazar la grabación de campos defectuosos, haciendo foco en el control q lo produjo
+
+
+//hay q controlar el grabado de nuevos hoteles con ID existente
+//Hay que incluir paginación.. no se q onda pero se rompe tooo
+
+//TODO agregué métodos para habilitar paneles, botones y mensajes/acciones(labels)
+//TODO ya se está validando el ingreso de sólo números en los campos ID, CUIT y capacidad.
+//si no ingresa nada, el ID será autoincrementado y el CUIT y capacidad serán -1
 
 
 
@@ -43,7 +43,7 @@ public partial class Hotelwf : System.Web.UI.Page
             //    btnEditar.Visible = false;
             //    btnAgregar.Visible = false;
             //}
-                
+
             ViewState["GvDatosOrden"] = "descripcion";
             GridView1.AllowPaging = true;
             GridView1.AllowSorting = true;
@@ -54,7 +54,7 @@ public partial class Hotelwf : System.Web.UI.Page
             cargarCombo();
         }
     }
-    
+
 
     protected void btnConsultar_Click(object sender, EventArgs e)
     {
@@ -78,7 +78,7 @@ public partial class Hotelwf : System.Web.UI.Page
             {
                 mensaje(ex.Message);
             }
-          }
+        }
     }
 
     protected void btnEliminar_Click(object sender, EventArgs e)
@@ -97,14 +97,14 @@ public partial class Hotelwf : System.Web.UI.Page
 
             recuperar();
 
-            
+
         }
 
     }
 
-    
 
-  
+
+
 
     protected void btnAgregar_Click(object sender, EventArgs e)
     {
@@ -160,7 +160,7 @@ public partial class Hotelwf : System.Web.UI.Page
         accion("Grabando..");
         Hotel h = new Hotel();
 
-        if(validar())
+        if (validar())
         {
             if (txtId.Text != "")
                 h.id = Convert.ToInt32(txtId.Text);
@@ -179,13 +179,13 @@ public partial class Hotelwf : System.Web.UI.Page
                 h.capacidad = -1;
 
             h.destino = Convert.ToInt32(ddlDestino.SelectedValue);
-            
+
             if (rb_list.SelectedValue == "1")
                 h.aceptaMascota = true;
             else
                 h.aceptaMascota = false;
 
-            
+
             GestorHotel.Grabar(h, txtId.Enabled); //si está habilitado el textID es porq graba, sino actualiza
             cargarGrilla();
         }
@@ -194,7 +194,7 @@ public partial class Hotelwf : System.Web.UI.Page
     Regex Validar_numeros = new Regex(@"^[0-9]*$");
     private Boolean validar()
     {
-        if(txtId.Text != "") //si no es vacío
+        if (txtId.Text != "") //si no es vacío
         {
             if (!Validar_numeros.IsMatch(txtId.Text)) //y no son números
             {
@@ -202,18 +202,18 @@ public partial class Hotelwf : System.Web.UI.Page
                 return false;
             }
 
-           if (GestorHotel.existe(Convert.ToInt32(txtId.Text))) //y no existe
-           {
-               rechazar_repetido(txtId.Text);
-               return false;
-           }
+            if (GestorHotel.existe(Convert.ToInt32(txtId.Text))) //y no existe
+            {
+                rechazar_repetido(txtId.Text);
+                return false;
+            }
         }
         if (txtCuit.Text != "" && !Validar_numeros.IsMatch(txtCuit.Text))
         {
             rechazar_grabado(txtCuit);
             return false;
         }
-        
+
         if (txtdescripcion.Text == "")
         {
             rechazar_grabado(txtdescripcion);
@@ -224,22 +224,22 @@ public partial class Hotelwf : System.Web.UI.Page
             rechazar_grabado(txtCapacidad);
             return false;
         }
-        
+
         if (rb_list.SelectedItem == null)
         {
             rechazar_grabado(rb_list);
             return false;
         }
-        
-        if(ddlDestino.SelectedValue == "0" || ddlDestino.SelectedValue== "" || ddlDestino.SelectedValue=="-1")
-        { 
+
+        if (ddlDestino.SelectedValue == "0" || ddlDestino.SelectedValue == "" || ddlDestino.SelectedValue == "-1")
+        {
             rechazar_grabado(ddlDestino);
             return false;
         }
-        
+
         return true;
     }
-    private void rechazar_grabado(Control c )
+    private void rechazar_grabado(Control c)
     {
         habilitar_panelRegistro(true);
         mensaje("Debe ingresar un " + c.ID + " válido");
@@ -263,7 +263,7 @@ public partial class Hotelwf : System.Web.UI.Page
         rb_list.Enabled = estado;
     }
 
-    
+
 
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
@@ -285,12 +285,12 @@ public partial class Hotelwf : System.Web.UI.Page
             rb_list.Items[0].Selected = true;
     }
 
-    
-    public void mensaje (string msj)
+
+    public void mensaje(string msj)
     {
-       lbl_mensaje.Text = msj;
+        lbl_mensaje.Text = msj;
     }
-    public void accion (string mensaje)
+    public void accion(string mensaje)
     {
         lblAccion.Text = mensaje;
     }
@@ -338,7 +338,7 @@ public partial class Hotelwf : System.Web.UI.Page
     }
 
 
-    public void habilitar_panelRegistro (bool accion)
+    public void habilitar_panelRegistro(bool accion)
     {
         Panel1.Visible = !accion;
         pnlRegistro.Visible = accion;
@@ -346,21 +346,21 @@ public partial class Hotelwf : System.Web.UI.Page
 
     public void habilitar_botones(string accion)
     {
-        switch(accion)
+        switch (accion)
         {
             case "eliminar_click":
 
-                btnGrabar.Visible = false;     
-                btn_confirmarEliminar.Visible = true;     
-                btnCancelar.Visible = true;        
-                break;     
+                btnGrabar.Visible = false;
+                btn_confirmarEliminar.Visible = true;
+                btnCancelar.Visible = true;
+                break;
 
             case "agregar_editar":
                 btn_confirmarEliminar.Visible = false;
-                btnGrabar.Visible= true;
+                btnGrabar.Visible = true;
                 btnCancelar.Visible = true;
-                
-                
+
+
                 break;
 
             case "consultar":
@@ -371,6 +371,6 @@ public partial class Hotelwf : System.Web.UI.Page
                 pnlRegistro.Visible = true;
                 break;
         }
-     
+
     }
 }

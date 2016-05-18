@@ -17,7 +17,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             //mnuHoteles.Visible = Page.User.IsInRole("pasajeros");
             //mnuAcercaDe.Visible = Page.User.IsInRole("pasajeros") || Page.User.IsInRole("administradores");
         }
-        
-        
+
+
     }
 }

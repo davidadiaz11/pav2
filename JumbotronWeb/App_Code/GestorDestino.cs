@@ -10,38 +10,38 @@ using System.Web;
 /// </summary>
 public class GestorDestino
 {
-	public GestorDestino()
-	{
-	}
+    public GestorDestino()
+    {
+    }
 
     public static DataTable ObtenerTodas()
-    {              
-             SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-             DataTable dt = new DataTable();
+    {
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        DataTable dt = new DataTable();
 
-             try
-            {
-                cn.Open();
-                SqlCommand cmd = new SqlCommand();
-                
-                cmd.Connection = cn;
-                cmd.Parameters.Clear();
-                cmd.Connection = cn;
-                cmd.CommandText = "select * from Destino order by descripcion;";
-                dt.Load(cmd.ExecuteReader());
-             
-           }
-            catch (Exception)
-            {
-                throw;  
-            }
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
 
-            finally
-            {
-                if (cn != null && cn.State == ConnectionState.Open)
-                    cn.Close();
-            }   
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            cmd.CommandText = "select * from Destino order by descripcion;";
+            dt.Load(cmd.ExecuteReader());
 
-               return dt;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+
+        return dt;
     }
 }
