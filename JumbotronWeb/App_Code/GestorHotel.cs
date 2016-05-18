@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 public class GestorHotel
 {   
     //ACÁ SE INSTANCIA LA CADENA DE CONEXIÓN, UNA ÚNICA VEZ
-    public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=asd;Integrated Security=True";
+    public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=aaa;Integrated Security=True";
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 	
 
@@ -30,7 +30,7 @@ public class GestorHotel
                 cmd.Connection = cn;
                 cmd.Parameters.Clear();
                 cmd.Connection = cn;
-                cmd.CommandText = " select h.id,h.descripcion,h.capacidad,d.descripcion destino_descripcion from Hotel h left join Destino d on h.destino = d.id where h.descripcion like @descripcion order by " + orden;
+                cmd.CommandText = " select h.id,h.descripcion,h.capacidad,d.descripcion destino_descripcion from Hotel h left join Destino d on h.destino = d.id where h.eliminado is NULL AND h.descripcion like @descripcion order by " + orden;
                 cmd.Parameters.Add(new SqlParameter("@descripcion", "%" + descripcion + "%"));
                 //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -132,7 +132,8 @@ public class GestorHotel
                  cmd.Connection = cn;
                  cmd.Parameters.Clear();
                  cmd.Connection = cn;
-                 cmd.CommandText = "delete from Hotel where id = @id"; //descripcion del procedimiento q debe ir a buscar
+                 cmd.CommandText = @"update Hotel set eliminado=@eliminado where id=@id";
+                 cmd.Parameters.Add(new SqlParameter("@eliminado", 1));
                  cmd.Parameters.Add(new SqlParameter("@id", id));
                  //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
                  int filasAfetadas = cmd.ExecuteNonQuery();
@@ -161,15 +162,15 @@ public class GestorHotel
                   Hotel h1 = buscarPorId(h.id);
                   if(accion)
                       if(h.id==-1)//que grabe de forma autonumérica. 
-                          sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota);";
+                          sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota, eliminado) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado);";
                       else //que grabe imponiendo un id
                           sql = @"set identity_insert dbo.Hotel on 
-                                  insert  into Hotel (id, descripcion, capacidad, destino, cuit, aceptaMascota) values(@id, @descripcion, @capacidad, @destino, @cuit, @aceptaMascota)
+                                  insert  into Hotel (id, descripcion, capacidad, destino, cuit, aceptaMascota, eliminado) values(@id, @descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado)
                                   set identity_insert dbo.Hotel off";
                                     
                       
                   else
-                      sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino, cuit=@cuit, aceptaMascota=@aceptaMascota where id=@id;";
+                      sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino, cuit=@cuit, aceptaMascota=@aceptaMascota, eliminado=@eliminado where id=@id;";
 
              try
              {
@@ -186,6 +187,7 @@ public class GestorHotel
                  cmd.Parameters.Add(new SqlParameter("@id", h.id));
                  cmd.Parameters.Add(new SqlParameter("@cuit", h.cuit));
                  cmd.Parameters.Add(new SqlParameter("@aceptaMascota", h.aceptaMascota));
+                 cmd.Parameters.Add(new SqlParameter("@eliminado", DBNull.Value));
                  //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
                  int filasAfetadas = cmd.ExecuteNonQuery();
                   if (filasAfetadas==0)
