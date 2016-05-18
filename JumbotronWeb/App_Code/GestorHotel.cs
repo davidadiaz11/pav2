@@ -207,6 +207,38 @@ public class GestorHotel
 
              
          }
+
+        public static bool existe (int id)
+            {
+                SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+                 try
+                 {
+                     cn.Open();
+                     SqlCommand cmd = new SqlCommand();
+                     cmd.Connection = cn;
+                     cmd.Parameters.Clear();
+                     cmd.Connection = cn;
+                     cmd.CommandText = @"select * from Hotel where id=@id";
+                     cmd.Parameters.Add(new SqlParameter("@id", id));
+                     
+                     SqlDataReader dr = cmd.ExecuteReader();
+                     if (dr.HasRows)
+                         return true;
+                     else
+                         return false;
+                     dr.Close();
+                }
+                 catch (Exception)
+                 {
+                     throw;
+                 }
+
+                 finally
+                 {
+                     if (cn != null && cn.State == ConnectionState.Open)
+                         cn.Close();
+                 }
+            }
     }
-        
+  
 	

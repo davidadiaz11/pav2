@@ -21,7 +21,7 @@ public class GestorUsuarios
         else if (EsAdministrador == true)
             return new string[] {"Administradores"};
         else
-            return new string[] {"Pasajeros"}; //TODO pasajeros esta bn ? 
+            return new string[] {"Pasajeros"}; 
     }
     
     public static bool VerificarUsuarioClave(string usuario, string clave)
