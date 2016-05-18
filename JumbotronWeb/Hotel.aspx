@@ -39,8 +39,8 @@
     <asp:Panel ID="Panel1" runat="server">
         <strong>Nombre a buscar:&nbsp;</strong>
         
-        <asp:TextBox ID="txtbxBuscar"  class="form-control" runat="server" Width="150px"></asp:TextBox>
-           <asp:Button ID="btnBuscar"  class="btn btn-primary" role="button" type="submit" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
+        <asp:TextBox ID="txtbxBuscar"  class="form-control" runat="server" Width="150px" Height="23px">
+        </asp:TextBox> <asp:Button ID="btnBuscar"  class="btn btn-primary" role="button" type="submit" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />   
           <br />
 
         
@@ -78,7 +78,7 @@
             <tr>
                 <td class="auto-style3">Hotel Id:</td>
                 <td class="auto-style2">
-                    <asp:TextBox ID="txtId" runat="server" class="form-control input-lg" style="margin-left: 0px" Enabled="False"></asp:TextBox>
+                    <asp:TextBox ID="txtId" runat="server" class="form-control " style="margin-left: 0px" Enabled="False" Height="23px" Width="128px" ></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -86,13 +86,13 @@
                     <asp:Label ID="lblCuit" runat="server" Text="CUIT:"></asp:Label>
                 </td>
                 <td class="auto-style2">
-                    <asp:TextBox ID="txtCuit" class="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtCuit" class="form-control" runat="server" Height="23px" Width="128px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style8">Nombre:</td>
                 <td class="auto-style7">
-                    <asp:TextBox ID="txtdescripcion" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtdescripcion" class="form-control" runat="server" Height="23px" Width="128px" ></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -100,13 +100,13 @@
                     <asp:Label ID="lblCapacidad" runat="server" Text="Capacidad"></asp:Label>
                 </td>
                 <td class="auto-style7">
-                    <asp:TextBox ID="txtCapacidad" runat="server" style="margin-top: 9px"></asp:TextBox>
+                    <asp:TextBox ID="txtCapacidad" class="form-control" runat="server" style="margin-top: 9px" Height="23px" Width="128px" ></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style8">Destino</td>
                 <td class="auto-style7">
-                    <asp:DropDownList ID="ddlDestino" runat="server" Enabled="False" >
+                    <asp:DropDownList ID="ddlDestino" runat="server" Height="23px" Width="128px" Enabled="False" >
                     </asp:DropDownList>
                 </td>
             </tr>
