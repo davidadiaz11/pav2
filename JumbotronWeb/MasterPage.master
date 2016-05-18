@@ -33,9 +33,9 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="Hotel.aspx">Hoteles</a></li>
-                        <li><a href="#">Acerca de</a></li>
+                        <li runat="server" id="mnuInicio"><a href="#">Inicio</a></li>
+                        <li runat="server" id="mnuHoteles"><a href="Hotel.aspx">Hoteles</a></li>
+                        <li runat="server" id="mnuAcercaDe"><a href="AcercaDe.aspx">Acerca de</a></li>
                     </ul>
 
                     <div class="nav navbar-nav navbar-right">
@@ -46,8 +46,12 @@
         </div>
     <div class="container body-content">
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+            <asp:GridView ID="GridView1" runat="server"   class="table-hover"> </asp:GridView>
         </asp:ContentPlaceHolder>
     </div>
+    <div>
+        <h5>Jumbotrasnochado</h5>
+     </div>
      <div class="footer">
      </div>
 

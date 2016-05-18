@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 /// una masa Jumbotronn
 /// </summary>
 public class GestorHotel
-{   
+{   //TODO aca instanciar la BD
     //ACÁ SE INSTANCIA LA CADENA DE CONEXIÓN, UNA ÚNICA VEZ
     public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=aaa;Integrated Security=True";
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
@@ -100,9 +100,6 @@ public class GestorHotel
                      h.capacidad = (int)dr["capacidad"];
                      h.cuit = (int)dr["cuit"];
                      h.aceptaMascota = (Boolean)dr["aceptaMascota"];
-                     //------- da error de convercion cuando se hace la consula
-                     //h1.aceptaMascota = (bool)dr["aceptamascota"];  
-                    
                  }
                  dr.Close();
              }

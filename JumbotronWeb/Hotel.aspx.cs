@@ -42,17 +42,15 @@ public partial class Hotelwf : System.Web.UI.Page
         Panel1.Visible = true;
         pnlRegistro.Visible = false;
 
-        //lbl_mensaje.Text = "";
-
-        //ddlDestino.DataTextField = "descripcion";
-        //ddlDestino.DataValueField = "id";
-        //ddlDestino.DataSource = GestorDestino.ObtenerTodas();
-        //ddlDestino.DataBind();
-        //ddlDestino.Items.Insert(0, new ListItem("Elija una provincia", "0"));
-        //lblAccion.Text = "";
-
         if (!Page.IsPostBack)
-        {
+        {//TODO no funciona esto
+            //if (!Page.User.IsInRole("Administradores"))
+            //{
+            //    btnEliminar.Visible = false;
+            //    btnEditar.Visible = false;
+            //    btnAgregar.Visible = false;
+            //}
+                
             ViewState["GvDatosOrden"] = "descripcion";
             GridView1.AllowPaging = true;
             GridView1.AllowSorting = true;
@@ -84,6 +82,7 @@ public partial class Hotelwf : System.Web.UI.Page
         {
             btn_confirmarEliminar.Visible = false;
             btnGrabar.Visible = false;
+            btnCancelar.Visible = true;
             Panel1.Visible = false;
             pnlRegistro.Visible = true;
             habilitar(false);
@@ -111,7 +110,9 @@ public partial class Hotelwf : System.Web.UI.Page
         }
         else
         {
-
+            btnGrabar.Visible = false;
+            btn_confirmarEliminar.Visible = true;
+            btnCancelar.Visible = true;
             lbl_mensaje.Text = "";
             Panel1.Visible = false;
             pnlRegistro.Visible = true;
@@ -120,9 +121,7 @@ public partial class Hotelwf : System.Web.UI.Page
 
             recuperar();
 
-            btnGrabar.Visible = false;
-            btn_confirmarEliminar.Visible = true;
-            btnCancelar.Visible = true;
+            
         }
 
     }
@@ -143,8 +142,6 @@ public partial class Hotelwf : System.Web.UI.Page
         Hotel h = GestorHotel.buscarPorId(id);
         txtId.Text = h.id.ToString();
         txtdescripcion.Text = h.descripcion;
-        // TODO: ddlDestino.SelectedIndex = (int)h.destino;
-        // TODO: a ver si funciona esta bosta
         ddlDestino.SelectedValue = h.destino.ToString();
         txtCuit.Text = h.cuit.ToString();
         txtCapacidad.Text = h.capacidad.ToString();
@@ -165,15 +162,17 @@ public partial class Hotelwf : System.Web.UI.Page
         }
         else
         {
+            btnGrabar.Visible = true;
+            btn_confirmarEliminar.Visible = false;
             Panel1.Visible = false;
             pnlRegistro.Visible = true;
             lblAccion.Text = "Editando..";
             habilitar(true);
-            txtId.Enabled = false; //PERMITIMOS Q PUEDA EDITAR EL ID?
+            txtId.Enabled = false;
             recuperar();
         }
     }
-    protected void btnGrabar_Click(object sender, EventArgs e) //HARDCODEANDO DESTINO Y CAPACIDAD
+    protected void btnGrabar_Click(object sender, EventArgs e)
     {
         Panel1.Visible = true;
         pnlRegistro.Visible = false;
@@ -189,7 +188,7 @@ public partial class Hotelwf : System.Web.UI.Page
             h.cuit = Convert.ToInt32(txtCuit.Text);
             h.descripcion = txtdescripcion.Text;
             h.capacidad = Convert.ToInt32(txtCapacidad.Text);
-            h.destino = Convert.ToInt32(ddlDestino.SelectedValue); //DE DÓNDE SACAR EL DESTINO?
+            h.destino = Convert.ToInt32(ddlDestino.SelectedValue);
             if (rb_list.SelectedValue == "1")
                 h.aceptaMascota = true;
             else
@@ -202,7 +201,7 @@ public partial class Hotelwf : System.Web.UI.Page
     Regex Validar_numeros = new Regex(@"[0-9]{1,9}(\.[0-9]{0,2})?$");
     private Boolean validar()
     {
-        // TODO: ver esto.
+        // TODO hay q resolver cómo validar que se ingresen solamente números. igual en el cuit solo q permite o autocompleta un guíon medio XX-XXXXXXXetc creo
         //Si no ingresó nada, no entra al IF porque el ID es autoincremental por defecto en la BD
         ////Si ingresó algo, y no son letras, entra al if
         //Si ingresó algo y son letras, entra al if y retorna falso.. y termina el método ;)
