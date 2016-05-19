@@ -12,8 +12,7 @@ using System.Data.SqlClient;
 public class GestorHotel
 {   //TODO aca instanciar la BD
     //ACÁ SE INSTANCIA LA CADENA DE CONEXIÓN, UNA ÚNICA VEZ
-    public static string CadenaConexion = @"Data Source=NICO-PC\sqlexpress;Integrated Security=SSPI;Initial Catalog=4K1_62726";
-    //public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=aaa;Integrated Security=True";
+    public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=aaa;Integrated Security=True";
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 
 
