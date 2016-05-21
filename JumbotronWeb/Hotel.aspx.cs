@@ -202,7 +202,7 @@ public partial class Hotelwf : System.Web.UI.Page
                 return false;
             }
 
-            if (GestorHotel.existe(Convert.ToInt32(txtId.Text))) //y no existe
+            if (GestorHotel.existe(Convert.ToInt32(txtId.Text)) && txtId.Enabled) //y no existe
             {
                 rechazar_repetido(txtId.Text);
                 return false;
@@ -214,7 +214,7 @@ public partial class Hotelwf : System.Web.UI.Page
             return false;
         }
 
-        if (txtCuit.Text != ""  && GestorHotel.existeCuit(Convert.ToInt32(txtCuit.Text)))
+        if (txtCuit.Text != ""  && GestorHotel.existeCuit(Convert.ToInt32(txtCuit.Text)) && txtId.Enabled)
         {
             rechazarCuit_repetido(txtCuit.Text);
             return false;
