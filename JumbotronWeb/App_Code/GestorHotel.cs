@@ -12,8 +12,8 @@ using System.Data.SqlClient;
 public class GestorHotel
 {   //TODO aca instanciar la BD
     //ACÁ SE INSTANCIA LA CADENA DE CONEXIÓN, UNA ÚNICA VEZ
-    //public static string CadenaConexion = @"Data Source=NICO-PC\sqlexpress;Integrated Security=SSPI;Initial Catalog=4K1_62726";
-    public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=aaa;Integrated Security=True";
+    public static string CadenaConexion = @"Data Source=NICO-PC\sqlexpress;Integrated Security=SSPI;Initial Catalog=4K1_62726";
+    //public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=aaa;Integrated Security=True";
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 
 
@@ -31,7 +31,7 @@ public class GestorHotel
             cmd.Connection = cn;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
-            cmd.CommandText = " select h.id,h.descripcion,h.capacidad,d.descripcion destino_descripcion from Hotel h left join Destino d on h.destino = d.id where h.eliminado is NULL AND h.descripcion like @descripcion order by " + orden;
+            cmd.CommandText = " select h.id,h.descripcion, h.cuit, h.capacidad,d.descripcion destino_descripcion from Hotel h left join Destino d on h.destino = d.id where h.eliminado is NULL AND h.descripcion like @descripcion order by " + orden;
             cmd.Parameters.Add(new SqlParameter("@descripcion", "%" + descripcion + "%"));
             //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
             SqlDataReader dr = cmd.ExecuteReader();
@@ -44,6 +44,7 @@ public class GestorHotel
                 h2.descripcion = (string)dr["descripcion"];
                 h2.descripcion = dr["descripcion"].ToString();
                 h2.id = (int)dr["id"];
+                h2.cuit = (int)dr["cuit"];
                 // esto para cada atributo que acepte valores nulos
                 if (dr["capacidad"] != DBNull.Value)
                 {
@@ -239,6 +240,47 @@ public class GestorHotel
             if (cn != null && cn.State == ConnectionState.Open)
                 cn.Close();
         }
+    }
+
+    //podria unirse con elmetodo  public static bool existe(int id)
+    // verifica si existe un registro en la BD con ese cuit
+    public static bool existeCuit(int cuit)
+    {
+       string sql = "";
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        sql = @"SELECT  *  FROM  Hotel WHERE  cuit = @cuit;";
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            cmd.CommandText = sql; //descripcion del procedimiento q debe ir a buscar
+
+            cmd.Parameters.Add(new SqlParameter("@cuit", cuit));
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            // con el resultado cargar una entidad
+            while (dr.Read())
+            {
+                return true;
+            }
+            return false;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+
     }
 }
 

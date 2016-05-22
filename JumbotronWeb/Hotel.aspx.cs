@@ -202,7 +202,7 @@ public partial class Hotelwf : System.Web.UI.Page
                 return false;
             }
 
-            if (GestorHotel.existe(Convert.ToInt32(txtId.Text))) //y no existe
+            if (GestorHotel.existe(Convert.ToInt32(txtId.Text)) && txtId.Enabled) //y no existe
             {
                 rechazar_repetido(txtId.Text);
                 return false;
@@ -211,6 +211,12 @@ public partial class Hotelwf : System.Web.UI.Page
         if (txtCuit.Text != "" && !Validar_numeros.IsMatch(txtCuit.Text))
         {
             rechazar_grabado(txtCuit);
+            return false;
+        }
+
+        if (txtCuit.Text != ""  && GestorHotel.existeCuit(Convert.ToInt32(txtCuit.Text)) && txtId.Enabled)
+        {
+            rechazarCuit_repetido(txtCuit.Text);
             return false;
         }
 
@@ -252,6 +258,14 @@ public partial class Hotelwf : System.Web.UI.Page
         mensaje("Ya existe un hotel con ID " + id);
         txtId.Focus();
     }
+
+    private void rechazarCuit_repetido(string cuit)
+    {
+        habilitar_panelRegistro(true);
+        mensaje("Ya existe un hotel con CUIT: " + cuit);
+        txtCuit.Focus();
+    }
+
 
     private void habilitar_campos(Boolean estado)
     {
@@ -373,4 +387,5 @@ public partial class Hotelwf : System.Web.UI.Page
         }
 
     }
+    
 }

@@ -49,15 +49,26 @@
         <br />
 
 
-        <table class="table table-bordered">
-            <asp:GridView ID="GridView1" runat="server" CellPadding="4" DataKeyNames="id" ForeColor="#333333" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
+        <table class="table table-bordered">           
+            <asp:GridView ID="GridView1" runat="server"  CellPadding="4" DataKeyNames="id"  ForeColor="#333333" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging"  OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>
-                    <asp:CommandField ShowSelectButton="True" />
-                    <asp:BoundField DataField="descripcion" HeaderText="Nombre" SortExpression="descripcion" />
-                    <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id" />
-                    <asp:BoundField DataField="capacidad" HeaderText="Capacidad" />
-                    <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicacion" />
+                    <asp:CommandField ShowSelectButton="True"  ItemStyle-Width="100" >
+                    <ItemStyle Width="100px" />
+                    </asp:CommandField>
+                    <asp:BoundField DataField="descripcion" HeaderText="Nombre" SortExpression="descripcion" ItemStyle-Width="100" >
+                    <ItemStyle Width="100px" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id" ItemStyle-Width="100" >
+                    <ItemStyle Width="100px" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="capacidad" HeaderText="Capacidad"  ItemStyle-Width="100" >
+                    <ItemStyle Width="100px" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicacion" ItemStyle-Width="100" >
+                    <ItemStyle Width="100px" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="cuit" HeaderText="CUIT" ItemStyle-Width="90" />
                 </Columns>
                 <EditRowStyle BackColor="#999999" />
                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -141,6 +152,6 @@
         </table>
 
     </asp:Panel>
-    <asp:Label ID="lbl_mensaje" runat="server"></asp:Label>
+    <asp:Label ID="lbl_mensaje"  runat="server"  ></asp:Label>
 </asp:Content>
 
