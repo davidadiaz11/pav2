@@ -17,7 +17,7 @@ public class GestorHotel
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 
 
-    public static List<Hotel> BuscarPordescripcion(string descripcion, string orden)
+    public static List<Hotel> BuscarPordescripcion(string descripcion, string orden, bool eliminados)
     {
         List<Hotel> listaHotel = new List<Hotel>();
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
@@ -31,8 +31,14 @@ public class GestorHotel
             cmd.Connection = cn;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
-            cmd.CommandText = " select h.id,h.descripcion, h.cuit, h.capacidad,d.descripcion destino_descripcion from Hotel h left join Destino d on h.destino = d.id where h.eliminado is NULL AND h.descripcion like @descripcion order by " + orden;
+            string sql="";
+            if (eliminados)
+                sql = "select h.id,h.descripcion, h.cuit, h.capacidad,d.descripcion destino_descripcion from Hotel h left join Destino d on h.destino = d.id where eliminado=1 AND h.descripcion like @descripcion order by " + orden;
+            else
+                sql = "select h.id,h.descripcion, h.cuit, h.capacidad,d.descripcion destino_descripcion from Hotel h left join Destino d on h.destino = d.id where (eliminado is NULL OR eliminado=0) AND h.descripcion like @descripcion order by " + orden;
+            cmd.CommandText = sql;
             cmd.Parameters.Add(new SqlParameter("@descripcion", "%" + descripcion + "%"));
+            //cmd.Parameters.Add(new SqlParameter("@eliminado", 0));
             //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
             SqlDataReader dr = cmd.ExecuteReader();
 
@@ -47,13 +53,10 @@ public class GestorHotel
                 h2.cuit = (int)dr["cuit"];
                 // esto para cada atributo que acepte valores nulos
                 if (dr["capacidad"] != DBNull.Value)
-                {
                     h2.capacidad = (int)(dr["capacidad"]);
-                }
                 if (dr["destino_descripcion"] != DBNull.Value)
-                {
                     h2.destino_descripcion = (string)(dr["destino_descripcion"]);
-                }
+
                 listaHotel.Add(h2);
             }
             dr.Close();
@@ -74,7 +77,7 @@ public class GestorHotel
         return listaHotel;
     }
 
-    public static Hotel buscarPorId(int id)
+    public static Hotel buscarPorId(int id, bool eliminados)
     {
         // procedimiento almacenado
 
@@ -88,8 +91,14 @@ public class GestorHotel
             cmd.Connection = cn;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
-            cmd.CommandText = "select * from Hotel where id = @id";
+            string sql = "";
+            if (eliminados)
+                sql = "select * from Hotel where id = @id AND eliminado=1";
+            else
+                sql = "select * from Hotel where id = @id AND (eliminado is NULL OR eliminado=0)";
+            cmd.CommandText = sql;
             cmd.Parameters.Add(new SqlParameter("@id", id));
+            //cmd.Parameters.Add(new SqlParameter("@eliminado", 0));
 
             SqlDataReader dr = cmd.ExecuteReader();
 
@@ -158,7 +167,7 @@ public class GestorHotel
     {
         string sql = "";
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-        Hotel h1 = buscarPorId(h.id);
+        Hotel h1 = buscarPorId(h.id, false);
         if (accion)
             if (h.id == -1)//que grabe de forma autonumérica. 
                 sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota, eliminado) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado);";

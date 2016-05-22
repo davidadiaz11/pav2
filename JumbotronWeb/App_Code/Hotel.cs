@@ -22,4 +22,6 @@ public class Hotel
     public int cuit { get; set; }
 
     public Boolean aceptaMascota { get; set; }
+
+    public bool eliminado { get; set; }
 }

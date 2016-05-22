@@ -30,7 +30,6 @@ using System.Text.RegularExpressions;
 
 public partial class Hotelwf : System.Web.UI.Page
 {
-    public string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=4K1_62726;Integrated Security=True";
     protected void Page_Load(object sender, EventArgs e)
     {
         habilitar_panelRegistro(false);
@@ -49,7 +48,7 @@ public partial class Hotelwf : System.Web.UI.Page
             GridView1.AllowSorting = true;
             //definir columnas que se van a ve dataBound --> .textheader(titulo), datafield(propiedades del datasource), sortexpression
             GridView1.PageSize = 7;
-            cargarGrilla();
+            cargarGrilla(chk_eliminados.Checked);
             accion("");
             cargarCombo();
         }
@@ -72,7 +71,7 @@ public partial class Hotelwf : System.Web.UI.Page
 
             try
             {
-                recuperar();
+                recuperar(chk_eliminados.Checked);
             }
             catch (Exception ex)
             {
@@ -95,7 +94,7 @@ public partial class Hotelwf : System.Web.UI.Page
             accion("Eliminando..");
             habilitar_campos(false);
 
-            recuperar();
+            recuperar(chk_eliminados.Checked);
 
 
         }
@@ -125,17 +124,20 @@ public partial class Hotelwf : System.Web.UI.Page
         {
             habilitar_panelRegistro(true);
             habilitar_botones("agregar_editar");
-            accion("Editando..");
+            if (chk_eliminados.Checked)
+                accion("Recuperando..");
+            else
+                accion("Editando..");
             habilitar_campos(true);
             txtId.Enabled = false;
-            recuperar();
+            recuperar(chk_eliminados.Checked);
         }
     }
 
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
         habilitar_panelRegistro(false);
-        cargarGrilla();
+        cargarGrilla(chk_eliminados.Checked);
     }
 
     protected void btn_confirmarEliminar_Click(object sender, EventArgs e)
@@ -151,7 +153,7 @@ public partial class Hotelwf : System.Web.UI.Page
         }
 
         habilitar_panelRegistro(false);
-        cargarGrilla();
+        cargarGrilla(chk_eliminados.Checked);
 
     }
     protected void btnGrabar_Click(object sender, EventArgs e)
@@ -187,7 +189,7 @@ public partial class Hotelwf : System.Web.UI.Page
 
 
             GestorHotel.Grabar(h, txtId.Enabled); //si está habilitado el textID es porq graba, sino actualiza
-            cargarGrilla();
+            cargarGrilla(chk_eliminados.Checked);
         }
 
     }
@@ -281,13 +283,13 @@ public partial class Hotelwf : System.Web.UI.Page
 
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
-        cargarGrilla();
+        cargarGrilla(chk_eliminados.Checked);
     }
 
-    private void recuperar()
+    private void recuperar(bool eliminados)
     {
         int id = (int)GridView1.SelectedValue;
-        Hotel h = GestorHotel.buscarPorId(id);
+        Hotel h = GestorHotel.buscarPorId(id, eliminados);
         txtId.Text = h.id.ToString();
         txtdescripcion.Text = h.descripcion;
         ddlDestino.SelectedValue = h.destino.ToString();
@@ -326,13 +328,13 @@ public partial class Hotelwf : System.Web.UI.Page
         ddlDestino.DataBind();
         ddlDestino.Items.Insert(0, new ListItem("Elija una provincia", "0"));
     }
-    public void cargarGrilla()
+    public void cargarGrilla(bool eliminados)
     {
         string orden = ViewState["GvDatosOrden"].ToString();
-        GridView1.DataSource = GestorHotel.BuscarPordescripcion(txtbxBuscar.Text, orden);
+        GridView1.DataSource = GestorHotel.BuscarPordescripcion(txtbxBuscar.Text, orden, eliminados);
         GridView1.DataBind();
+        mensaje(GridView1.Rows.Count.ToString()+" hoteles encontrados");
         accion("");
-        mensaje("");
     }
 
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -343,7 +345,7 @@ public partial class Hotelwf : System.Web.UI.Page
     protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
     {
         ViewState["GvDatosOrden"] = e.SortExpression;
-        cargarGrilla();
+        cargarGrilla(chk_eliminados.Checked);
     }
 
 
@@ -360,32 +362,41 @@ public partial class Hotelwf : System.Web.UI.Page
 
     public void habilitar_botones(string accion)
     {
-        switch (accion)
-        {
-            case "eliminar_click":
+            switch (accion)
+            {
+                case "eliminar_click":
 
-                btnGrabar.Visible = false;
-                btn_confirmarEliminar.Visible = true;
-                btnCancelar.Visible = true;
-                break;
+                    btnGrabar.Visible = false;
+                    btn_confirmarEliminar.Visible = true;
+                    btnCancelar.Visible = true;
+                    break;
 
-            case "agregar_editar":
-                btn_confirmarEliminar.Visible = false;
-                btnGrabar.Visible = true;
-                btnCancelar.Visible = true;
+                case "agregar_editar":
+                    btn_confirmarEliminar.Visible = false;
+                    btnGrabar.Visible = true;
+                    btnCancelar.Visible = true;
 
 
-                break;
+                    break;
 
-            case "consultar":
-                btn_confirmarEliminar.Visible = false;
-                btnGrabar.Visible = false;
-                btnCancelar.Visible = true;
-                Panel1.Visible = false;
-                pnlRegistro.Visible = true;
-                break;
-        }
-
+                case "consultar":
+                    btn_confirmarEliminar.Visible = false;
+                    btnGrabar.Visible = false;
+                    btnCancelar.Visible = true;
+                    Panel1.Visible = false;
+                    pnlRegistro.Visible = true;
+                    break;
+            }
     }
-    
+
+
+    protected void chk_eliminados_CheckedChanged(object sender, EventArgs e)
+    {
+        btnEliminar.Visible = !chk_eliminados.Checked;
+        if (chk_eliminados.Checked)
+            btnEditar.Text = "Recuperar";
+        else
+            btnEditar.Text = "Editar";
+        cargarGrilla(chk_eliminados.Checked);
+    }
 }

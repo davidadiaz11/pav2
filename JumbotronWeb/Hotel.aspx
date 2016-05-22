@@ -46,6 +46,7 @@
         <asp:TextBox ID="txtbxBuscar" class="form-control" runat="server" Width="150px" Height="23px">
         </asp:TextBox>
         <asp:Button ID="btnBuscar" class="btn btn-primary" role="button" type="submit" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
+        <asp:CheckBox ID="chk_eliminados" Text="Ver eliminados" runat="server" OnCheckedChanged="chk_eliminados_CheckedChanged" />
         <br />
 
 
@@ -84,7 +85,7 @@
         </table>
         <br />
         <asp:Button ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" Text="Agregar" Width="65px" Style="height: 26px" />
-        <asp:Button ID="btnConsultar" runat="server" Height="26px" OnClick="btnConsultar_Click" Style="margin-left: 5px" Text="Consultar" Width="65px" />
+        <asp:Button ID="btnConsultar" runat="server" Height="26px" OnClick="btnConsultar_Click" Style="margin-left: 5px" Text="Ver" Width="65px" />
         <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" Style="margin-left: 6px" Text="Eliminar" Width="65px" />
         <asp:Button ID="btnEditar" runat="server" OnClick="btnEditar_Click" Style="margin-left: 6px" Text="Editar" Width="65px" />
         <br />
