@@ -13,19 +13,19 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <div class="fill" style="background-image: url('imagenes/slide1.gif');"></div>
+                <div class="fill" style="background-image: url('img/slide1.gif');"></div>
                 <div class="carousel-caption">
                     <h2>Tomate El Palo</h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image: url('imagenes/slide2.jpg');"></div>
+                <div class="fill" style="background-image: url('img/slide2.jpg');"></div>
                 <div class="carousel-caption">
                     <h2>Gastate Todo </h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image: url('imagenes/slide3.jpg');"></div>
+                <div class="fill" style="background-image: url('img/slide3.jpg');"></div>
                 <div class="carousel-caption">
                     <h2>Buscate Un Curro En Finlandia</h2>
                 </div>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="panel-body">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="#" class="btn btn-default">Ver más</a>
+                        <a href="Viaje.aspx" class="btn btn-default">Ver más</a>
                     </div>
                 </div>
             </div>
@@ -88,41 +88,46 @@
         <!-- /.row -->
 
         <!-- Portfolio Section -->
+
+
+
         <div class="row">
+            <div class="col-md-3">
+                <p class="lead">Paises</p>
+                <div class="list-group">
+                    <asp:Repeater ID="rpt_Paises" runat="server">
+                        <ItemTemplate>
+                            <a href='Viaje.aspx?id=<%# Eval("id") %>' class="list-group-item"><%# Eval("descripcion") %></a>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
+            </div>
+
             <div class="col-lg-12">
                 <h2 class="page-header">Promociones</h2>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                </a>
+            <div>   
+                <asp:Repeater ID="rpt_Viajes" runat="server" OnItemCommand="rpt_Viajes_ItemCommand">
+                <ItemTemplate>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="thumbnail">
+                            <img class="img-responsive img-portfolio img-hover" src="img/<%# Eval("imagen") %>.jpg" alt="">
+                            <div class="caption">
+
+                                <h4><a href="#"><%# Eval("descripcion") %></a>
+                                </h4>
+                                <asp:Button ID="btnComprar" runat="server" Text="Comprar" CssClass="btn btn-primary" CommandArgument='<%#Eval("id") %>' CommandName="Comprar" />
+                                <asp:Button ID="btnVer" runat="server" Text="Ver" CommandName="Ver" CssClass="btn" CommandArgument='<%#Eval("id")%>' />
+                                <h4 class="pull-right"><%# Eval("precio","{0:c}") %></h4>
+                            </div>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-                </a>
-            </div>
+            
         </div>
+
         <!-- /.row -->
 
         <!-- Features Section -->

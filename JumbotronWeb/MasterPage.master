@@ -28,13 +28,7 @@
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">Jumbotron</a>
+                    <a class="navbar-brand" href="inicio.aspx">Jumbotron</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -46,7 +40,13 @@
                             <a href="Hotel.aspx">Hoteles</a>
                         </li>
                         <li>
-                            <a href="AcercaDe.aspx">Acerca De</a>
+                            <a href="Viaje.aspx">Viajes</a>
+                        </li>
+                        <li>
+                            <a href="FAQ.aspx">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="Contacto.aspx">Contacto</a>
                         </li>
                     </ul>
                 </div>

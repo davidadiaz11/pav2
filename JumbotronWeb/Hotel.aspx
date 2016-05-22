@@ -36,10 +36,17 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="col-lg-12">
+        <h1 class="page-header">Hoteles
+                </h1>
+        <ol class="breadcrumb">
+            <li><a href="Inicio.aspx">Inicio</a>
+            </li>
+            <li class="active">Hoteles</li>
+        </ol>
+    </div>
+    <asp:Label ID="lblAccion" runat="server" Text="Label"></asp:Label>
 
-    <h3>Hoteles
-        <asp:Label ID="lblAccion" runat="server" Text="Label"></asp:Label>
-    </h3>
     <asp:Panel ID="Panel1" runat="server">
         <strong>Nombre a buscar:&nbsp;</strong>
 
@@ -50,24 +57,24 @@
         <br />
 
 
-        <table class="table table-bordered">           
-            <asp:GridView ID="GridView1" runat="server"  CellPadding="4" DataKeyNames="id"  ForeColor="#333333" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging"  OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
+        <table class="table table-bordered">
+            <asp:GridView ID="GridView1" runat="server" CellPadding="4" DataKeyNames="id" ForeColor="#333333" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>
-                    <asp:CommandField ShowSelectButton="True"  ItemStyle-Width="100" >
-                    <ItemStyle Width="100px" />
+                    <asp:CommandField ShowSelectButton="True" ItemStyle-Width="100">
+                        <ItemStyle Width="100px" />
                     </asp:CommandField>
-                    <asp:BoundField DataField="descripcion" HeaderText="Nombre" SortExpression="descripcion" ItemStyle-Width="100" >
-                    <ItemStyle Width="100px" />
+                    <asp:BoundField DataField="descripcion" HeaderText="Nombre" SortExpression="descripcion" ItemStyle-Width="100">
+                        <ItemStyle Width="100px" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id" ItemStyle-Width="100" >
-                    <ItemStyle Width="100px" />
+                    <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id" ItemStyle-Width="100">
+                        <ItemStyle Width="100px" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="capacidad" HeaderText="Capacidad"  ItemStyle-Width="100" >
-                    <ItemStyle Width="100px" />
+                    <asp:BoundField DataField="capacidad" HeaderText="Capacidad" ItemStyle-Width="100">
+                        <ItemStyle Width="100px" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicacion" ItemStyle-Width="100" >
-                    <ItemStyle Width="100px" />
+                    <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicacion" ItemStyle-Width="100">
+                        <ItemStyle Width="100px" />
                     </asp:BoundField>
                     <asp:BoundField DataField="cuit" HeaderText="CUIT" ItemStyle-Width="90" />
                 </Columns>
@@ -153,6 +160,6 @@
         </table>
 
     </asp:Panel>
-    <asp:Label ID="lbl_mensaje"  runat="server"  ></asp:Label>
+    <asp:Label ID="lbl_mensaje" runat="server"></asp:Label>
 </asp:Content>
 

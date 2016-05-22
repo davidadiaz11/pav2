@@ -31,3 +31,15 @@ create TABLE Hotel(
 insert into Hotel values ('Hotel trejo', 5, 3,200,1,getdate(),);
 insert into Hotel values ('Hotel La linda', 5, 3,200,0,getdate(),);
 insert into Hotel values ('Hotel Prueba', 5, 2,200,1,getdate(),);
+
+create TABLE Viaje (
+id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  descripcion varchar(255),
+  imagen varchar(255),
+  hotel int FOREIGN KEY REFERENCES Hotel(id),
+  precio int,
+  eliminado bit);
+  
+  insert into Viaje values ('Viaje 1','viaje_01', 1,1000,NULL);
+  insert into Viaje values ('Viaje 2','viaje_02',2,2000, NULL);
+  insert into Viaje values ('Viaje 3','viaje_03',3,3000,NULL);
