@@ -11,8 +11,7 @@ public partial class Inicio : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
-            rpt_Paises.DataSource = GestorPais.BuscarTodos();
-            rpt_Paises.DataBind();
+            
             int id = 1;
             if (Request.QueryString["id"] != null)
                 id = Convert.ToInt32(Request.QueryString["id"]);

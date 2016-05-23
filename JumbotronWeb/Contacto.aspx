@@ -11,7 +11,7 @@
                 <h1 class="page-header">Contacto
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="inicio.aspx">Inicio</a>
+                    <li><a href="Inicio.aspx">Inicio</a>
                     </li>
                     <li class="active">Contacto</li>
                 </ol>
@@ -21,7 +21,7 @@
 
         <!-- Content Row -->
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <h3>Envíanos un mensaje</h3>
                 <form name="sentMessage" id="formcontacto" novalidate>
                     <div class="control-group form-group">
@@ -59,11 +59,11 @@
                 <h3>Detalles</h3>
                 <p>
                     Chacabuco 1020<br>
-                   Córdoba, Argentina<br>
+                    Córdoba, Argentina<br>
                 </p>
                 <p>
                     <i class="fa fa-phone"></i>
-                    <abbr title="Phone">Tel</abbr>: (123) 456-7890
+                    <abbr title="Teléfono">Tél.</abbr>: (03525) 456-7890
                 </p>
                 <p>
                     <i class="fa fa-envelope-o"></i>
@@ -71,7 +71,7 @@
                 </p>
                 <p>
                     <i class="fa fa-clock-o"></i>
-                    <abbr title="Hours">H</abbr>: Lunes - Viernes: 9:00 hs. a 20:00 hs.
+                    <abbr title="Horarios">H</abbr>: Lunes - Viernes: 9:00 hs. a 20:00 hs.
                 </p>
                 <ul class="list-unstyled list-inline list-social-icons">
                     <li>
@@ -90,6 +90,6 @@
             </div>
         </div>
         <!-- /.row -->
-
+    </div>
 </asp:Content>
 

@@ -3,14 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
-    <br />
-    <asp:Login ID="ctrl_login" runat="server" OnAuthenticate="ctrl_login_Authenticate"></asp:Login>
-    usuarios: pasajero, admin
-    password: asd
-    sino... configurar linea 23 deny users="?" del webconfig 
-    <br />
-    <br />
+    <div class="form-control">   
+         <asp:Login ID="ctrl_login" runat="server" OnAuthenticate="ctrl_login_Authenticate"></asp:Login>
+    </div>
 </asp:Content>
 
 

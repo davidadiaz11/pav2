@@ -40,6 +40,11 @@ public class GestorPais
                 p.descripcion = (string)dr["descripcion"];
                 listaPaises.Add(p);
             }
+            //AGREGAMOS UN BOTÓN TODOS
+            p.id = 0;
+            p.descripcion = "Todos";
+            listaPaises.Insert(0,p);
+
             dr.Close();
 
         }

@@ -154,7 +154,6 @@ public partial class Hotelwf : System.Web.UI.Page
 
         habilitar_panelRegistro(false);
         cargarGrilla(chk_eliminados.Checked);
-
     }
     protected void btnGrabar_Click(object sender, EventArgs e)
     {

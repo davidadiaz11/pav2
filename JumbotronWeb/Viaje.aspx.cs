@@ -13,7 +13,7 @@ public partial class Viaje : System.Web.UI.Page
         {
             rpt_Paises.DataSource = GestorPais.BuscarTodos();
             rpt_Paises.DataBind();
-            int id = 1;
+            int? id=null;
             if (Request.QueryString["id"] != null)
                 id = Convert.ToInt32(Request.QueryString["id"]);
             rpt_Viajes.DataSource = GestorViaje.BuscarPorPais(id);

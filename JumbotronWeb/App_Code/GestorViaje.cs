@@ -26,7 +26,41 @@ public class GestorViaje
         return null;
     }
 
-    public static List<Viaje> BuscarPorPais(int id)
+    public static int recuperarPais(int id) //toma por parámetro el id de un Viaje y devuelve el id de país al que corresponde
+    {
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        int pais;
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            string sql = "select d.pais "
+                        + "from Destino d "
+                        + "join Hotel h on d.id=h.destino "
+                        + "join Viaje v on h.id=v.hotel "
+                        + "where v.id=@id";
+            cmd.Parameters.Add(new SqlParameter("@id", id));
+            cmd.CommandText = sql;
+            SqlDataReader dr = cmd.ExecuteReader();
+            pais=(int)dr["id"];
+            dr.Close();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+        return pais;
+    }
+
+    public static List<Viaje> BuscarPorPais(int? id) //toma por parámetro un id de País, y devuelve una lista de Viajes de ese país
     {
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
         Viaje v = null;
@@ -38,9 +72,24 @@ public class GestorViaje
             cmd.Connection = cn;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
-            string sql="select * from Viaje";
-            //TODO: //string sql = "select v.id, v.descripcion, v.imagen from Viaje v join Hotel h on v.hotel=h.id join Pais p h.pais=p.id where v.id=@id";
-            cmd.Parameters.Add(new SqlParameter("@id", id));
+            string sql = "";
+            if (id != null) //TODO 01 Refactorizar!
+            {
+                if (id == 0)
+                    sql = "select id, descripcion, imagen, precio from Viaje";
+                else
+                { 
+                    sql = "select v.id, v.descripcion, v.imagen, v.precio "
+                          + "from Viaje v "
+                          + "join Hotel h on v.hotel=h.id "
+                          + "join Destino d on h.destino=d.id "
+                          + "where d.pais=@id";
+                    cmd.Parameters.Add(new SqlParameter("@id", id));
+                }
+            }
+            else
+                sql = "select id, descripcion, imagen, precio from Viaje";
+            
             cmd.CommandText = sql;
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -54,21 +103,16 @@ public class GestorViaje
                 lista.Add(v);
             }
             dr.Close();
-
         }
-
         catch (Exception)
         {
             throw;
         }
-
         finally
         {
             if (cn != null && cn.State == ConnectionState.Open)
                 cn.Close();
         }
-
         return lista;
-
     }
 }
