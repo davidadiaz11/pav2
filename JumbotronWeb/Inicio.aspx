@@ -96,7 +96,7 @@
                 <h2 class="page-header">Promociones</h2>
             </div>
             <div>   
-                <asp:Repeater ID="rpt_Viajes" runat="server" OnItemCommand="rpt_Viajes_ItemCommand">
+                <asp:Repeater ID="rpt_Viajes" runat="server">
                 <ItemTemplate>
                     <div class="col-md-4 col-sm-6">
                         <div class="thumbnail">

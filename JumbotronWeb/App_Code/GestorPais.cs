@@ -20,16 +20,17 @@ public class GestorPais
     {
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
         Pais p = null;
+        Pais pTodos = null;
         List<Pais> listaPaises = new List<Pais>();
         try
         {
             cn.Open();
             SqlCommand cmd = new SqlCommand();
-
+            
             cmd.Connection = cn;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
-            string sql="select id, descripcion from Pais";
+            string sql="select id, descripcion from Pais order by descripcion";
             cmd.CommandText = sql;
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -41,10 +42,10 @@ public class GestorPais
                 listaPaises.Add(p);
             }
             //AGREGAMOS UN BOTÓN TODOS
-            p.id = 0;
-            p.descripcion = "Todos";
-            listaPaises.Insert(0,p);
-
+            pTodos = new Pais();
+            pTodos.id = 0;
+            pTodos.descripcion = "Todos";
+            listaPaises.Insert(0,pTodos);
             dr.Close();
 
         }

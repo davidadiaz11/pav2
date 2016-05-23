@@ -48,6 +48,13 @@
                         <li>
                             <a href="Contacto.aspx">Contacto</a>
                         </li>
+                        <li>
+                            <a>
+                                <span class="badge">
+                                    <asp:Literal ID="litNUsuarios" runat="server"></asp:Literal>
+                                </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

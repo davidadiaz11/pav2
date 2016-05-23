@@ -29,7 +29,7 @@ public class GestorViaje
     public static int recuperarPais(int id) //toma por parámetro el id de un Viaje y devuelve el id de país al que corresponde
     {
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-        int pais;
+        int pais=1;
         try
         {
             cn.Open();
@@ -45,7 +45,8 @@ public class GestorViaje
             cmd.Parameters.Add(new SqlParameter("@id", id));
             cmd.CommandText = sql;
             SqlDataReader dr = cmd.ExecuteReader();
-            pais=(int)dr["id"];
+            //TODO 02 no funciona
+            //pais = (int)dr["pais"];
             dr.Close();
         }
         catch (Exception)

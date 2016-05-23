@@ -13,6 +13,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             string usuario = Page.User.Identity.Name;
             bool EsAdministrador = Page.User.IsInRole("Administradores");
+            litNUsuarios.Text = Application["nusuarios"].ToString();
 
             //mnuHoteles.Visible = Page.User.IsInRole("pasajeros");
             //mnuAcercaDe.Visible = Page.User.IsInRole("pasajeros") || Page.User.IsInRole("administradores");
