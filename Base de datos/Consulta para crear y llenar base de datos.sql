@@ -17,29 +17,84 @@ insert into Destino values ( 'Córdoba', 1);
 insert into Destino values ( 'Salta', 1);
 insert into Destino values ( 'Capital Siria', 2);
 insert into Destino values ( 'Capital Dinamarca', 3);
+insert into Destino values ('Capital Singapur',5);
 
 create TABLE Hotel(
- id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
-  descripcion varchar(255),
-  capacidad int,
-   destino int FOREIGN KEY REFERENCES Destino(id),
-   cuit int,
-   aceptaMascota bit,
-   inicioActividad date,
-   eliminado bit);
+id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+descripcion varchar(255),
+capacidad int,
+destino int FOREIGN KEY REFERENCES Destino(id),
+cuit int NOT NULL UNIQUE,
+aceptaMascota bit,
+inicioActividad date,
+eliminado bit);
 
-insert into Hotel values ('Hotel trejo', 5, 3,200,1,getdate(),);
-insert into Hotel values ('Hotel La linda', 5, 3,200,0,getdate(),);
-insert into Hotel values ('Hotel Prueba', 5, 2,200,1,getdate(),);
+insert into Hotel values ('Hotel trejo', 5, 3,100,1,getdate(),NULL);
+insert into Hotel values ('Hotel La linda', 5, 3,200,0,getdate(),NULL);
+insert into Hotel values ('Hotel Singapur', 5, 5,300,1,getdate(),NULL);
+insert into Hotel values ('Hotel Siria', 5, 3,400,1,getdate(),NULL);
+insert into Hotel values ('Hotel Dinamarca', 4, 2,500,1,getdate(),NULL);
+
+create Table TipoTransporte (
+id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+descripcion varchar(255));
+
+insert into TipoTransporte values ('Colectivo');
+insert into TipoTransporte values ('Avión');
+
+create Table Transporte (
+id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+descripcion varchar(255),
+tipo int FOREIGN KEY REFERENCES TipoTransporte(id));
+
+insert into Transporte values ('Colectivo1',1);
+insert into Transporte values ('Colectivo2',1);
+insert into Transporte values ('Avion1',2);
+insert into Transporte values ('Avion2',2);
+insert into Transporte values ('Avion3',2);
+
+create table Promocion(
+id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+fechaDesde date,
+fechaHasta date,
+descuento int);
+
+insert into Promocion values (getdate(), getdate(), 10);
+insert into Promocion values (getdate(), getdate(), 20);
+insert into Promocion values (getdate(), getdate(), 30);
+insert into Promocion values (getdate(), getdate(), 40);
+insert into Promocion values (getdate(), getdate(), 50);
+
+create TABLE Paquete(
+id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+precio int,
+promocion int FOREIGN KEY REFERENCES Promocion(id),
+fechaSalida date,
+fechaLlegada date);
+
+insert into Paquete values (10000,1, getdate(),getdate());
+insert into Paquete values (20000,2, getdate(),getdate());
+insert into Paquete values (30000,3, getdate(),getdate());
+insert into Paquete values (40000,4, getdate(),getdate());
+insert into Paquete values (50000,5, getdate(),getdate());
 
 create TABLE Viaje (
 id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
-  descripcion varchar(255),
-  imagen varchar(255),
-  hotel int FOREIGN KEY REFERENCES Hotel(id),
-  precio int,
-  eliminado bit);
-  
-  insert into Viaje values ('Viaje 1','viaje_01', 1,1000,NULL);
-  insert into Viaje values ('Viaje 2','viaje_02',2,2000, NULL);
-  insert into Viaje values ('Viaje 3','viaje_03',3,3000,NULL);
+descripcion varchar(255),
+imagen varchar(255) NOT NULL UNIQUE,
+hotel int FOREIGN KEY REFERENCES Hotel(id),
+precio int,
+fechaSalida date,
+fechaLlegada date,
+destino int FOREIGN KEY REFERENCES Destino(id),
+cupo int,
+paquete int FOREIGN KEY REFERENCES Paquete(id),
+transporte int FOREIGN KEY REFERENCES Transporte(id),
+disponible bit,
+eliminado bit);
+
+insert into Viaje values ('Viaje 1','viaje_01', 1,1000,getdate(),getdate(),1,10,1,1,1,NULL);
+insert into Viaje values ('Viaje 2','viaje_02',2,2000,getdate(),getdate(),2,20,2,2,NULL, NULL);
+insert into Viaje values ('Viaje 3','viaje_03',3,3000, getdate(),getdate(),3,30,3,3,NULL,NULL);
+insert into Viaje values ('Viaje 4','viaje_04',4,4000, getdate(),getdate(),4,40,4,4,NULL,NULL);
+insert into Viaje values ('Viaje 5','viaje_05',5,5000, getdate(),getdate(),5,50,5,5,NULL,NULL);

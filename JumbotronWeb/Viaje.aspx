@@ -44,9 +44,9 @@
                                 <img class="img-responsive img-hover" src="img/<%# Eval("imagen") %>.jpg" alt="">
                             </a>
                             <h3>
-                                <a href="#"><%# Eval("descripcion") %></a>
+                                <a href="#"><%# Eval("destino_descripcion") %></a>
                             </h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                            <p><%# Eval("descripcion") %></p>
                             <div class="caption">
                                 <asp:Button ID="Button1" runat="server" Text="Comprar" CssClass="btn btn-primary" CommandArgument='<%#Eval("id") %>' CommandName="Comprar" />
                                 <asp:Button ID="Button2" runat="server" Text="Ver" CommandName="Ver" CssClass="btn" CommandArgument='<%#Eval("id")%>' />

@@ -12,8 +12,8 @@
                 <h1 class="page-header">Detalle Viaje
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="Inicio.aspx">Inicio</a>
-                    </li>
+                    <li><a href="Inicio.aspx">Inicio</a></li>
+                    <li><a href="Viaje.aspx">Viajes</a></li>
                     <li class="active">Detalle Viaje</li>
                 </ol>
             </div>

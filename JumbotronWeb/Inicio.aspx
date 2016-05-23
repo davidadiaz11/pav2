@@ -101,10 +101,8 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="thumbnail">
                             <img class="img-responsive img-portfolio img-hover" src="img/<%# Eval("imagen") %>.jpg" alt="">
+                            <h4><a href="#"><%# Eval("destino_descripcion") %></a></h4>
                             <div class="caption">
-
-                                <h4><a href="#"><%# Eval("descripcion") %></a>
-                                </h4>
                                 <asp:Button ID="btnComprar" runat="server" Text="Comprar" CssClass="btn btn-primary" CommandArgument='<%#Eval("id") %>' CommandName="Comprar" />
                                 <asp:Button ID="btnVer" runat="server" Text="Ver" CommandName="Ver" CssClass="btn" CommandArgument='<%#Eval("id")%>' />
                                 <h4 class="pull-right"><%# Eval("precio","{0:c}") %></h4>

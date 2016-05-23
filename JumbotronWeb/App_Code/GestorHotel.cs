@@ -13,7 +13,7 @@ public class GestorHotel
 {   //TODO aca instanciar la BD
     //ACÁ SE INSTANCIA LA CADENA DE CONEXIÓN, UNA ÚNICA VEZ
     //public static string CadenaConexion = @"Data Source=NICO-PC\sqlexpress;Integrated Security=SSPI;Initial Catalog=4K1_62726";
-    public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=aaa;Integrated Security=True";
+    public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=PAV2;Integrated Security=True";
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 
 
@@ -32,7 +32,7 @@ public class GestorHotel
             cmd.Parameters.Clear();
             cmd.Connection = cn;
             string sql="";
-            if (eliminados)
+            if (eliminados)//TODO 04: Refactorizar! hay un metodo q busca la descripcion en las tablas, no es necesario el join para obtener el destino
                 sql = "select h.id,h.descripcion, h.cuit, h.capacidad,d.descripcion destino_descripcion from Hotel h left join Destino d on h.destino = d.id where eliminado=1 AND h.descripcion like @descripcion order by " + orden;
             else
                 sql = "select h.id,h.descripcion, h.cuit, h.capacidad,d.descripcion destino_descripcion from Hotel h left join Destino d on h.destino = d.id where (eliminado is NULL OR eliminado=0) AND h.descripcion like @descripcion order by " + orden;

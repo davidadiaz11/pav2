@@ -11,6 +11,7 @@ public partial class Viaje : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
+            
             rpt_Paises.DataSource = GestorPais.BuscarTodos();
             rpt_Paises.DataBind();
             int? id=null;

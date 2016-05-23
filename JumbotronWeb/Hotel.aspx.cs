@@ -7,27 +7,6 @@ using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 
 
-
-
-//AL EDITAR, SE BLOQUEA EL TXT, Y DE ESO DEPENDERÁ QUE DESPUÉS GRABAR() HAGA UN INSERT O UN UPDATE
-//SI TXT_ID ESTA HABILITADO ES PORQUE SE TRATA DE UN INSERT
-//SI TXT_ID ESTA DESHABILITADO ES PORQUE SE TRATA DE UNA MODIFICACIÓN, OSEA UPDATE
-
-//La cadena de conexión se escribe una sola vez, en la clase GestorHotel
-//se escribieron métodos para validar el relleno de los campos.. validar()
-//se escribió un método para habilitar/deshabilitar los campos.. habilitar(true para q habilite, false para q deshabilite)
-//se escribió un método para rechazar la grabación de campos defectuosos, haciendo foco en el control q lo produjo
-
-
-//hay q controlar el grabado de nuevos hoteles con ID existente
-//Hay que incluir paginación.. no se q onda pero se rompe tooo
-
-//TODO agregué métodos para habilitar paneles, botones y mensajes/acciones(labels)
-//TODO ya se está validando el ingreso de sólo números en los campos ID, CUIT y capacidad.
-//si no ingresa nada, el ID será autoincrementado y el CUIT y capacidad serán -1
-
-
-
 public partial class Hotelwf : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)

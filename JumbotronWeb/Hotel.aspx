@@ -35,7 +35,7 @@
                         <asp:BoundField DataField="descripcion" HeaderText="Nombre" SortExpression="descripcion"/>
                         <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id"/>
                         <asp:BoundField DataField="capacidad" HeaderText="Capacidad" SortExpression="capacidad"/>
-                        <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicacion" SortExpression="destino_descripcion"/>
+                        <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicación" SortExpression="destino_descripcion"/>
                         <asp:BoundField DataField="cuit" HeaderText="CUIT" SortExpression="cuit" />
                     </Columns>
                     <SelectedRowStyle BackColor="Silver" />
