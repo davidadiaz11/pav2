@@ -74,15 +74,8 @@ public partial class Hotelwf : System.Web.UI.Page
             habilitar_campos(false);
 
             recuperar(chk_eliminados.Checked);
-
-
         }
-
     }
-
-
-
-
 
     protected void btnAgregar_Click(object sender, EventArgs e)
     {
@@ -95,10 +88,8 @@ public partial class Hotelwf : System.Web.UI.Page
 
     protected void btnEditar_Click(object sender, EventArgs e)
     {
-
         if (GridView1.SelectedRow == null)
             mensaje("Debe seleccionar un hotel");
-
         else
         {
             habilitar_panelRegistro(true);
@@ -314,7 +305,7 @@ public partial class Hotelwf : System.Web.UI.Page
         mensaje(GridView1.Rows.Count.ToString()+" hoteles encontrados");
         accion("");
     }
-
+    //TODO 05: no tiene ninguna referencia, ese debe ser el problema de q no anda
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;

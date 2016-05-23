@@ -90,11 +90,11 @@ destino int FOREIGN KEY REFERENCES Destino(id),
 cupo int,
 paquete int FOREIGN KEY REFERENCES Paquete(id),
 transporte int FOREIGN KEY REFERENCES Transporte(id),
-disponible bit,
+disponible bit NOT NULL,
 eliminado bit);
 
 insert into Viaje values ('Viaje 1','viaje_01', 1,1000,getdate(),getdate(),1,10,1,1,1,NULL);
-insert into Viaje values ('Viaje 2','viaje_02',2,2000,getdate(),getdate(),2,20,2,2,NULL, NULL);
-insert into Viaje values ('Viaje 3','viaje_03',3,3000, getdate(),getdate(),3,30,3,3,NULL,NULL);
-insert into Viaje values ('Viaje 4','viaje_04',4,4000, getdate(),getdate(),4,40,4,4,NULL,NULL);
-insert into Viaje values ('Viaje 5','viaje_05',5,5000, getdate(),getdate(),5,50,5,5,NULL,NULL);
+insert into Viaje values ('Viaje 2','viaje_02',2,2000,getdate(),getdate(),2,20,2,2,1, NULL);
+insert into Viaje values ('Viaje 3','viaje_03',3,3000, getdate(),getdate(),3,30,3,3,1,NULL);
+insert into Viaje values ('Viaje 4','viaje_04',4,4000, getdate(),getdate(),4,40,4,4,1,NULL);
+insert into Viaje values ('Viaje 5','viaje_05',5,5000, getdate(),getdate(),5,50,5,5,1,NULL);

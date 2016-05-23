@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Viaje.aspx.cs" Inherits="Viaje" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Viaje.aspx.cs" Inherits="Viajewf" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -56,9 +56,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-
         </div>
     </div>
-
 </asp:Content>
 
