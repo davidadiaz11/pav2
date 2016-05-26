@@ -15,21 +15,21 @@
     </div>
 
     <div class="col-lg-12">
-        <asp:Label ID="lblAccion" CssClass="form-control label" runat="server" Text="Label"></asp:Label>
+        <h4><asp:Label ID="lblAccion" CssClass="label label-success" runat="server" Text="Label"></asp:Label></h4> 
     </div>
 
     <div class="col-lg-12">
         <asp:Panel ID="Panel1" runat="server">
             <strong>Hotel:</strong>
             <div class="form-inline">
-                <asp:TextBox ID="txtbxBuscar" class="form-control input-sm" runat="server">
+                <asp:TextBox ID="txtbxBuscar"  CssClass="form-control input-sm" title="Ingrese nombres de hoteles" placeholder="Nombre del Hotel" runat="server">
                 </asp:TextBox>
-                <asp:CheckBox ID="chk_eliminados" class="checkbox-inline" Text="Ver eliminados" runat="server" OnCheckedChanged="chk_eliminados_CheckedChanged" />
-                <asp:Button ID="btnBuscar" class="btn-sm btn-primary" role="button" type="submit" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
+                <asp:CheckBox ID="chk_eliminados" CssClass="checkbox-inline" Text="Ver eliminados" runat="server" OnCheckedChanged="chk_eliminados_CheckedChanged" />
+                <asp:Button ID="btnBuscar" CssClass="btn-sm btn-primary" role="button" type="submit" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
             </div>
 
             <table class="table table-bordered">
-                <asp:GridView ID="GridView1" runat="server" class="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
+                <asp:GridView ID="GridView1" runat="server" CssClass="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
                     <Columns>
                         <asp:CommandField ShowSelectButton="True"/>
                         <asp:BoundField DataField="descripcion" HeaderText="Nombre" SortExpression="descripcion"/>
@@ -43,10 +43,10 @@
             </table>
 
             <div class="btn-group-sm">
-                <asp:Button ID="btnAgregar" runat="server" ControlStyle-CssClass="btn-default btn-sm" OnClick="btnAgregar_Click" Text="Agregar" />
-                <asp:Button ID="btnConsultar" runat="server" ControlStyle-CssClass="btn-default btn-sm" OnClick="btnConsultar_Click" Text="Ver" />
-                <asp:Button ID="btnEliminar" runat="server" ControlStyle-CssClass="btn-default btn-sm" OnClick="btnEliminar_Click" Text="Eliminar" />
-                <asp:Button ID="btnEditar" runat="server" ControlStyle-CssClass="btn-default btn-sm" OnClick="btnEditar_Click" Text="Editar" />
+                <asp:Button ID="btnAgregar" runat="server"  CssClass="btn-default btn-sm" OnClick="btnAgregar_Click" Text="Agregar" />
+                <asp:Button ID="btnConsultar" runat="server"  CssClass="btn-default btn-sm" OnClick="btnConsultar_Click" Text="Ver" />
+                <asp:Button ID="btnEliminar" runat="server"  CssClass="btn-default btn-sm" OnClick="btnEliminar_Click" Text="Eliminar" />
+                <asp:Button ID="btnEditar" runat="server"  CssClass="btn-default btn-sm" OnClick="btnEditar_Click" Text="Editar" />
             </div>
 
         </asp:Panel>
@@ -58,7 +58,7 @@
                 <tr>
                     <td>Hotel Id:</td>
                     <td>
-                        <asp:TextBox ID="txtId" runat="server" class="form-control" Style="margin-left: 0px" Enabled="False" Height="23px" Width="128px"></asp:TextBox>
+                        <asp:TextBox ID="txtId" runat="server"  CssClass="form-control" placeholder="Aquí el número ID"  Enabled="False" ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -66,36 +66,36 @@
                         <asp:Label ID="lblCuit" runat="server" Text="CUIT:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtCuit" class="form-control" runat="server" Height="23px" Width="128px"></asp:TextBox>
+                        <asp:TextBox ID="txtCuit"  CssClass="form-control" placeholder="XX YYYYYYYY Z"  runat="server"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style8">Nombre:</td>
-                    <td class="auto-style7">
-                        <asp:TextBox ID="txtdescripcion" class="form-control" runat="server" Height="23px" Width="128px"></asp:TextBox>
+                    <td>Nombre:</td>
+                    <td>
+                        <asp:TextBox ID="txtdescripcion"  CssClass="form-control" placeholder="Aquí el nombre del hotel"  runat="server" ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="lblCapacidad" class="form-control label" runat="server" Text="Capacidad"></asp:Label>
+                        <asp:Label ID="lblCapacidad" runat="server" Text="Capacidad"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtCapacidad" class="form-control" runat="server" Height="23px" Width="128px"></asp:TextBox>
+                        <asp:TextBox ID="txtCapacidad"  CssClass="form-control" runat="server" placeholder="Capacidad de pasajeros" ></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td>Destino</td>
                     <td>
-                        <asp:DropDownList ID="ddlDestino" class="form-control" runat="server" Height="23px" Width="128px" Enabled="False">
+                        <asp:DropDownList ID="ddlDestino"  CssClass="form-control" runat="server" Enabled="False">
                         </asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="lblPermiteMascota" class="form-control label" runat="server" Text="Admite Mascotas"></asp:Label>
+                        <asp:Label ID="lblPermiteMascota" runat="server" Text="Admite Mascotas"></asp:Label>
                     </td>
                     <td>
-                        <asp:RadioButtonList ID="rb_list" runat="server" Height="16px" Width="191px">
+                        <asp:RadioButtonList ID="rb_list" runat="server">
                             <asp:ListItem Value="1">Sí</asp:ListItem>
                             <asp:ListItem Value="0">No</asp:ListItem>
                         </asp:RadioButtonList>
@@ -103,15 +103,15 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Button ID="btnGrabar" runat="server" OnClick="btnGrabar_Click" Text="Grabar" Width="71px" />
-                        <asp:Button ID="btnCancelar" runat="server" OnClick="btnCancelar_Click" Style="margin-left: 12px" Text="Cancelar/Volver" Width="103px" />
-                        <asp:Button ID="btn_confirmarEliminar" runat="server" OnClick="btn_confirmarEliminar_Click" Style="margin-left: 22px" Text="confirmar Eliminar" Width="119px" />
+                        <asp:Button ID="btnGrabar" runat="server" CssClass="btn-default btn-sm" OnClick="btnGrabar_Click" Text="Grabar" />
+                        <asp:Button ID="btnCancelar" runat="server" CssClass="btn-default btn-sm" OnClick="btnCancelar_Click" Text="Cancelar/Volver" />
+                        <asp:Button ID="btn_confirmarEliminar" runat="server" CssClass="btn-default btn-sm" OnClick="btn_confirmarEliminar_Click" Text="confirmar Eliminar" />
                     </td>
                 </tr>
             </table>
         </asp:Panel>
         <div class="col-lg-12">
-            <asp:Label ID="lbl_mensaje" class="form-control label alert-danger" runat="server"></asp:Label>
+            <h4><asp:Label ID="lbl_mensaje"  CssClass="form-control label alert-danger" runat="server"></asp:Label></h4> 
         </div>
     </div>
 </asp:Content>

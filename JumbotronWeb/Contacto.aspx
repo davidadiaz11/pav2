@@ -27,26 +27,26 @@
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" required data-validation-required-message="Ingrese su nombre">
+                            <input type="text" class="form-control" id="nombre" placeholder="Aquí su nombre" required data-validation-required-message="Ingrese su nombre">
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Teléfono:</label>
-                            <input type="tel" class="form-control" id="telefono" required data-validation-required-message="Ingrese su teléfono">
+                            <input type="tel" class="form-control" id="telefono" placeholder="Aquí su teléfono" required data-validation-required-message="Ingrese su teléfono">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Email:</label>
-                            <input type="email" class="form-control" id="email" required data-validation-required-message="Ingrese su email">
+                            <input type="email" class="form-control" id="email" placeholder="Aquí su email" required data-validation-required-message="Ingrese su email">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Mensaje:</label>
-                            <textarea rows="10" cols="100" class="form-control" id="mensaje" required data-validation-required-message="Ingrese su mensaje" maxlength="999" style="resize: none"></textarea>
+                            <textarea rows="10" cols="100" class="form-control" id="mensaje" placeholder="Aquí su mensaje" required data-validation-required-message="Ingrese su mensaje" maxlength="999" style="resize: none"></textarea>
                         </div>
                     </div>
                     <div id="exito"></div>

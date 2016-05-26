@@ -81,6 +81,7 @@ public partial class Hotelwf : System.Web.UI.Page
     {
         habilitar_botones("agregar_editar");
         accion("Agregando..");
+        mensaje("");
         habilitar_campos(true);
         reiniciarPaneles();
         habilitar_panelRegistro(true);
