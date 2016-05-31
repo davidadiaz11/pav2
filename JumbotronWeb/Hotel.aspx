@@ -56,7 +56,8 @@
         <asp:Panel ID="pnlRegistro" runat="server">
             <table class="table-hover">
                 <tr>
-                    <td>Hotel Id:</td>
+                    <td><asp:Label ID="lblId" runat="server" Text="Hotel Id:"></asp:Label>
+                    </td>
                     <td>
                         <asp:TextBox ID="txtId" runat="server"  CssClass="form-control" placeholder="Aquí el número ID"  Enabled="False" ></asp:TextBox>
                     </td>

@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 
 public partial class Hotelwf : System.Web.UI.Page
 {
+    private bool grabar;
     protected void Page_Load(object sender, EventArgs e)
     {
         habilitar_panelRegistro(false);
@@ -85,6 +86,9 @@ public partial class Hotelwf : System.Web.UI.Page
         habilitar_campos(true);
         reiniciarPaneles();
         habilitar_panelRegistro(true);
+        grabar = true;
+        lblId.Visible = false;
+        txtId.Visible = false;
     }
 
     protected void btnEditar_Click(object sender, EventArgs e)
@@ -100,7 +104,7 @@ public partial class Hotelwf : System.Web.UI.Page
             else
                 accion("Editando..");
             habilitar_campos(true);
-            txtId.Enabled = false;
+            grabar = false;
             recuperar(chk_eliminados.Checked);
         }
     }
@@ -158,7 +162,7 @@ public partial class Hotelwf : System.Web.UI.Page
                 h.aceptaMascota = false;
 
 
-            GestorHotel.Grabar(h, txtId.Enabled); //si está habilitado el textID es porq graba, sino actualiza
+            GestorHotel.Grabar(h, grabar); //si está habilitado el textID es porq graba, sino actualiza
             cargarGrilla(chk_eliminados.Checked);
         }
 
@@ -241,7 +245,6 @@ public partial class Hotelwf : System.Web.UI.Page
 
     private void habilitar_campos(Boolean estado)
     {
-        txtId.Enabled = estado;
         txtdescripcion.Enabled = estado;
         ddlDestino.Enabled = estado;
         txtCapacidad.Enabled = estado;
