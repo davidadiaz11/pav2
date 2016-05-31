@@ -138,13 +138,8 @@ public partial class Hotelwf : System.Web.UI.Page
 
         if (validar())
         {
-            if (txtId.Text != "")
-                h.id = Convert.ToInt32(txtId.Text);
-            else
-                h.id = -1;
-
             if (txtCuit.Text != "")
-                h.cuit = Convert.ToInt32(txtCuit.Text);
+                h.cuit = Convert.ToInt64(txtCuit.Text);
             else
                 h.cuit = -1;
 
@@ -168,29 +163,24 @@ public partial class Hotelwf : System.Web.UI.Page
 
     }
     Regex Validar_numeros = new Regex(@"^[0-9]*$");
+    Regex Validar_cuit = new Regex(@"^[0-9]{2}-[0-9]{8}-[0-9]$");
+    
     private Boolean validar()
     {
-        if (txtId.Text != "") //si no es vacío
-        {
-            if (!Validar_numeros.IsMatch(txtId.Text)) //y no son números
-            {
-                rechazar_grabado(txtId);
-                return false;
-            }
 
-            if (GestorHotel.existe(Convert.ToInt32(txtId.Text)) && txtId.Enabled) //y no existe
-            {
-                rechazar_repetido(txtId.Text);
-                return false;
-            }
-        }
-        if (txtCuit.Text != "" && !Validar_numeros.IsMatch(txtCuit.Text))
+        if (txtCuit.Text == "" || !Validar_cuit.IsMatch(txtCuit.Text))
         {
             rechazar_grabado(txtCuit);
             return false;
         }
 
-        if (txtCuit.Text != ""  && GestorHotel.existeCuit(Convert.ToInt32(txtCuit.Text)) && txtId.Enabled)
+        string var="";
+        if(txtCuit.Text !="")
+        {
+            var = txtCuit.Text.Replace("-","");
+        }
+
+        if (txtCuit.Text == ""  || GestorHotel.existeCuit(Convert.ToInt64(var)) && grabar)
         {
             rechazarCuit_repetido(txtCuit.Text);
             return false;
@@ -201,7 +191,7 @@ public partial class Hotelwf : System.Web.UI.Page
             rechazar_grabado(txtdescripcion);
             return false;
         }
-        if (txtCapacidad.Text != "" && !Validar_numeros.IsMatch(txtCapacidad.Text))
+        if (txtCapacidad.Text == "" || !Validar_numeros.IsMatch(txtCapacidad.Text))
         {
             rechazar_grabado(txtCapacidad);
             return false;

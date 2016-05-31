@@ -50,7 +50,7 @@ public class GestorHotel
                 h2.descripcion = (string)dr["descripcion"];
                 h2.descripcion = dr["descripcion"].ToString();
                 h2.id = (int)dr["id"];
-                h2.cuit = (int)dr["cuit"];
+                h2.cuit = (long)dr["cuit"];
                 // esto para cada atributo que acepte valores nulos
                 if (dr["capacidad"] != DBNull.Value)
                     h2.capacidad = (int)(dr["capacidad"]);
@@ -109,7 +109,7 @@ public class GestorHotel
                 h.descripcion = dr["descripcion"].ToString();
                 h.destino = (int)dr["destino"];
                 h.capacidad = (int)dr["capacidad"];
-                h.cuit = (int)dr["cuit"];
+                h.cuit = (long)dr["cuit"];
                 h.aceptaMascota = (Boolean)dr["aceptaMascota"];
             }
             dr.Close();
@@ -219,41 +219,9 @@ public class GestorHotel
 
     }
 
-    public static bool existe(int id)
-    {
-        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-        try
-        {
-            cn.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cn;
-            cmd.Parameters.Clear();
-            cmd.Connection = cn;
-            cmd.CommandText = @"select * from Hotel where id=@id";
-            cmd.Parameters.Add(new SqlParameter("@id", id));
-
-            SqlDataReader dr = cmd.ExecuteReader();
-            if (dr.HasRows)
-                return true;
-            else
-                return false;
-            dr.Close();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-
-        finally
-        {
-            if (cn != null && cn.State == ConnectionState.Open)
-                cn.Close();
-        }
-    }
-
     //podria unirse con elmetodo  public static bool existe(int id)
     // verifica si existe un registro en la BD con ese cuit
-    public static bool existeCuit(int cuit)
+    public static bool existeCuit(long cuit)
     {
        string sql = "";
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);

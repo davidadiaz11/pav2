@@ -67,7 +67,7 @@
                         <asp:Label ID="lblCuit" runat="server" Text="CUIT:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtCuit"  CssClass="form-control" placeholder="XX YYYYYYYY Z"  runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtCuit"  CssClass="form-control" placeholder="XX-YYYYYYYY-Z"  runat="server"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>

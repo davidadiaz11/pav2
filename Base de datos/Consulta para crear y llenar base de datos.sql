@@ -24,7 +24,7 @@ id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
 descripcion varchar(255),
 capacidad int,
 destino int FOREIGN KEY REFERENCES Destino(id),
-cuit int NOT NULL UNIQUE,
+cuit bigint NOT NULL UNIQUE,
 aceptaMascota bit,
 inicioActividad date,
 eliminado bit);

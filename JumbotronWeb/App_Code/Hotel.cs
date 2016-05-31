@@ -19,7 +19,7 @@ public class Hotel
 
     public string destino_descripcion { get; set; }
 
-    public int cuit { get; set; }
+    public long cuit { get; set; }
 
     public Boolean aceptaMascota { get; set; }
 
