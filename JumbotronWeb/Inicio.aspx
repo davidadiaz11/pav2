@@ -30,6 +30,12 @@
                     <h2>Buscate Un Curro En Finlandia</h2>
                 </div>
             </div>
+            <div class="item">
+                <div class="fill" style="background-image: url('img/panorama.jpg');"></div>
+                <div class="carousel-caption">
+                    <h2>Ebriate en Brasil</h2>
+                </div>
+            </div>
         </div>
 
         <!-- Controls -->

@@ -12,8 +12,8 @@ using System.Data.SqlClient;
 public class GestorHotel
 {   //TODO aca instanciar la BD
     //ACÁ SE INSTANCIA LA CADENA DE CONEXIÓN, UNA ÚNICA VEZ
-    //public static string CadenaConexion = @"Data Source=NICO-PC\sqlexpress;Integrated Security=SSPI;Initial Catalog=4K1_62726";
-    public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=PAV2;Integrated Security=True";
+    public static string CadenaConexion = @"Data Source=NICO-PC\sqlexpress;Integrated Security=SSPI;Initial Catalog=4K1_62726";
+    //public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=PAV2;Integrated Security=True";
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 
 
@@ -111,6 +111,7 @@ public class GestorHotel
                 h.capacidad = (int)dr["capacidad"];
                 h.cuit = (long)dr["cuit"];
                 h.aceptaMascota = (Boolean)dr["aceptaMascota"];
+                h.inicioActividad = (DateTime)dr["inicioActividad"];
             }
             dr.Close();
         }
@@ -167,10 +168,10 @@ public class GestorHotel
     {
         string sql = "";
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-        Hotel h1 = buscarPorId(h.id, false);
+        //Hotel h1 = buscarPorId(h.id, false);
         if (accion)
             if (h.id == -1)//que grabe de forma autonumérica. 
-                sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota, eliminado) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado);";
+                sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota, eliminado, inicioActividad) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado, @inicioActividad);";
             else //que grabe imponiendo un id
                 sql = @"set identity_insert dbo.Hotel on 
                                   insert  into Hotel (id, descripcion, capacidad, destino, cuit, aceptaMascota, eliminado) values(@id, @descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado)
@@ -178,7 +179,7 @@ public class GestorHotel
 
 
         else
-            sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino, cuit=@cuit, aceptaMascota=@aceptaMascota, eliminado=@eliminado where id=@id;";
+            sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino, cuit=@cuit, aceptaMascota=@aceptaMascota, eliminado=@eliminado, inicioActividad=@inicioActividad where id=@id;";
 
         try
         {
@@ -194,8 +195,9 @@ public class GestorHotel
             cmd.Parameters.Add(new SqlParameter("@destino", h.destino.ToString()));
             cmd.Parameters.Add(new SqlParameter("@id", h.id));
             cmd.Parameters.Add(new SqlParameter("@cuit", h.cuit));
-            cmd.Parameters.Add(new SqlParameter("@aceptaMascota", h.aceptaMascota));
             cmd.Parameters.Add(new SqlParameter("@eliminado", DBNull.Value));
+            cmd.Parameters.Add(new SqlParameter("@aceptaMascota", h.aceptaMascota));
+            cmd.Parameters.Add(new SqlParameter("@inicioActividad", h.inicioActividad));
             //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
             int filasAfetadas = cmd.ExecuteNonQuery();
             if (filasAfetadas == 0)

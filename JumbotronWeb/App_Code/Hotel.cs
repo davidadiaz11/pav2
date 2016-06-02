@@ -24,4 +24,6 @@ public class Hotel
     public Boolean aceptaMascota { get; set; }
 
     public bool eliminado { get; set; }
+
+    public DateTime inicioActividad { get; set; }
 }

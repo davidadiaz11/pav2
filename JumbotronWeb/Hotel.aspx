@@ -78,10 +78,33 @@
                 </tr>
                 <tr>
                     <td>
+                        Fecha Inicio Actividades:</td>
+                    <td>
+                        <asp:TextBox ID="txtFechaInicioActividades" CssClass="datepicker form-control"  placeholder="Click aqui para seleccionar fecha" runat ="server"></asp:TextBox>
+                    </td>
+                    <
+                     <script type="text/javascript">
+                         $(document).ready(
+                             function () {
+                    
+                                 $(".datepicker").datepicker({
+                                     dateFormat: "dd/mm/yy",
+                                     monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                                     dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                                     showAnim: "drop",
+                                     //minDate: -20, maxDate: "+1M +10D" para que muestre un cierto rango de fechas
+
+                                 });
+                             }
+                             );
+                     </script>
+                </tr>
+                <tr>
+                    <td>
                         <asp:Label ID="lblCapacidad" runat="server" Text="Capacidad"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtCapacidad"  CssClass="form-control" runat="server" placeholder="Capacidad de pasajeros" ></asp:TextBox>
+                        <asp:TextBox ID="txtCapacidad" runat="server" CssClass="form-control" placeholder="Capacidad de pasajeros"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -116,4 +139,5 @@
         </div>
     </div>
 </asp:Content>
+
 

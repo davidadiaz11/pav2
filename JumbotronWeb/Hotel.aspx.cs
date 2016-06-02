@@ -144,6 +144,7 @@ public partial class Hotelwf : System.Web.UI.Page
                 h.cuit = -1;
 
             h.descripcion = txtdescripcion.Text;
+
             if (txtCapacidad.Text != "")
                 h.capacidad = Convert.ToInt32(txtCapacidad.Text);
             else
@@ -155,6 +156,11 @@ public partial class Hotelwf : System.Web.UI.Page
                 h.aceptaMascota = true;
             else
                 h.aceptaMascota = false;
+
+            if (txtFechaInicioActividades.Text != "")
+                h.inicioActividad = Convert.ToDateTime(txtFechaInicioActividades.Text);
+            else
+                h.inicioActividad = Convert.ToDateTime("01/01/2000");
 
 
             GestorHotel.Grabar(h, grabar); //si está habilitado el textID es porq graba, sino actualiza
@@ -240,6 +246,7 @@ public partial class Hotelwf : System.Web.UI.Page
         txtCapacidad.Enabled = estado;
         txtCuit.Enabled = estado;
         rb_list.Enabled = estado;
+        txtFechaInicioActividades.Enabled = estado;
     }
 
 
@@ -262,6 +269,8 @@ public partial class Hotelwf : System.Web.UI.Page
             rb_list.Items[1].Selected = true;
         else
             rb_list.Items[0].Selected = true;
+
+        txtFechaInicioActividades.Text =  Convert.ToString( h.inicioActividad); 
     }
 
 
