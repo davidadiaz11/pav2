@@ -277,7 +277,7 @@ public partial class Hotelwf : System.Web.UI.Page
         else
             rb_list.Items[0].Selected = true;
 
-        txtFechaInicioActividades.Text = h.inicioActividad.ToString(); 
+        txtFechaInicioActividades.Text =  Convert.ToString( h.inicioActividad); 
     }
 
 

@@ -111,6 +111,7 @@ public class GestorHotel
                 h.capacidad = (int)dr["capacidad"];
                 h.cuit = (int)dr["cuit"];
                 h.aceptaMascota = (Boolean)dr["aceptaMascota"];
+                h.inicioActividad = (DateTime)dr["inicioActividad"];
             }
             dr.Close();
         }
