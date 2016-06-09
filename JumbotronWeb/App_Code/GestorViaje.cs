@@ -190,7 +190,6 @@ public class GestorViaje
                 v.destino = (int)dr["destino"];
                 v.destino_descripcion = obtenerDescripcion("Destino", v.id);
                 v.cupo = (int)dr["cupo"];
-                v.paquete = (int)dr["paquete"];
                 v.transporte = (int)dr["transporte"];
                 v.disponible = (Boolean)dr["disponible"];
                 v.descripcion = ToString(v);

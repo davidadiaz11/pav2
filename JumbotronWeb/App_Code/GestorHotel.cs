@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 
 /// <summary>
 /// Descripción breve de GestorHotel
@@ -12,7 +13,7 @@ using System.Data.SqlClient;
 public class GestorHotel
 {   //TODO aca instanciar la BD
     //ACÁ SE INSTANCIA LA CADENA DE CONEXIÓN, UNA ÚNICA VEZ
-    public static string CadenaConexion = @"Data Source=NICO-PC\sqlexpress;Integrated Security=SSPI;Initial Catalog=4K1_62726";
+    public static string CadenaConexion = ConfigurationManager.ConnectionStrings["DBNico"].ConnectionString;
     //public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=PAV2;Integrated Security=True";
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 
@@ -50,7 +51,7 @@ public class GestorHotel
                 h2.descripcion = (string)dr["descripcion"];
                 h2.descripcion = dr["descripcion"].ToString();
                 h2.id = (int)dr["id"];
-                h2.cuit = (long)dr["cuit"];
+                h2.cuit = (int)dr["cuit"];
                 // esto para cada atributo que acepte valores nulos
                 if (dr["capacidad"] != DBNull.Value)
                     h2.capacidad = (int)(dr["capacidad"]);
@@ -170,13 +171,7 @@ public class GestorHotel
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
         //Hotel h1 = buscarPorId(h.id, false);
         if (accion)
-            if (h.id == -1)//que grabe de forma autonumérica. 
                 sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota, eliminado, inicioActividad) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado, @inicioActividad);";
-            else //que grabe imponiendo un id
-                sql = @"set identity_insert dbo.Hotel on 
-                                  insert  into Hotel (id, descripcion, capacidad, destino, cuit, aceptaMascota, eliminado) values(@id, @descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado)
-                                  set identity_insert dbo.Hotel off";
-
 
         else
             sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino, cuit=@cuit, aceptaMascota=@aceptaMascota, eliminado=@eliminado, inicioActividad=@inicioActividad where id=@id;";
@@ -260,6 +255,37 @@ public class GestorHotel
                 cn.Close();
         }
 
+    }
+
+    public static DataTable ObtenerTodas()
+    {
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        DataTable dt = new DataTable();
+
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            cmd.CommandText = "select * from Hotel order by descripcion;";
+            dt.Load(cmd.ExecuteReader());
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+
+        return dt;
     }
 }
 

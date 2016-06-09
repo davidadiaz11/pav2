@@ -82,7 +82,7 @@
                     <td>
                         <asp:TextBox ID="txtFechaInicioActividades" CssClass="datepicker form-control"  placeholder="Click aqui para seleccionar fecha" runat ="server"></asp:TextBox>
                     </td>
-                    <
+                    
                      <script type="text/javascript">
                          $(document).ready(
                              function () {
