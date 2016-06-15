@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class ABMViaje : System.Web.UI.Page
 {
-    private bool grabar;
+    private static  bool grabar;
     protected void Page_Load(object sender, EventArgs e)
     {
         habilitar_panelRegistro(false);
@@ -229,7 +229,7 @@ public partial class ABMViaje : System.Web.UI.Page
 
             if (!grabar)
             {
-                txtId.Text = h.id.ToString(); 
+                h.id = Convert.ToInt32(txtId.Text);  
             }
 
 
