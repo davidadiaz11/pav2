@@ -59,7 +59,7 @@
                     <td><asp:Label ID="lblId" runat="server" Text="Hotel Id:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtId" runat="server"  CssClass="form-control" placeholder="Aquí el número ID"  Enabled="False" ></asp:TextBox>
+                        <asp:TextBox  ID="txtId" runat="server"  CssClass="form-control" placeholder="Aquí el número ID"  Enabled="False" ></asp:TextBox>
 
                     </td>
                 </tr>
@@ -69,14 +69,14 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtCuit"  CssClass="form-control" placeholder="XX-YYYYYYYY-Z"  runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator Display="Dynamic" controlToValidate="txtCuit" ID="rf_cuit" runat="server" Text="*" ErrorMessage="*"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ValidationGroup="grabar" Display="Dynamic" controlToValidate="txtCuit" ID="rf_cuit" runat="server" Text="*" ErrorMessage="*"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
                     <td>Nombre:</td>
                     <td>
                         <asp:TextBox ID="txtdescripcion"  CssClass="form-control" placeholder="Aquí el nombre del hotel"  runat="server" ></asp:TextBox>
-                        <asp:RequiredFieldValidator Display="Dynamic" controlToValidate="txtdescripcion" ID="rf_nombre" runat="server" ErrorMessage="Ingrese nombre"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ValidationGroup="grabar" Display="Dynamic" controlToValidate="txtdescripcion" ID="rf_nombre" runat="server" ErrorMessage="Ingrese nombre"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -84,7 +84,7 @@
                         Fecha Inicio Actividades:</td>
                     <td>
                         <asp:TextBox ID="txtFechaInicioActividades" CssClass="datepicker form-control"  placeholder="Click aqui para seleccionar fecha" runat ="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator controlToValidate="txtFechaInicioActividades" ID="fr_fecha" runat="server" Display="Dynamic" ErrorMessage="Ingrese fecha"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ValidationGroup="grabar" controlToValidate="txtFechaInicioActividades" ID="fr_fecha" runat="server" Display="Dynamic" ErrorMessage="Ingrese fecha"></asp:RequiredFieldValidator>
                     </td>
                     
                      <script type="text/javascript">
@@ -109,14 +109,14 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtCapacidad" runat="server" CssClass="form-control" placeholder="Capacidad de pasajeros"></asp:TextBox>
-                        <asp:RequiredFieldValidator controlToValidate="txtCapacidad" ID="rf_capacidad" runat="server" ErrorMessage="Ingrese capacidad" Display="Dynamic"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ValidationGroup="grabar" controlToValidate="txtCapacidad" ID="rf_capacidad" runat="server" ErrorMessage="Ingrese capacidad" Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
                     <td>Destino</td>
                     <td>
                         <asp:DropDownList ID="ddlDestino"  CssClass="form-control" runat="server" Enabled="False"></asp:DropDownList>
-                        <asp:RequiredFieldValidator Display="Dynamic" InitialValue="0" controlToValidate="ddlDestino" ID="rf_destino" runat="server" ErrorMessage="Seleccione destino"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ValidationGroup="grabar" Display="Dynamic" InitialValue="0" controlToValidate="ddlDestino" ID="rf_destino" runat="server" ErrorMessage="Seleccione destino"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -128,7 +128,7 @@
                             <asp:ListItem Value="1">Sí</asp:ListItem>
                             <asp:ListItem Value="0">No</asp:ListItem>
                         </asp:RadioButtonList>
-                        <asp:RequiredFieldValidator controlToValidate="rb_list" Display="Dynamic" ID="rf_mascotas" runat="server" ErrorMessage="Seleccione una opción"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ValidationGroup="grabar" controlToValidate="rb_list" Display="Dynamic" ID="rf_mascotas" runat="server" ErrorMessage="Seleccione una opción"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>

@@ -133,6 +133,7 @@ public partial class Hotelwf : System.Web.UI.Page
     //TODO 20: EL PROBLEMA ES QUE SE QUEDA ESPERANDO ALGO... HAY QUE VER COMO USAR EL ISVALID.. Q PONER ADENTRO
     protected void btnGrabar_Click(object sender, EventArgs e)
     {
+        Page.Validate("grabar");
         if (Page.IsValid && validar())
         {
             habilitar_panelRegistro(false);
