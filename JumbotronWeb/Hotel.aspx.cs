@@ -27,7 +27,7 @@ public partial class Hotelwf : System.Web.UI.Page
             GridView1.AllowPaging = true;
             GridView1.AllowSorting = true;
             //definir columnas que se van a ve dataBound --> .textheader(titulo), datafield(propiedades del datasource), sortexpression
-            GridView1.PageSize = 7;
+            GridView1.PageSize = 4;
             cargarGrilla(chk_eliminados.Checked);
             accion("");
             cargarCombo();
@@ -312,6 +312,7 @@ public partial class Hotelwf : System.Web.UI.Page
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
+        cargarGrilla(chk_eliminados.Checked);
     }
 
     protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
@@ -319,12 +320,6 @@ public partial class Hotelwf : System.Web.UI.Page
         ViewState["GvDatosOrden"] = e.SortExpression;
         cargarGrilla(chk_eliminados.Checked);
     }
-
-
-    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-    }
-
 
     public void habilitar_panelRegistro(bool accion)
     {
