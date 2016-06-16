@@ -130,28 +130,20 @@ public partial class Hotelwf : System.Web.UI.Page
         habilitar_panelRegistro(false);
         cargarGrilla(chk_eliminados.Checked);
     }
+    //TODO 20: EL PROBLEMA ES QUE SE QUEDA ESPERANDO ALGO... HAY QUE VER COMO USAR EL ISVALID.. Q PONER ADENTRO
     protected void btnGrabar_Click(object sender, EventArgs e)
     {
-        habilitar_panelRegistro(false);
-        accion("Grabando..");
-        Hotel h = new Hotel();
-
+        //Page.Validate();
+        //rf_cuit.IsValid 
         if (validar())
         {
-            if (txtCuit.Text != "")
-                h.cuit = Convert.ToInt64(txtCuit.Text);
-            else
-                h.cuit = -1;
-
+            habilitar_panelRegistro(false);
+            accion("Grabando..");
+            Hotel h = new Hotel();
+            h.cuit = Convert.ToInt64(txtCuit.Text);
             h.descripcion = txtdescripcion.Text;
-
-            if (txtCapacidad.Text != "")
-                h.capacidad = Convert.ToInt32(txtCapacidad.Text);
-            else
-                h.capacidad = -1;
-
+            h.capacidad = Convert.ToInt32(txtCapacidad.Text);
             h.destino = Convert.ToInt32(ddlDestino.SelectedValue);
-
             if (rb_list.SelectedValue == "1")
                 h.aceptaMascota = true;
             else
@@ -163,14 +155,14 @@ public partial class Hotelwf : System.Web.UI.Page
                 h.inicioActividad = Convert.ToDateTime("01/01/2000");
 
 
-            GestorHotel.Grabar(h, grabar); //si está habilitado el textID es porq graba, sino actualiza
+            GestorHotel.Grabar(h, grabar);
             cargarGrilla(chk_eliminados.Checked);
         }
-
     }
+
     Regex Validar_numeros = new Regex(@"^[0-9]*$");
     Regex Validar_cuit = new Regex(@"^[0-9]{2}-[0-9]{8}-[0-9]$");
-    
+
     private Boolean validar()
     {
 
@@ -180,13 +172,11 @@ public partial class Hotelwf : System.Web.UI.Page
             return false;
         }
 
-        string var="";
-        if(txtCuit.Text !="")
-        {
-            var = txtCuit.Text.Replace("-","");
-        }
+        string var = "";
+        if (txtCuit.Text != "")
+            var = txtCuit.Text.Replace("-", "");
 
-        if (txtCuit.Text == ""  || GestorHotel.existeCuit(Convert.ToInt64(var)) && grabar)
+        if (txtCuit.Text == "" || GestorHotel.existeCuit(Convert.ToInt64(var)) && grabar)
         {
             rechazarCuit_repetido(txtCuit.Text);
             return false;
@@ -197,6 +187,13 @@ public partial class Hotelwf : System.Web.UI.Page
             rechazar_grabado(txtdescripcion);
             return false;
         }
+
+        if (txtFechaInicioActividades.Text == "")
+        {
+            rechazar_grabado(txtFechaInicioActividades);
+            return false;
+        }
+
         if (txtCapacidad.Text == "" || !Validar_numeros.IsMatch(txtCapacidad.Text))
         {
             rechazar_grabado(txtCapacidad);
@@ -214,9 +211,13 @@ public partial class Hotelwf : System.Web.UI.Page
             rechazar_grabado(ddlDestino);
             return false;
         }
-
         return true;
-    }
+    } 
+    
+    //TODO 11: docuentar esto:
+    //Método que recibe un control, y que formula un mensaje en donde indica el nombre del control.
+    //actualmente funciona pero con un error: el id de los controles es... txtId, ó txtdescripcion, ó txt_fecha
+    //habría que generalizar el nombre de todos... y hacerle un tratamiento al id, eliminando los primeros 4 caracateres de la cadena...
     private void rechazar_grabado(Control c)
     {
         habilitar_panelRegistro(true);
@@ -270,7 +271,7 @@ public partial class Hotelwf : System.Web.UI.Page
         else
             rb_list.Items[0].Selected = true;
 
-        txtFechaInicioActividades.Text =  Convert.ToString( h.inicioActividad); 
+        txtFechaInicioActividades.Text = Convert.ToString(h.inicioActividad);
     }
 
 
@@ -298,17 +299,16 @@ public partial class Hotelwf : System.Web.UI.Page
         ddlDestino.DataValueField = "id";
         ddlDestino.DataSource = GestorDestino.ObtenerTodas();
         ddlDestino.DataBind();
-        ddlDestino.Items.Insert(0, new ListItem("Elija una provincia", "0"));
+        ddlDestino.Items.Insert(0, new ListItem("Elija un destino", "0"));
     }
     public void cargarGrilla(bool eliminados)
     {
         string orden = ViewState["GvDatosOrden"].ToString();
         GridView1.DataSource = GestorHotel.BuscarPordescripcion(txtbxBuscar.Text, orden, eliminados);
         GridView1.DataBind();
-        mensaje(GridView1.Rows.Count.ToString()+" hoteles encontrados");
+        mensaje(GridView1.Rows.Count.ToString() + " hoteles encontrados");
         accion("");
     }
-    //TODO 05: no tiene ninguna referencia, ese debe ser el problema de q no anda
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
@@ -334,31 +334,31 @@ public partial class Hotelwf : System.Web.UI.Page
 
     public void habilitar_botones(string accion)
     {
-            switch (accion)
-            {
-                case "eliminar_click":
+        switch (accion)
+        {
+            case "eliminar_click":
 
-                    btnGrabar.Visible = false;
-                    btn_confirmarEliminar.Visible = true;
-                    btnCancelar.Visible = true;
-                    break;
+                btnGrabar.Visible = false;
+                btn_confirmarEliminar.Visible = true;
+                btnCancelar.Visible = true;
+                break;
 
-                case "agregar_editar":
-                    btn_confirmarEliminar.Visible = false;
-                    btnGrabar.Visible = true;
-                    btnCancelar.Visible = true;
+            case "agregar_editar":
+                btn_confirmarEliminar.Visible = false;
+                btnGrabar.Visible = true;
+                btnCancelar.Visible = true;
 
 
-                    break;
+                break;
 
-                case "consultar":
-                    btn_confirmarEliminar.Visible = false;
-                    btnGrabar.Visible = false;
-                    btnCancelar.Visible = true;
-                    Panel1.Visible = false;
-                    pnlRegistro.Visible = true;
-                    break;
-            }
+            case "consultar":
+                btn_confirmarEliminar.Visible = false;
+                btnGrabar.Visible = false;
+                btnCancelar.Visible = true;
+                Panel1.Visible = false;
+                pnlRegistro.Visible = true;
+                break;
+        }
     }
 
 
