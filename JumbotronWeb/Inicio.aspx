@@ -15,25 +15,25 @@
             <div class="item active">
                 <div class="fill" style="background-image: url('img/slide1.gif');"></div>
                 <div class="carousel-caption">
-                    <h2>Tomate El Palo</h2>
+                    <h2></h2>
                 </div>
             </div>
             <div class="item">
                 <div class="fill" style="background-image: url('img/slide2.jpg');"></div>
                 <div class="carousel-caption">
-                    <h2>Gastate Todo </h2>
+                    <h2></h2>
                 </div>
             </div>
             <div class="item">
                 <div class="fill" style="background-image: url('img/slide3.jpg');"></div>
                 <div class="carousel-caption">
-                    <h2>Buscate Un Curro En Finlandia</h2>
+                    <h2></h2>
                 </div>
             </div>
             <div class="item">
                 <div class="fill" style="background-image: url('img/panorama.jpg');"></div>
                 <div class="carousel-caption">
-                    <h2>Ebriate en Brasil</h2>
+                    <h2></h2>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
                         <h4><i class="fa fa-fw fa-check"></i>Hoteles</h4>
                     </div>
                     <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+                        <p>Los mejores hoteles a su disposición</p>
                         <a href="Hotel.aspx" class="btn btn-default">Ver más</a>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                         <h4><i class="fa fa-fw fa-gift"></i>Viajes</h4>
                     </div>
                     <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+                        <p>Conozca los viajes que puede realizar</p>
                         <a href="Viaje.aspx" class="btn btn-default">Ver más</a>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                         <h4><i class="fa fa-fw fa-compass"></i>Paquetes</h4>
                     </div>
                     <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+                        <p>Crea un paquete a tu medida, con todos los viajes que quieras realizar</p>
                         <a href="#" class="btn btn-default">Ver más</a>
                     </div>
                 </div>

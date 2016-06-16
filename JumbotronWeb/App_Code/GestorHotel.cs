@@ -13,7 +13,7 @@ using System.Configuration;
 public class GestorHotel
 {   //TODO aca instanciar la BD
     //ACÁ SE INSTANCIA LA CADENA DE CONEXIÓN, UNA ÚNICA VEZ
-    public static string CadenaConexion = ConfigurationManager.ConnectionStrings["DBNico"].ConnectionString;
+    public static string CadenaConexion = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
     //public static string CadenaConexion = @"Data Source=DAVID-PC\SQLEXPRESS;Initial Catalog=PAV2;Integrated Security=True";
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 
@@ -51,8 +51,7 @@ public class GestorHotel
                 h2.descripcion = (string)dr["descripcion"];
                 h2.descripcion = dr["descripcion"].ToString();
                 h2.id = (int)dr["id"];
-                h2.cuit = (int)dr["cuit"];
-                // esto para cada atributo que acepte valores nulos
+                h2.cuit = (long)dr["cuit"];
                 if (dr["capacidad"] != DBNull.Value)
                     h2.capacidad = (int)(dr["capacidad"]);
                 if (dr["destino_descripcion"] != DBNull.Value)
@@ -145,7 +144,7 @@ public class GestorHotel
             cmd.CommandText = @"update Hotel set eliminado=@eliminado where id=@id";
             cmd.Parameters.Add(new SqlParameter("@eliminado", 1));
             cmd.Parameters.Add(new SqlParameter("@id", id));
-            //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
+
             int filasAfetadas = cmd.ExecuteNonQuery();
             if (filasAfetadas == 0)
             {
@@ -164,14 +163,13 @@ public class GestorHotel
                 cn.Close();
         }
     }
-    //NO GRABA MASCOTA
+
     public static void Grabar(Hotel h, Boolean accion)
     {
         string sql = "";
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-        //Hotel h1 = buscarPorId(h.id, false);
         if (accion)
-                sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota, eliminado, inicioActividad) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado, @inicioActividad);";
+            sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota, eliminado, inicioActividad) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado, @inicioActividad);";
 
         else
             sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino, cuit=@cuit, aceptaMascota=@aceptaMascota, eliminado=@eliminado, inicioActividad=@inicioActividad where id=@id;";
@@ -184,7 +182,7 @@ public class GestorHotel
             cmd.Connection = cn;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
-            cmd.CommandText = sql; //descripcion del procedimiento q debe ir a buscar
+            cmd.CommandText = sql;
             cmd.Parameters.Add(new SqlParameter("@descripcion", h.descripcion));
             cmd.Parameters.Add(new SqlParameter("@capacidad", h.capacidad));
             cmd.Parameters.Add(new SqlParameter("@destino", h.destino.ToString()));
@@ -193,7 +191,7 @@ public class GestorHotel
             cmd.Parameters.Add(new SqlParameter("@eliminado", DBNull.Value));
             cmd.Parameters.Add(new SqlParameter("@aceptaMascota", h.aceptaMascota));
             cmd.Parameters.Add(new SqlParameter("@inicioActividad", h.inicioActividad));
-            //cmd.CommandType = CommandType.Text; // es necesario setear esta propiedad el valor por defecto es  CommandType.Text
+
             int filasAfetadas = cmd.ExecuteNonQuery();
             if (filasAfetadas == 0)
             {
@@ -212,11 +210,13 @@ public class GestorHotel
             if (cn != null && cn.State == ConnectionState.Open)
                 cn.Close();
         }
-
-
     }
 
     //podria unirse con elmetodo  public static bool existe(int id)
+    //TODO 10 Para hacer esto, el método debería recibir un Object obj (boxing), y un string accion ("cuit" ó "id"). eso recibido por parámetros
+    //adentro preguntas por el string y dependiendo del string hay que restituir el tipo de dato a obj (unboxing)
+    //y después se asignará a un string sql con una consulta, o con otra.. dependerá de la acción.. el resto de los métodos es idéntico
+    //
     // verifica si existe un registro en la BD con ese cuit
     public static bool existeCuit(long cuit)
     {
@@ -231,13 +231,12 @@ public class GestorHotel
             cmd.Connection = cn;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
-            cmd.CommandText = sql; //descripcion del procedimiento q debe ir a buscar
+            cmd.CommandText = sql;
 
             cmd.Parameters.Add(new SqlParameter("@cuit", cuit));
 
             SqlDataReader dr = cmd.ExecuteReader();
 
-            // con el resultado cargar una entidad
             while (dr.Read())
             {
                 return true;
@@ -288,5 +287,3 @@ public class GestorHotel
         return dt;
     }
 }
-
-
