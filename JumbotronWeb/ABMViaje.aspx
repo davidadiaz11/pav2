@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ABMViaje.aspx.cs" Inherits="ABMViaje" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .auto-style3 {
+            width: 229px;
+        }
+    </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -62,12 +67,18 @@
                     <td>
                         <asp:TextBox ID="txtId" runat="server"  CssClass="form-control" placeholder="Aquí el número ID"  Enabled="False" ></asp:TextBox>
                     </td>
+                    <td class="auto-style3"> &nbsp;</td>
                 </tr>
                 <tr>
                     <td>-Nombre:</td>
                     <td>
                         <asp:TextBox ID="txtdescripcion"  CssClass="form-control" placeholder="Aquí el nombre del viaje"  runat="server" ></asp:TextBox>
-                    </td>              
+                    </td> 
+                     <td class="auto-style3"> 
+                         <br />
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtdescripcion" ErrorMessage="*" Font-Size="X-Large" ForeColor="Red"></asp:RequiredFieldValidator>
+                         <asp:CompareValidator ID="cmpvalDescrip" runat="server" ControlToValidate="txtdescripcion" CssClass="alert-danger" ErrorMessage="CompareValidator">Ingrese un nombre valido</asp:CompareValidator>
+                    </td>             
                 </tr>
                 <tr>
                     <td>
@@ -77,7 +88,9 @@
                         <asp:DropDownList ID="ddlDestino" runat="server" CssClass="form-control">
                         </asp:DropDownList>
                     </td>
-                   
+                         
+                     <td class="auto-style3"> </td>
+                    
                 </tr>
                 <tr>
                     <td>Hotel:</td>
@@ -85,11 +98,18 @@
                         <asp:DropDownList ID="ddlHotel"  CssClass="form-control" runat="server" >
                         </asp:DropDownList>
                     </td>
+                     <td class="auto-style3"> 
+</td>
                 </tr>
                 <tr>
                     <td>Precio Viaje:</td>
                     <td>
                         <asp:TextBox ID="txtPrecio"  CssClass="form-control"  placeholder="Aqui el Precio del Viaje" runat="server"></asp:TextBox>
+                    </td>
+                     <td class="auto-style3"> 
+                         <br />
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPrecio" ErrorMessage="*" Font-Size="X-Large" ForeColor="Red" Width="16px"></asp:RequiredFieldValidator>
+                         <asp:CompareValidator ID="cmpvViaje" runat="server" ControlToValidate="txtPrecio" CssClass="alert-danger" ErrorMessage="Ingrese un numero valido"  Type="Integer" Operator="GreaterThan" ValueToCompare="0"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
@@ -110,12 +130,24 @@
                                      monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
                                      dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
                                      showAnim: "drop",
+                                     minDate: -0, 
+                                     maxDate: "+1Y", 
                                      //minDate: -20, maxDate: "+1M +10D" para que muestre un cierto rango de fechas
 
                                  });
                              }
                              );
                      </script>
+                    <script type="text/javascript">
+                        $(document).ready(
+                        function DameLaHora() {
+                            var hoy = new Date()
+                            return hoy;
+                        });
+                    </script>
+                     <td class="auto-style3"> 
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtFechaSalida" ErrorMessage="*" Font-Size="X-Large" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
                 </tr>
                 <tr>
                     <td>Fecha Llegada:</td>
@@ -132,17 +164,26 @@
                                      monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
                                      dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
                                      showAnim: "drop",
+                                     minDate: -0,
+                                     maxDate: "+1Y",
                                      //minDate: -20, maxDate: "+1M +10D" para que muestre un cierto rango de fechas
 
                                  });
                              }
                              );
-                     </script>
+                     </script>                   
+                     <td class="auto-style3"> <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtFechaLlegada" ErrorMessage="*" Font-Size="X-Large" ForeColor="Red"></asp:RequiredFieldValidator></td>
                 </tr>              
                 <tr>
                     <td>Cupo:</td>
                     <td>
                         <asp:TextBox ID="txtCupo"  CssClass="form-control" placeholder="Aquí el cupo del viaje"  runat="server" ></asp:TextBox>
+                    </td>
+                     <td class="auto-style3">
+                         <br />
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtCupo" ErrorMessage="*" Font-Size="X-Large" ForeColor="Red"></asp:RequiredFieldValidator>
+                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtCupo" CssClass="alert-danger" ErrorMessage="Ingrese un numero de cupo valido" Operator="GreaterThan" Type="Integer" ValueToCompare="0"></asp:CompareValidator>
+                         <br />
                     </td>
                 </tr>
                 <tr>
@@ -151,6 +192,7 @@
                         <asp:DropDownList ID="ddlTransporte" runat="server" CssClass="form-control">
                         </asp:DropDownList>
                     </td>
+                     <td class="auto-style3"> </td>
                 </tr>
                 <tr>
                     <td>
@@ -162,11 +204,15 @@
                             <asp:ListItem Value="0">No</asp:ListItem>
                         </asp:RadioButtonList>
                     </td>
+                     <td class="auto-style3"> 
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="rb_Disponibilidad" ErrorMessage="*" Font-Size="X-Large" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
                 </tr>
                 <tr>
                     <td>Imagen:</td>
                     <td> <asp:TextBox ID="txtimagen"  CssClass="form-control" placeholder="Imagen"  runat="server" ></asp:TextBox>
                         </td>
+                     <td class="auto-style3"> <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtimagen" ErrorMessage="*" Font-Size="X-Large" ForeColor="Red"></asp:RequiredFieldValidator></td>
                 </tr>
                 <tr>
                     <td>
@@ -174,6 +220,7 @@
                         <asp:Button ID="btnCancelar" runat="server" CssClass="btn-default btn-sm" OnClick="btnCancelar_Click" Text="Cancelar/Volver" />
                         <asp:Button ID="btn_confirmarEliminar" runat="server" CssClass="btn-default btn-sm" OnClick="btn_confirmarEliminar_Click" Text="confirmar Eliminar" />
                     <td>
+                         <td class="auto-style3"> </td>
                 </tr>
             </table>       
         </asp:Panel>
