@@ -347,7 +347,12 @@ public partial class ABMViaje : System.Web.UI.Page
     }
     protected void chk_eliminados_CheckedChanged(object sender, EventArgs e)
     {
-
+        btnEliminar.Visible = !chk_eliminados.Checked;
+        if (chk_eliminados.Checked)
+            btnEditar.Text = "Recuperar";
+        else
+            btnEditar.Text = "Editar";
+        cargarGrilla(chk_eliminados.Checked);
     }
 
    
