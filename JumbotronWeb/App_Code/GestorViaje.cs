@@ -210,4 +210,14 @@ public class GestorViaje
 
         return v;
     }
+
+    public static void descontarCupo (List<Viaje> lista)
+    {
+        //para cada id de viaje, hacer un método update q actualice el cupo del viaje, restando la cantidad indicada en "cantidad" ya q puede comprar muchos viajes
+
+        //acá se debe llamar a un método que ponga en "no disponible" a aquellos viajes con cupo=0
+    }
+
+
+
 }

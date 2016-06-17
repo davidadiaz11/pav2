@@ -45,21 +45,17 @@ public partial class Paquete : System.Web.UI.Page
     }
     protected void btnComprar_Click(object sender, EventArgs e)
     {
+        //cuando se compra se debe validar que la cantidad que se esta comprando sea menor al cupo disponble
         //descuenta para cada viaje el cupo disponiblee 
-        //graba el paquete asociado sus detalles de paquete 
-        //graba en viaje por paqiete 
+        //graba el paquete con sus detalles de paquete 
+        // graba en viajexPaquete 
         //Con el boton comprar pasamos a la compra 
-        //la Copmpra tendra un cliente asociado un numer de id, modo compra y una fecha
+        //la Copmpra tendra un cliente asociado un id, modo compra(efectivo ó tarjeta) y una fecha
         //los detalles de Compra tendran un pauqte como item con un precio, cant de viajes
 
-        //las tablas que se modifican son paquete, detallepauete, viaje, jviajeXpaquete, Compra y dettaleCompra
-
-
-        //caundo se compra se debe validar qie la cantidad qie se esta compramdp sea menor al cupo disponble
+        //las tablas que se modifican son paquete, detallepauete, viaje, jviajeXpaquete, Compra y dettaleCompraç
 
         //en la grilla habrá un textbox q te permite modificar la cantidad
-        
-        
     }
     protected void btnSubTotales_Click(object sender, EventArgs e)
     {
