@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 public partial class Hotelwf : System.Web.UI.Page
 {
-    private bool grabar;
+    private static bool grabar;
     protected void Page_Load(object sender, EventArgs e)
     {
         habilitar_panelRegistro(false);
@@ -130,17 +130,19 @@ public partial class Hotelwf : System.Web.UI.Page
         habilitar_panelRegistro(false);
         cargarGrilla(chk_eliminados.Checked);
     }
-    //TODO 20: EL PROBLEMA ES QUE SE QUEDA ESPERANDO ALGO... HAY QUE VER COMO USAR EL ISVALID.. Q PONER ADENTRO
     protected void btnGrabar_Click(object sender, EventArgs e)
     {
         //Page.Validate();
         //rf_cuit.IsValid 
+        string var = "";
+        if (txtCuit.Text != "")
+            var = txtCuit.Text.Replace("-", "");
         if (validar())
         {
             habilitar_panelRegistro(false);
             accion("Grabando..");
             Hotel h = new Hotel();
-            h.cuit = Convert.ToInt64(txtCuit.Text);
+            h.cuit = Convert.ToInt64(var);
             h.descripcion = txtdescripcion.Text;
             h.capacidad = Convert.ToInt32(txtCapacidad.Text);
             h.destino = Convert.ToInt32(ddlDestino.SelectedValue);
@@ -171,15 +173,19 @@ public partial class Hotelwf : System.Web.UI.Page
             rechazar_grabado(txtCuit);
             return false;
         }
-
+        int idExistente=0;
+        string nombreExistente="";
         string var = "";
         if (txtCuit.Text != "")
             var = txtCuit.Text.Replace("-", "");
 
-        if (txtCuit.Text == "" || GestorHotel.existeCuit(Convert.ToInt64(var)) && grabar)
+        if (txtCuit.Text == "" || GestorHotel.existeCuit(Convert.ToInt64(var), out idExistente, out nombreExistente) && grabar)
         {
-            rechazarCuit_repetido(txtCuit.Text);
-            return false;
+            if (idExistente!=null)
+            {
+                rechazarCuit_repetido(txtCuit.Text, idExistente, nombreExistente);
+                return false;
+            }
         }
 
         if (txtdescripcion.Text == "")
@@ -232,10 +238,10 @@ public partial class Hotelwf : System.Web.UI.Page
         txtId.Focus();
     }
 
-    private void rechazarCuit_repetido(string cuit)
+    private void rechazarCuit_repetido(string cuit, int id, string nombre)
     {
         habilitar_panelRegistro(true);
-        mensaje("Ya existe un hotel con CUIT: " + cuit);
+        mensaje("El hotel " + nombre + " id(" + id + ")" + " ya posee el cuit "+ cuit );
         txtCuit.Focus();
     }
 
