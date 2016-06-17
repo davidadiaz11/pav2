@@ -184,6 +184,36 @@ public class GestorABMViaje
 
     }
 
+    public static void actualizarDisponibles()
+    {
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            cmd.CommandText = @"update Viaje set disponible=0 where fechaSalida <= GETDATE()";
+            //TODO 22: no funciona el parámetro
+            //cmd.Parameters.Add(new SqlParameter("@disponible", 0));
+
+            int filasAfetadas = cmd.ExecuteNonQuery();
+        }
+
+        catch (Exception)
+        {
+            throw;
+        }
+
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+    }
+
     public static bool existeImagen(string imagen, out int idExistente, out string destinoExistente)
     {
         string sql = "";
