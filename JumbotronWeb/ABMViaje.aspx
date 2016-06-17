@@ -33,7 +33,7 @@
                 </div>
 
             <table class="table table-bordered">
-                <asp:GridView ID="gvViajes" runat="server" CssClass="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" AutoGenerateColumns="False">   <%-- OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting"--%>
+                <asp:GridView ID="gvViajes" runat="server" CssClass="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" AutoGenerateColumns="False" OnPageIndexChanging="gvViajes_PageIndexChanging">   <%-- OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting"--%>
                     <columns>
                         <asp:CommandField ShowSelectButton="True" />
                         <asp:BoundField DataField="id" HeaderText="ID" />

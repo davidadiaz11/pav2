@@ -218,11 +218,11 @@ public class GestorHotel
     //y después se asignará a un string sql con una consulta, o con otra.. dependerá de la acción.. el resto de los métodos es idéntico
     //
     // verifica si existe un registro en la BD con ese cuit
-    public static bool existeCuit(long cuit)
+    public static bool existeCuit(long cuit, out int idExistente, out string nombreExistente)
     {
-       string sql = "";
+        string sql = "";
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-        sql = @"SELECT  *  FROM  Hotel WHERE  cuit = @cuit;";
+        sql = @"SELECT  id, descripcion, cuit  FROM  Hotel WHERE  cuit = @cuit;";
         try
         {
             cn.Open();
@@ -239,8 +239,12 @@ public class GestorHotel
 
             while (dr.Read())
             {
+                idExistente = (int)dr["id"];
+                nombreExistente = (string)dr["descripcion"];
                 return true;
             }
+            idExistente = 0;
+            nombreExistente = "";
             return false;
         }
         catch (Exception)

@@ -17,7 +17,9 @@ public partial class ABMViaje : System.Web.UI.Page
 
         if (!Page.IsPostBack)
         {
-
+            gvViajes.AllowPaging = true;
+            gvViajes.AllowSorting = true;
+            gvViajes.PageSize = 3;
             cargarGrilla(chk_eliminados.Checked);
             accion("");
             cargarComboDestino();
@@ -252,17 +254,6 @@ public partial class ABMViaje : System.Web.UI.Page
             return false;
         }
 
-        //string var = "";
-        //if (txtCuit.Text != "")
-        //{
-        //    var = txtCuit.Text.Replace("-", "");
-        //}
-
-        //if (txtCuit.Text == "" || GestorHotel.existeCuit(Convert.ToInt64(var)) && grabar)
-        //{
-        //    rechazarCuit_repetido(txtCuit.Text);
-        //    return false;
-        //}
 
         if (txtdescripcion.Text == "")
         {
@@ -416,10 +407,17 @@ public partial class ABMViaje : System.Web.UI.Page
 
 
 
+<<<<<<< HEAD
     protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
     {        
         {
             args.IsValid = (0 > args.Value.CompareTo(Convert.ToDateTime(txtFechaSalida.Text)));
         }
+=======
+    protected void gvViajes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+         gvViajes.PageIndex = e.NewPageIndex;
+        cargarGrilla(chk_eliminados.Checked);
+>>>>>>> origin/master
     }
 }
