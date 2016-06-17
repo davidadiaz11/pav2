@@ -247,6 +247,8 @@ public partial class ABMViaje : System.Web.UI.Page
 
     private Boolean validar()
     {
+        int idExistente = 0;
+        string destinoExistente = "";
 
         if (txtCupo.Text == "" || !Validar_numeros.IsMatch(txtCupo.Text))
         {
@@ -307,10 +309,13 @@ public partial class ABMViaje : System.Web.UI.Page
             return false;
         }
 
-
-
-        if (txtimagen.Text == "")
+        if (txtimagen.Text == "" || GestorABMViaje.existeImagen(txtimagen.Text, out idExistente, out destinoExistente) )
         {
+            if (idExistente != 0)
+            {
+                rechazarImagen_repetida(txtimagen.Text, idExistente, destinoExistente);
+                return false;
+            }
             rechazar_grabado(txtimagen);
             return false;
         }
@@ -329,6 +334,13 @@ public partial class ABMViaje : System.Web.UI.Page
         mensaje("Debe ingresar un " + c.ID + " válido");
         c.Focus();
     }
+    private void rechazarImagen_repetida(string imagen, int id, string destino)
+    {
+        habilitar_panelRegistro(true);
+        mensaje("El viaje con destino a " + destino + " id= " + id + " ya posee la imagen " + imagen);
+        txtimagen.Focus();
+    }
+
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
         habilitar_panelRegistro(false);
@@ -404,20 +416,17 @@ public partial class ABMViaje : System.Web.UI.Page
         txtFechaSalida.Text = "";
         txtimagen.Text = "";
     }
-
-
-
-<<<<<<< HEAD
     protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
     {        
         {
             args.IsValid = (0 > args.Value.CompareTo(Convert.ToDateTime(txtFechaSalida.Text)));
         }
-=======
+    }
+
     protected void gvViajes_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
          gvViajes.PageIndex = e.NewPageIndex;
         cargarGrilla(chk_eliminados.Checked);
->>>>>>> origin/master
+
     }
 }
