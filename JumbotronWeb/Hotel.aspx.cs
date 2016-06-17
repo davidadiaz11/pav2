@@ -181,11 +181,13 @@ public partial class Hotelwf : System.Web.UI.Page
 
         if (txtCuit.Text == "" || GestorHotel.existeCuit(Convert.ToInt64(var), out idExistente, out nombreExistente) && grabar)
         {
-            if (idExistente!=null)
+            if (idExistente!=0)
             {
                 rechazarCuit_repetido(txtCuit.Text, idExistente, nombreExistente);
                 return false;
             }
+            rechazar_grabado(txtCuit);
+            return false;
         }
 
         if (txtdescripcion.Text == "")
@@ -241,7 +243,7 @@ public partial class Hotelwf : System.Web.UI.Page
     private void rechazarCuit_repetido(string cuit, int id, string nombre)
     {
         habilitar_panelRegistro(true);
-        mensaje("El hotel " + nombre + " id(" + id + ")" + " ya posee el cuit "+ cuit );
+        mensaje("El hotel " + nombre + " id= " + id + " ya posee el cuit "+ cuit );
         txtCuit.Focus();
     }
 
@@ -255,8 +257,6 @@ public partial class Hotelwf : System.Web.UI.Page
         rb_list.Enabled = estado;
         txtFechaInicioActividades.Enabled = estado;
     }
-
-
 
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
@@ -279,7 +279,6 @@ public partial class Hotelwf : System.Web.UI.Page
 
         txtFechaInicioActividades.Text = Convert.ToString(h.inicioActividad);
     }
-
 
     public void mensaje(string msj)
     {

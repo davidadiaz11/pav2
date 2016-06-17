@@ -183,6 +183,78 @@ public class GestorABMViaje
 
 
     }
+
+    public static void actualizarDisponibles()
+    {
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            cmd.CommandText = @"update Viaje set disponible=0 where fechaSalida <= GETDATE()";
+            //TODO 22: no funciona el parámetro
+            //cmd.Parameters.Add(new SqlParameter("@disponible", 0));
+
+            int filasAfetadas = cmd.ExecuteNonQuery();
+        }
+
+        catch (Exception)
+        {
+            throw;
+        }
+
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+    }
+
+    public static bool existeImagen(string imagen, out int idExistente, out string destinoExistente)
+    {
+        string sql = "";
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        sql = @"SELECT  id, destino  FROM  Viaje WHERE  imagen like @imagen;";
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            cmd.CommandText = sql;
+
+            cmd.Parameters.Add(new SqlParameter("@imagen", imagen));
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                idExistente = (int)dr["id"];
+                destinoExistente = GestorViaje.obtenerDescripcion("Destino",(int)dr["destino"]);
+                return true;
+            }
+            idExistente = 0;
+            destinoExistente = "";
+            return false;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+
+    }
     public static void Eliminar(int id)
     {
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
