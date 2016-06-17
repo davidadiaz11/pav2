@@ -430,21 +430,13 @@ public partial class ABMViaje : System.Web.UI.Page
         txtFechaSalida.Text = "";
         txtimagen.Text = "";
     }
-<<<<<<< HEAD
-=======
-    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
-    {        
-        {
-            args.IsValid = (0 > args.Value.CompareTo(Convert.ToDateTime(txtFechaSalida.Text)));
-        }
-    }
->>>>>>> origin/master
+
 
     protected void gvViajes_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
          gvViajes.PageIndex = e.NewPageIndex;
         cargarGrilla(chk_eliminados.Checked);
-<<<<<<< HEAD
+
     }
 
     //protected void ddlDestino_TextChanged(object sender, EventArgs e)
@@ -456,8 +448,6 @@ public partial class ABMViaje : System.Web.UI.Page
     {
         ddlDestino.AutoPostBack = true;
         cargarComboHotel();
-=======
 
->>>>>>> origin/master
     }
 }
