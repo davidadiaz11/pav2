@@ -290,4 +290,45 @@ public class GestorHotel
 
         return dt;
     }
+
+    public  static DataTable filtrarHoteles(string d) 
+    {
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        DataTable dt = new DataTable();
+        string sql;
+
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            //if (!todos)
+            //{
+                sql = "select * from Hotel h where h.destino = @destino order by descripcion;";
+            //}
+            //else
+            //{
+            //     sql = "select * from Hotel order by descripcion;";
+            //}
+            cmd.CommandText = sql;
+            cmd.Parameters.Add(new SqlParameter("@destino", d));
+            dt.Load(cmd.ExecuteReader());
+
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+
+        return dt;
+    }
 }

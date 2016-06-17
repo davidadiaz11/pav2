@@ -13,10 +13,17 @@ public partial class ABMViaje : System.Web.UI.Page
     private static  bool grabar;
     protected void Page_Load(object sender, EventArgs e)
     {
-        habilitar_panelRegistro(false);
+        //if (ddlDestino.AutoPostBack && pnlRegistro.Enabled == true)
+        //{
+        //    habilitar_panelRegistro(true);
+        //}
+        //else
+           
 
         if (!Page.IsPostBack)
         {
+            habilitar_panelRegistro(false);
+
             gvViajes.AllowPaging = true;
             gvViajes.AllowSorting = true;
             gvViajes.PageSize = 3;
@@ -383,9 +390,15 @@ public partial class ABMViaje : System.Web.UI.Page
     }
     public void cargarComboHotel()
     {
+        //bool todas = true;
+        //if (!(Convert.ToInt32(ddlDestino.SelectedValue) == 0))
+        //{
+        //    todas=false;
+        //}
+
         ddlHotel.DataTextField = "descripcion";
         ddlHotel.DataValueField = "id";
-        ddlHotel.DataSource = GestorHotel.ObtenerTodas();
+        ddlHotel.DataSource = GestorHotel.filtrarHoteles(ddlDestino.SelectedValue);
         ddlHotel.DataBind();
         ddlHotel.Items.Insert(0, new ListItem("Elija un Hotel", "0"));
 
@@ -405,19 +418,20 @@ public partial class ABMViaje : System.Web.UI.Page
         txtimagen.Text = "";
     }
 
-
-
-<<<<<<< HEAD
-    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
-    {        
-        {
-            args.IsValid = (0 > args.Value.CompareTo(Convert.ToDateTime(txtFechaSalida.Text)));
-        }
-=======
     protected void gvViajes_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
          gvViajes.PageIndex = e.NewPageIndex;
         cargarGrilla(chk_eliminados.Checked);
->>>>>>> origin/master
+    }
+
+    //protected void ddlDestino_TextChanged(object sender, EventArgs e)
+    //{
+    //    ddlDestino.AutoPostBack = true;
+    //    cargarComboHotel();
+    //}
+    protected void ddlDestino_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ddlDestino.AutoPostBack = true;
+        cargarComboHotel();
     }
 }

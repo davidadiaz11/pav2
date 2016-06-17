@@ -5,6 +5,20 @@
         .auto-style6 {
             width: 466px;
         }
+        .auto-style7 {
+            height: 51px;
+        }
+        .auto-style8 {
+            width: 466px;
+            height: 51px;
+        }
+        .auto-style9 {
+            height: 48px;
+        }
+        .auto-style10 {
+            width: 466px;
+            height: 48px;
+        }
     </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -62,19 +76,19 @@
          <asp:Panel ID="pnlRegistro" runat="server">    
             <table class="table-hover">
                 <tr>
-                    <td><asp:Label ID="lblId" runat="server" Text="Viaje ID:"></asp:Label>
+                    <td class="auto-style9"><asp:Label ID="lblId" runat="server" Text="Viaje ID:"></asp:Label>
                     </td>
-                    <td>
+                    <td class="auto-style9">
                         <asp:TextBox ID="txtId" runat="server"  CssClass="form-control" placeholder="Aquí el número ID"  Enabled="False" ></asp:TextBox>
                     </td>
-                    <td class="auto-style6"> &nbsp;</td>
+                    <td class="auto-style10"> </td>
                 </tr>
                 <tr>
-                    <td>-Nombre:</td>
-                    <td>
+                    <td class="auto-style7">-Nombre:</td>
+                    <td class="auto-style7">
                         <asp:TextBox ID="txtdescripcion"  CssClass="form-control" placeholder="Aquí el nombre del viaje"  runat="server" ></asp:TextBox>
                     </td> 
-                     <td class="auto-style6"> 
+                     <td class="auto-style8"> 
                          <br />
                          <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtdescripcion" ErrorMessage="*" Font-Size="X-Large" ForeColor="Red"></asp:RequiredFieldValidator>
                     </td>             
@@ -84,7 +98,7 @@
                         Destino
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDestino" runat="server" CssClass="form-control">
+                        <asp:DropDownList ID="ddlDestino" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlDestino_SelectedIndexChanged">
                         </asp:DropDownList>
                     </td>
                          
@@ -94,7 +108,7 @@
                 <tr>
                     <td>Hotel:</td>
                     <td>
-                        <asp:DropDownList ID="ddlHotel"  CssClass="form-control" runat="server" >
+                        <asp:DropDownList ID="ddlHotel"  CssClass="form-control" runat="server" CausesValidation="True" >
                         </asp:DropDownList>
                     </td>
                      <td class="auto-style6"> 
@@ -174,7 +188,7 @@
                      </script>                   
                      <td class="auto-style6"> <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtFechaLlegada" ErrorMessage="*" Font-Size="X-Large" ForeColor="Red"></asp:RequiredFieldValidator>
                          <%--<asp:CompareValidator ID="cmpvFechaLlegada" runat="server" ErrorMessage="Ingrese una fecha con formato valido (DD/MM/AAAA)" Type="Date" ControlToValidate="txtFechaLlegada" CssClass="alert-danger"></asp:CompareValidator>--%>
-                         <asp:CustomValidator ID="CustomValidator1" runat="server" ControlToValidate="txtFechaSalida" CssClass="alert-danger" ErrorMessage="La fecha de llegada no puede ser menor a la fecha de salida" OnServerValidate="CustomValidator1_ServerValidate"></asp:CustomValidator>
+                         <%--<asp:CustomValidator ID="CustomValidator1" runat="server" ControlToValidate="txtFechaSalida" CssClass="alert-danger" ErrorMessage="La fecha de llegada no puede ser menor a la fecha de salida" OnServerValidate="CustomValidator1_ServerValidate"></asp:CustomValidator>--%>
                     </td>
                 </tr>              
                 <tr>
