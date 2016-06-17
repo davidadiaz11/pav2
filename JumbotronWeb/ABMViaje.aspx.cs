@@ -183,6 +183,7 @@ public partial class ABMViaje : System.Web.UI.Page
     }
     protected void btnGrabar_Click(object sender, EventArgs e)
     {
+        
          habilitar_panelRegistro(false);
         accion("Grabando..");
         Viaje h = new Viaje();
@@ -286,7 +287,7 @@ public partial class ABMViaje : System.Web.UI.Page
             return false;
         }
 
-        if (ddlHotel.SelectedValue == "0" || ddlHotel.SelectedValue == "" || ddlHotel.SelectedValue == "-1")
+        if (ddlHotel.SelectedValue == "0" || ddlHotel.SelectedValue == "" || ddlHotel.SelectedValue == "-1" )
         {
             rechazar_grabado(ddlHotel);
             return false;
@@ -298,23 +299,38 @@ public partial class ABMViaje : System.Web.UI.Page
             return false;
         }
 
-        if (txtFechaLlegada.Text == "")
+        if (txtFechaLlegada.Text == "" || Convert.ToDateTime(txtFechaLlegada.Text) < DateTime.Today)
         {
             rechazar_grabado(txtFechaLlegada);
             return false;
         }
 
-        if (txtFechaSalida.Text == "")
+        if (txtFechaSalida.Text == "" || Convert.ToDateTime(txtFechaLlegada.Text) < DateTime.Today)
         {
             rechazar_grabado(txtFechaSalida);
             return false;
         }
+        if (Convert.ToDateTime(txtFechaLlegada.Text) < Convert.ToDateTime(txtFechaSalida.Text))
+        {
+            rechazar_fecha(txtFechaLlegada);
+            return false;
+        }
+
+
+
         if (txtimagen.Text == "")
         {
             rechazar_grabado(txtimagen);
             return false;
         }
         return true;
+    }
+
+    private void rechazar_fecha(TextBox txtFechaLlegada)
+    {
+        habilitar_panelRegistro(true);
+        mensaje("Debe ingresar una fecha de llegada que no sea menor a la de llegada");
+        txtFechaLlegada.Focus();
     }
     private void rechazar_grabado(Control c)
     {
@@ -398,6 +414,12 @@ public partial class ABMViaje : System.Web.UI.Page
         txtimagen.Text = "";
     }
 
-    
 
+
+    protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+    {        
+        {
+            args.IsValid = (0 > args.Value.CompareTo(Convert.ToDateTime(txtFechaSalida.Text)));
+        }
+    }
 }
