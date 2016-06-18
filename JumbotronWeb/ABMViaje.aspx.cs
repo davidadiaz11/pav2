@@ -23,7 +23,7 @@ public partial class ABMViaje : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             habilitar_panelRegistro(false);
-
+            ViewState["GvDatosOrden"] = "destinoNombre";
             gvViajes.AllowPaging = true;
             gvViajes.AllowSorting = true;
             gvViajes.PageSize = 3;
@@ -38,8 +38,11 @@ public partial class ABMViaje : System.Web.UI.Page
 
     public void cargarGrilla(bool elim)
     {
-        gvViajes.DataSource = GestorABMViaje.buscarPorDescripcion(txtbxBuscar.Text, elim);
+        int cantEncontrados;
+        string orden = ViewState["GvDatosOrden"].ToString();
+        gvViajes.DataSource = GestorABMViaje.buscarPorDescripcion(txtbxBuscar.Text, orden, elim, out cantEncontrados);
         gvViajes.DataBind();
+        mensaje(cantEncontrados + " viajes encontrados");
     }
 
     protected void btnAgregar_Click(object sender, EventArgs e)
@@ -191,10 +194,20 @@ public partial class ABMViaje : System.Web.UI.Page
             recuperar(chk_eliminados.Checked);
         }
     }
+
+    private void limpiarEspacios()
+    {
+        txtdescripcion.Text = txtdescripcion.Text.Trim();
+        txtPrecio.Text = txtPrecio.Text.Trim();
+        txtFechaSalida.Text = txtFechaSalida.Text.Trim();
+        txtFechaLlegada.Text = txtFechaLlegada.Text.Trim();
+        txtCupo.Text = txtCupo.Text.Trim();
+        txtimagen.Text = txtimagen.Text.Trim();
+    }
     protected void btnGrabar_Click(object sender, EventArgs e)
     {
-        
-         habilitar_panelRegistro(false);
+        limpiarEspacios();
+        habilitar_panelRegistro(false);
         accion("Grabando..");
         Viaje h = new Viaje();
 
@@ -352,6 +365,7 @@ public partial class ABMViaje : System.Web.UI.Page
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
         habilitar_panelRegistro(false);
+        mensaje("");
     }
     protected void btn_confirmarEliminar_Click(object sender, EventArgs e)
     {
@@ -436,18 +450,17 @@ public partial class ABMViaje : System.Web.UI.Page
     {
          gvViajes.PageIndex = e.NewPageIndex;
         cargarGrilla(chk_eliminados.Checked);
-
     }
 
-    //protected void ddlDestino_TextChanged(object sender, EventArgs e)
-    //{
-    //    ddlDestino.AutoPostBack = true;
-    //    cargarComboHotel();
-    //}
     protected void ddlDestino_SelectedIndexChanged(object sender, EventArgs e)
     {
         ddlDestino.AutoPostBack = true;
         cargarComboHotel();
 
+    }
+    protected void gvViajes_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        ViewState["GvDatosOrden"] = e.SortExpression;
+        cargarGrilla(chk_eliminados.Checked);
     }
 }

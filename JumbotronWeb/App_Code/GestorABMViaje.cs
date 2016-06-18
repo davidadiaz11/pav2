@@ -16,7 +16,7 @@ public class GestorABMViaje
 	}
 
 
-    public static DataTable buscarPorDescripcion(string descripcion, bool eliminados)
+    public static DataTable buscarPorDescripcion(string descripcion, string orden, bool eliminados, out int cantEncontrados)
     {
         DataTable dt = new DataTable();
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
@@ -34,7 +34,7 @@ public class GestorABMViaje
                 sql += " on v.hotel=h.id ";
                 sql += " join Destino d on v.destino=d.id";
                 sql += " join Transporte t on v.transporte=t.id";
-                sql += " where (v.eliminado is NULL OR v.eliminado=0) AND v.descripcion like @descripcion order by descripcion;";
+                sql += " where (v.eliminado is NULL OR v.eliminado=0) AND v.descripcion like @descripcion order by "+ orden;
                 cmd.Parameters.Add(new SqlParameter("@descripcion", "%" + descripcion + "%"));
             }
             else
@@ -44,12 +44,13 @@ public class GestorABMViaje
                 sql += " on v.hotel=h.id ";
                 sql += " join Destino d on v.destino=d.id";
                 sql += " join Transporte t on v.transporte=t.id";
-                sql += " where ( v.eliminado=1) AND v.descripcion like @descripcion order by descripcion;";
+                sql += " where ( v.eliminado=1) AND v.descripcion like @descripcion order by "+orden;
                 cmd.Parameters.Add(new SqlParameter("@descripcion", "%" + descripcion + "%"));
             }
            cmd.CommandText = sql;
 
            dt.Load(cmd.ExecuteReader());
+           cantEncontrados = dt.Rows.Count;
 
 
         }

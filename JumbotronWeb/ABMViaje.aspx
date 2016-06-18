@@ -47,18 +47,18 @@
                 </div>
 
             <table class="table table-bordered">
-                <asp:GridView ID="gvViajes" runat="server" CssClass="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" AutoGenerateColumns="False" OnPageIndexChanging="gvViajes_PageIndexChanging">   <%-- OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting"--%>
+                <asp:GridView ID="gvViajes" runat="server" CssClass="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" AutoGenerateColumns="False" OnPageIndexChanging="gvViajes_PageIndexChanging" OnSorting="gvViajes_Sorting">
                     <columns>
                         <asp:CommandField ShowSelectButton="True" />
-                        <asp:BoundField DataField="id" HeaderText="ID" />
+                        <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id" />
                         <asp:BoundField DataField="descripcion" HeaderText="Descrip" SortExpression="descripcion" />
-                        <asp:BoundField DataField="hotelNombre" HeaderText="Hotel" />
-                        <asp:BoundField DataField="precio" HeaderText="Precio" />
-                        <asp:BoundField DataField="fechaSalida" HeaderText="Fecha Salida" />
-                        <asp:BoundField DataField="fechaLlegada" HeaderText="Fecha Lleg" />
-                        <asp:BoundField DataField="destinoNombre" HeaderText="Destino" />
-                        <asp:BoundField DataField="cupo" HeaderText="Cupo" />
-                        <asp:BoundField DataField="transporteNombre" HeaderText="Transporte" />
+                        <asp:BoundField DataField="hotelNombre" HeaderText="Hotel" SortExpression="hotelNombre" />
+                        <asp:BoundField DataField="precio" HeaderText="Precio" SortExpression="precio" />
+                        <asp:BoundField DataField="fechaSalida" HeaderText="Fecha Salida" SortExpression="fechaSalida" />
+                        <asp:BoundField DataField="fechaLlegada" HeaderText="Fecha Lleg" SortExpression="fechaLlegada" />
+                        <asp:BoundField DataField="destinoNombre" HeaderText="Destino" SortExpression="destinoNombre" />
+                        <asp:BoundField DataField="cupo" HeaderText="Cupo" SortExpression="cupo" />
+                        <asp:BoundField DataField="transporteNombre" HeaderText="Transporte" SortExpression="transporteNombre" />
                     </columns>
                   <SelectedRowStyle BackColor="Silver" />
                </asp:GridView>

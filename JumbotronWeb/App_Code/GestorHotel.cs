@@ -18,7 +18,7 @@ public class GestorHotel
     //public static string CadenaConexion = "Data Source=MAQUIS;Initial Catalog=4K1_62726;User ID=avisuales2;Password=avisuales2";
 
 
-    public static List<Hotel> BuscarPordescripcion(string descripcion, string orden, bool eliminados)
+    public static List<Hotel> BuscarPordescripcion(string descripcion, string orden, bool eliminados, out int cantEncontrados)
     {
         List<Hotel> listaHotel = new List<Hotel>();
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
@@ -59,7 +59,9 @@ public class GestorHotel
 
                 listaHotel.Add(h2);
             }
+            cantEncontrados = listaHotel.Count;
             dr.Close();
+
 
         }
 

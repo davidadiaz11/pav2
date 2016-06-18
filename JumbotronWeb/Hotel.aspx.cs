@@ -112,7 +112,7 @@ public partial class Hotelwf : System.Web.UI.Page
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
         habilitar_panelRegistro(false);
-        cargarGrilla(chk_eliminados.Checked);
+        mensaje("");
     }
 
     protected void btn_confirmarEliminar_Click(object sender, EventArgs e)
@@ -130,10 +130,19 @@ public partial class Hotelwf : System.Web.UI.Page
         habilitar_panelRegistro(false);
         cargarGrilla(chk_eliminados.Checked);
     }
+
+    private void limpiarEspacios()
+    {
+        txtCuit.Text = txtCuit.Text.Trim();
+        txtdescripcion.Text = txtdescripcion.Text.Trim();
+        txtFechaInicioActividades.Text = txtFechaInicioActividades.Text.Trim();
+        txtCapacidad.Text = txtCapacidad.Text.Trim();
+    }
     protected void btnGrabar_Click(object sender, EventArgs e)
     {
         //Page.Validate();
         //rf_cuit.IsValid 
+        limpiarEspacios();
         string var = "";
         if (txtCuit.Text != "")
             var = txtCuit.Text.Replace("-", "");
@@ -308,11 +317,12 @@ public partial class Hotelwf : System.Web.UI.Page
     }
     public void cargarGrilla(bool eliminados)
     {
+        int cantEncontrados;
         string orden = ViewState["GvDatosOrden"].ToString();
-        GridView1.DataSource = GestorHotel.BuscarPordescripcion(txtbxBuscar.Text, orden, eliminados);
+        GridView1.DataSource = GestorHotel.BuscarPordescripcion(txtbxBuscar.Text, orden, eliminados, out cantEncontrados);
         GridView1.DataBind();
-        mensaje(GridView1.Rows.Count.ToString() + " hoteles encontrados");
         accion("");
+        mensaje(cantEncontrados + " hoteles encontrados");
     }
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
