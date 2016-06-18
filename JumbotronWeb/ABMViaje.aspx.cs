@@ -32,7 +32,7 @@ public partial class ABMViaje : System.Web.UI.Page
             cargarComboDestino();
             cargarComboHotel();
             cargarComboTransporte();
-            GestorABMViaje.actualizarDisponibles();
+            GestorViaje.actualizarDisponibles();
         }
     }
 

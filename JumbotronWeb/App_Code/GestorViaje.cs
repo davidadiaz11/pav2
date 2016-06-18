@@ -211,11 +211,72 @@ public class GestorViaje
         return v;
     }
 
-    public static void descontarCupo (List<Viaje> lista)
+    public static void descontarCupo (List<ItemPaquete> lista)
     {
         //para cada id de viaje, hacer un método update q actualice el cupo del viaje, restando la cantidad indicada en "cantidad" ya q puede comprar muchos viajes
 
-        //acá se debe llamar a un método que ponga en "no disponible" a aquellos viajes con cupo=0
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            string sql;
+            foreach (ItemPaquete item in lista)
+            {
+                sql = "update Viaje set cupo=cupo-"+ item.cantidad +" where id=@id";
+                cmd.Parameters.Add(new SqlParameter("@id",item.id));
+                cmd.CommandText = sql;
+                int i = cmd.ExecuteNonQuery();
+                if (i==0)
+                {
+                    throw new Exception();
+                }
+            }
+        }
+        catch (Exception)
+        {
+            
+            throw;
+        }
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+    }
+
+    public static void actualizarDisponibles()
+    {
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            cmd.CommandText = @"update Viaje set disponible=0 where fechaSalida <= GETDATE() OR cupo=0";
+            //TODO 22: no funciona el parámetro
+            //cmd.Parameters.Add(new SqlParameter("@disponible", 0));
+
+            int filasAfetadas = cmd.ExecuteNonQuery();
+        }
+
+        catch (Exception)
+        {
+            throw;
+        }
+
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
     }
 
 

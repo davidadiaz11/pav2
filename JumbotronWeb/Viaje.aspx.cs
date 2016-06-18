@@ -44,7 +44,7 @@ public partial class Viajewf : System.Web.UI.Page
                 ip.destino = v.destino;
                 ip.destino_descripcion = GestorViaje.obtenerDescripcion("Destino", v.id);
                 ip.cantidad = 1;
-                //ip.precioTotal = calcularPrecioTotal(ip.precioUnitario, ip.cantidad);
+                ip.cupo = v.cupo;
             };
 
             List<ItemPaquete> paquete = new List<ItemPaquete>();

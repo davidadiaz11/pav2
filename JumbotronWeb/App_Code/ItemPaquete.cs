@@ -31,8 +31,10 @@ public class ItemPaquete
 
     public int cantidad { get; set; }
 
-    public int precioTotal
+    public int subTotal
     {
         get { return cantidad * precioUnitario; }
     }
+
+    public int cupo { get; set; }
 }

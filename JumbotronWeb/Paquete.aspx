@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Paquete.aspx.cs" Inherits="Paquete" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Paquete.aspx.cs" Inherits="Paquetesw" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -31,7 +31,8 @@
                         <asp:BoundField DataField="precioUnitario" HeaderText="Precio Unit." SortExpression="precioUnitario"/>
                         <asp:BoundField DataField="cantidad" HeaderText="Cantidad" SortExpression="cantidad" />
                         <asp:BoundField DataField="fechaSalida" HeaderText="Fecha" SortExpression="fechaSalida" />
-                        <asp:BoundField DataField="precioTotal" HeaderText="Total" SortExpression="precioTotal" />
+                        <asp:BoundField DataField="subTotal" HeaderText="subTotal" SortExpression="subTotal" />
+                        <asp:BoundField DataField="cupo" HeaderText="Cupo" SortExpression="cupo" />
                     </Columns>
                     <SelectedRowStyle BackColor="Silver" />
                 </asp:GridView>
