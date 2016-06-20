@@ -71,9 +71,6 @@
             </asp:ContentPlaceHolder>
             <br />
         </div>
-        <div>
-            <h5>Jumbotrasnochado</h5>
-        </div>
         <div class="footer">
         </div>
 
