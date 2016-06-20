@@ -293,7 +293,7 @@ public class GestorHotel
         return dt;
     }
 
-    public  static DataTable filtrarHoteles(string d) 
+    public  static DataTable filtrarHoteles(string destino) 
     {
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
         DataTable dt = new DataTable();
@@ -309,14 +309,14 @@ public class GestorHotel
             cmd.Connection = cn;
             //if (!todos)
             //{
-                sql = "select * from Hotel h where h.destino = @destino order by descripcion;";
+                sql = "select * from Hotel where destino=@destino AND (eliminado is null OR eliminado=0) order by descripcion;";
             //}
             //else
             //{
             //     sql = "select * from Hotel order by descripcion;";
             //}
             cmd.CommandText = sql;
-            cmd.Parameters.Add(new SqlParameter("@destino", d));
+            cmd.Parameters.Add(new SqlParameter("@destino", destino));
             dt.Load(cmd.ExecuteReader());
 
         }

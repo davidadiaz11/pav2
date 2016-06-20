@@ -113,6 +113,7 @@ public partial class Hotelwf : System.Web.UI.Page
     {
         habilitar_panelRegistro(false);
         mensaje("");
+        accion("");
     }
 
     protected void btn_confirmarEliminar_Click(object sender, EventArgs e)
@@ -128,6 +129,7 @@ public partial class Hotelwf : System.Web.UI.Page
         }
 
         habilitar_panelRegistro(false);
+        accion("");
         cargarGrilla(chk_eliminados.Checked);
     }
 
@@ -167,6 +169,7 @@ public partial class Hotelwf : System.Web.UI.Page
 
 
             GestorHotel.Grabar(h, grabar);
+            accion("");
             cargarGrilla(chk_eliminados.Checked);
         }
     }
@@ -305,6 +308,7 @@ public partial class Hotelwf : System.Web.UI.Page
         rb_list.ClearSelection();
         txtCapacidad.Text = "";
         txtdescripcion.Text = "";
+        txtFechaInicioActividades.Text = "";
     }
 
     private void cargarCombo()
