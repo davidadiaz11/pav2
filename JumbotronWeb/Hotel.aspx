@@ -2,6 +2,21 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+
+                $(".datepicker").datepicker({
+                    dateFormat: "dd/mm/yy",
+                    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                    showAnim: "drop",
+                    //minDate: -20, maxDate: "+1M +10D" para que muestre un cierto rango de fechas
+
+                });
+            }
+            );
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -15,14 +30,15 @@
     </div>
 
     <div class="col-lg-12">
-        <h4><asp:Label ID="lblAccion" CssClass="label label-success" runat="server" Text="Label"></asp:Label></h4> 
+        <h4>
+            <asp:Label ID="lblAccion" CssClass="label label-success" runat="server" Text="Label"></asp:Label></h4>
     </div>
 
     <div class="col-lg-12">
         <asp:Panel ID="Panel1" runat="server">
             <strong>Hotel:</strong>
             <div class="form-inline">
-                <asp:TextBox ID="txtbxBuscar"  CssClass="form-control input-sm" title="Ingrese nombres de hoteles" placeholder="Nombre del Hotel" runat="server">
+                <asp:TextBox ID="txtbxBuscar" CssClass="form-control input-sm" title="Ingrese nombres de hoteles" placeholder="Nombre del Hotel" runat="server">
                 </asp:TextBox>
                 <asp:CheckBox ID="chk_eliminados" CssClass="checkbox-inline" Text="Ver eliminados" runat="server" OnCheckedChanged="chk_eliminados_CheckedChanged" />
                 <asp:Button ID="btnBuscar" CssClass="btn-sm btn-primary" role="button" type="submit" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
@@ -31,11 +47,11 @@
             <table class="table table-bordered">
                 <asp:GridView ID="GridView1" runat="server" CssClass="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" OnPageIndexChanging="GridView1_PageIndexChanging" OnSorting="GridView1_Sorting" AutoGenerateColumns="False">
                     <Columns>
-                        <asp:CommandField ShowSelectButton="True"/>
-                        <asp:BoundField DataField="descripcion" HeaderText="Nombre" SortExpression="descripcion"/>
-                        <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id"/>
-                        <asp:BoundField DataField="capacidad" HeaderText="Capacidad" SortExpression="capacidad"/>
-                        <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicación" SortExpression="destino_descripcion"/>
+                        <asp:CommandField ShowSelectButton="True" />
+                        <asp:BoundField DataField="descripcion" HeaderText="Nombre" SortExpression="descripcion" />
+                        <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id" />
+                        <asp:BoundField DataField="capacidad" HeaderText="Capacidad" SortExpression="capacidad" />
+                        <asp:BoundField DataField="destino_descripcion" HeaderText="Ubicación" SortExpression="destino_descripcion" />
                         <asp:BoundField DataField="cuit" HeaderText="CUIT" SortExpression="cuit" />
                     </Columns>
                     <SelectedRowStyle BackColor="Silver" />
@@ -43,23 +59,24 @@
             </table>
 
             <div class="btn-group-sm">
-                <asp:Button ID="btnAgregar" runat="server"  CssClass="btn-default btn-sm" OnClick="btnAgregar_Click" Text="Agregar" />
-                <asp:Button ID="btnConsultar" runat="server"  CssClass="btn-default btn-sm" OnClick="btnConsultar_Click" Text="Ver" />
-                <asp:Button ID="btnEliminar" runat="server"  CssClass="btn-default btn-sm" OnClick="btnEliminar_Click" Text="Eliminar" />
-                <asp:Button ID="btnEditar" runat="server"  CssClass="btn-default btn-sm" OnClick="btnEditar_Click" Text="Editar" />
+                <asp:Button ID="btnAgregar" runat="server" CssClass="btn-default btn-sm" OnClick="btnAgregar_Click" Text="Agregar" />
+                <asp:Button ID="btnConsultar" runat="server" CssClass="btn-default btn-sm" OnClick="btnConsultar_Click" Text="Ver" />
+                <asp:Button ID="btnEliminar" runat="server" CssClass="btn-default btn-sm" OnClick="btnEliminar_Click" Text="Eliminar" />
+                <asp:Button ID="btnEditar" runat="server" CssClass="btn-default btn-sm" OnClick="btnEditar_Click" Text="Editar" />
             </div>
 
         </asp:Panel>
     </div>
 
     <div class="col-xs-12 col-sm-6 col-lg-8">
-            <asp:Panel ID="pnlRegistro" runat="server">
+        <asp:Panel ID="pnlRegistro" runat="server">
             <table class="table-hover">
                 <tr>
-                    <td><asp:Label ID="lblId" runat="server" Text="Hotel Id:"></asp:Label>
+                    <td>
+                        <asp:Label ID="lblId" runat="server" Text="Hotel Id:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox  ID="txtId" runat="server"  CssClass="form-control" placeholder="Aquí el número ID"  Enabled="False" ></asp:TextBox>
+                        <asp:TextBox ID="txtId" runat="server" CssClass="form-control" placeholder="Aquí el número ID" Enabled="False"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
@@ -67,40 +84,24 @@
                         <asp:Label ID="lblCuit" runat="server" Text="CUIT:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtCuit"  CssClass="form-control" placeholder="XX-YYYYYYYY-Z"  runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator Display="Dynamic" controlToValidate="txtCuit" ID="rf_cuit" runat="server" Text="*" ErrorMessage="Ingresar CUIT"></asp:RequiredFieldValidator>
+                        <asp:TextBox ID="txtCuit" CssClass="form-control" placeholder="XX-YYYYYYYY-Z" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator Display="Dynamic" CssClass="alert-danger" ControlToValidate="txtCuit" ID="rf_cuit" runat="server" ErrorMessage="Ingresar CUIT"></asp:RequiredFieldValidator>
+                        <%--<asp:RegularExpressionValidator  CssClass="alert-danger" ID="revCuit" ValidationExpression="^[0-9]{2}-[0-9]{8}-[0-9]$" ControlToValidate="txtCuit" runat="server" ErrorMessage="Debe cumplir el formto X-YYYYYYYY-Z"></asp:RegularExpressionValidator>--%>
                     </td>
                 </tr>
                 <tr>
                     <td>Nombre:</td>
                     <td>
-                        <asp:TextBox ID="txtdescripcion"  CssClass="form-control" placeholder="Aquí el nombre del hotel"  runat="server" ></asp:TextBox>
-                        <asp:RequiredFieldValidator Display="Dynamic" controlToValidate="txtdescripcion" ID="rf_nombre" runat="server" ErrorMessage="Ingrese nombre"></asp:RequiredFieldValidator>
+                        <asp:TextBox ID="txtdescripcion" CssClass="form-control" placeholder="Aquí el nombre del hotel" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator Display="Dynamic" CssClass="alert-danger" ControlToValidate="txtdescripcion" ID="rf_nombre" runat="server" ErrorMessage="Ingrese nombre"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
+                    <td>Fecha Inicio Actividades:</td>
                     <td>
-                        Fecha Inicio Actividades:</td>
-                    <td>
-                        <asp:TextBox ID="txtFechaInicioActividades" CssClass="datepicker form-control"  placeholder="Click aqui para seleccionar fecha" runat ="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator controlToValidate="txtFechaInicioActividades" ID="fr_fecha" runat="server" Display="Dynamic" ErrorMessage="Ingrese fecha"></asp:RequiredFieldValidator>
+                        <asp:TextBox ID="txtFechaInicioActividades" CssClass="datepicker form-control" placeholder="Click aqui para seleccionar fecha" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator CssClass="alert-danger" ControlToValidate="txtFechaInicioActividades" ID="fr_fecha" runat="server" Display="Dynamic" ErrorMessage="Ingrese fecha"></asp:RequiredFieldValidator>
                     </td>
-                    
-                     <script type="text/javascript">
-                         $(document).ready(
-                             function () {
-
-                                 $(".datepicker").datepicker({
-                                     dateFormat: "dd/mm/yy",
-                                     monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-                                     dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-                                     showAnim: "drop",
-                                     //minDate: -20, maxDate: "+1M +10D" para que muestre un cierto rango de fechas
-
-                                 });
-                             }
-                             );
-                     </script>
                 </tr>
                 <tr>
                     <td>
@@ -108,14 +109,15 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtCapacidad" runat="server" CssClass="form-control" placeholder="Capacidad de pasajeros"></asp:TextBox>
-                        <asp:RequiredFieldValidator controlToValidate="txtCapacidad" ID="rf_capacidad" runat="server" ErrorMessage="Ingrese capacidad" Display="Dynamic"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ControlToValidate="txtCapacidad" ID="rf_capacidad" runat="server" CssClass="alert-danger" ErrorMessage="Ingrese capacidad" Display="Dynamic"></asp:RequiredFieldValidator>
+                        <asp:CompareValidator ID="cvCapacidad" Display="Dynamic" runat="server" ControlToValidate="txtCapacidad" CssClass="alert-danger" ErrorMessage="Ingrese un número válido" Type="Integer" Operator="GreaterThan" ValueToCompare="0"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
                     <td>Destino</td>
                     <td>
-                        <asp:DropDownList ID="ddlDestino"  CssClass="form-control" runat="server" Enabled="False"></asp:DropDownList>
-                        <asp:RequiredFieldValidator  Display="Dynamic" InitialValue="0" controlToValidate="ddlDestino" ID="rf_destino" runat="server" ErrorMessage="Seleccione destino"></asp:RequiredFieldValidator>
+                        <asp:DropDownList ID="ddlDestino" CssClass="form-control" runat="server" Enabled="False"></asp:DropDownList>
+                        <asp:RequiredFieldValidator Display="Dynamic" InitialValue="0" ControlToValidate="ddlDestino" ID="rf_destino" runat="server" ErrorMessage="Seleccione destino"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -127,7 +129,7 @@
                             <asp:ListItem Value="1">Sí</asp:ListItem>
                             <asp:ListItem Value="0">No</asp:ListItem>
                         </asp:RadioButtonList>
-                        <asp:RequiredFieldValidator controlToValidate="rb_list" Display="Dynamic" ID="rf_mascotas" runat="server" ErrorMessage="Seleccione una opción"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ControlToValidate="rb_list" CssClass="alert-danger" Display="Dynamic" ID="rf_mascotas" runat="server" ErrorMessage="Seleccione una opción"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -139,11 +141,11 @@
                 </tr>
             </table>
         </asp:Panel>
-            <h4>
-                <asp:Label ID="lbl_mensaje"  CssClass="form-control label alert-danger" runat="server"></asp:Label>
-            </h4>
+        <h4>
+            <asp:Label ID="lbl_mensaje" CssClass="form-control label alert-danger" runat="server"></asp:Label>
+        </h4>
     </div>
-    <div class="col-xs-6 col-lg-4">   
+    <div class="col-xs-6 col-lg-4">
         <%--<asp:ValidationSummary ValidationGroup="grabarr" ID="ValidationSummary1" runat="server" />--%>
     </div>
 </asp:Content>

@@ -174,7 +174,7 @@ public class GestorHotel
             sql = @"insert  into Hotel (descripcion, capacidad, destino, cuit, aceptaMascota, eliminado, inicioActividad) values(@descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado, @inicioActividad);";
 
         else
-            sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino, cuit=@cuit, aceptaMascota=@aceptaMascota, eliminado=@eliminado, inicioActividad=@inicioActividad where id=@id;";
+            sql = @"update Hotel set descripcion=@descripcion , capacidad=@capacidad, destino=@destino, aceptaMascota=@aceptaMascota, eliminado=@eliminado, inicioActividad=@inicioActividad where cuit=@cuit;";
 
         try
         {

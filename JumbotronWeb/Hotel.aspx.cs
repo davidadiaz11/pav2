@@ -142,13 +142,13 @@ public partial class Hotelwf : System.Web.UI.Page
     }
     protected void btnGrabar_Click(object sender, EventArgs e)
     {
-        //Page.Validate();
+        Page.Validate();
         //rf_cuit.IsValid 
         limpiarEspacios();
         string var = "";
         if (txtCuit.Text != "")
             var = txtCuit.Text.Replace("-", "");
-        if (validar())
+        if (Page.IsValid && validar())
         {
             habilitar_panelRegistro(false);
             accion("Grabando..");
@@ -185,15 +185,15 @@ public partial class Hotelwf : System.Web.UI.Page
             rechazar_grabado(txtCuit);
             return false;
         }
-        int idExistente=0;
-        string nombreExistente="";
+        int idExistente = 0;
+        string nombreExistente = "";
         string var = "";
         if (txtCuit.Text != "")
             var = txtCuit.Text.Replace("-", "");
 
         if (txtCuit.Text == "" || GestorHotel.existeCuit(Convert.ToInt64(var), out idExistente, out nombreExistente) && grabar)
         {
-            if (idExistente!=0)
+            if (idExistente != 0)
             {
                 rechazarCuit_repetido(txtCuit.Text, idExistente, nombreExistente);
                 return false;
@@ -232,8 +232,8 @@ public partial class Hotelwf : System.Web.UI.Page
             return false;
         }
         return true;
-    } 
-    
+    }
+
     //TODO 11: docuentar esto:
     //Método que recibe un control, y que formula un mensaje en donde indica el nombre del control.
     //actualmente funciona pero con un error: el id de los controles es... txtId, ó txtdescripcion, ó txt_fecha
@@ -255,7 +255,7 @@ public partial class Hotelwf : System.Web.UI.Page
     private void rechazarCuit_repetido(string cuit, int id, string nombre)
     {
         habilitar_panelRegistro(true);
-        mensaje("El hotel " + nombre + " id= " + id + " ya posee el cuit "+ cuit );
+        mensaje("El hotel " + nombre + " id= " + id + " ya posee el cuit " + cuit);
         txtCuit.Focus();
     }
 

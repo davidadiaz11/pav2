@@ -10,10 +10,10 @@ using System.Web;
 /// </summary>
 public class GestorABMViaje
 {
-	public GestorABMViaje()
-	{
-		
-	}
+    public GestorABMViaje()
+    {
+
+    }
 
 
     public static DataTable buscarPorDescripcion(string descripcion, string orden, bool eliminados, out int cantEncontrados)
@@ -34,7 +34,7 @@ public class GestorABMViaje
                 sql += " on v.hotel=h.id ";
                 sql += " join Destino d on v.destino=d.id";
                 sql += " join Transporte t on v.transporte=t.id";
-                sql += " where (v.eliminado is NULL OR v.eliminado=0) AND v.descripcion like @descripcion order by "+ orden;
+                sql += " where (v.eliminado is NULL OR v.eliminado=0) AND v.descripcion like @descripcion order by " + orden;
                 cmd.Parameters.Add(new SqlParameter("@descripcion", "%" + descripcion + "%"));
             }
             else
@@ -44,13 +44,13 @@ public class GestorABMViaje
                 sql += " on v.hotel=h.id ";
                 sql += " join Destino d on v.destino=d.id";
                 sql += " join Transporte t on v.transporte=t.id";
-                sql += " where ( v.eliminado=1) AND v.descripcion like @descripcion order by "+orden;
+                sql += " where ( v.eliminado=1) AND v.descripcion like @descripcion order by " + orden;
                 cmd.Parameters.Add(new SqlParameter("@descripcion", "%" + descripcion + "%"));
             }
-           cmd.CommandText = sql;
+            cmd.CommandText = sql;
 
-           dt.Load(cmd.ExecuteReader());
-           cantEncontrados = dt.Rows.Count;
+            dt.Load(cmd.ExecuteReader());
+            cantEncontrados = dt.Rows.Count;
 
 
         }
@@ -61,9 +61,9 @@ public class GestorABMViaje
         }
         finally
         {
-            if (cn!=null && cn.State == ConnectionState.Open)
+            if (cn != null && cn.State == ConnectionState.Open)
             {
-                cn.Close();   
+                cn.Close();
             }
         }
         return dt;
@@ -128,18 +128,10 @@ public class GestorABMViaje
     {
         string sql = "";
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-        //Hotel h1 = buscarPorId(h.id, false);
-        if (h.id==0)
-            //if (h.id == -1)//que grabe de forma autonumérica. 
-                sql = @"insert  into Viaje (descripcion, cupo, destino, hotel, eliminado, fechaLlegada, fechaSalida, transporte, disponible, imagen, precio) values(@descripcion, @cupo, @destino, @hotel, @eliminado, @fechaLlegada, @fechaSalida, @transporte, @disponible, @imagen, @precio);";
-//            else //que grabe imponiendo un id
-//                sql = @"set identity_insert dbo.Hotel on 
-//                                  insert  into Hotel (id, descripcion, capacidad, destino, cuit, aceptaMascota, eliminado) values(@id, @descripcion, @capacidad, @destino, @cuit, @aceptaMascota, @eliminado)
-//                                  set identity_insert dbo.Hotel off";
-
-
+        if (accion)
+            sql = @"insert  into Viaje (descripcion, cupo, destino, hotel, eliminado, fechaLlegada, fechaSalida, transporte, disponible, imagen, precio) values(@descripcion, @cupo, @destino, @hotel, @eliminado, @fechaLlegada, @fechaSalida, @transporte, @disponible, @imagen, @precio);";
         else
-            sql = @"update Viaje set descripcion=@descripcion , hotel=@hotel, precio=@precio, fechaSalida=@fechaSalida, fechaLlegada=@fechaLlegada, destino=@destino, cupo=@cupo, transporte=@transporte, disponible=@disponible, eliminado=@eliminado, imagen=@imagen where id=@id;";
+            sql = @"update Viaje set descripcion=@descripcion , hotel=@hotel, precio=@precio, fechaSalida=@fechaSalida, fechaLlegada=@fechaLlegada, destino=@destino, cupo=@cupo, transporte=@transporte, disponible=@disponible, eliminado=@eliminado where imagen=@imagen;";
 
         try
         {
@@ -185,7 +177,7 @@ public class GestorABMViaje
 
     }
 
-    
+
 
     public static bool existeImagen(string imagen, out int idExistente, out string destinoExistente)
     {
@@ -209,7 +201,7 @@ public class GestorABMViaje
             while (dr.Read())
             {
                 idExistente = (int)dr["id"];
-                destinoExistente = GestorViaje.obtenerDescripcion("Destino",(int)dr["destino"]);
+                destinoExistente = GestorViaje.obtenerDescripcion("Destino", (int)dr["destino"]);
                 return true;
             }
             idExistente = 0;

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -10,7 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class ABMViaje : System.Web.UI.Page
 {
-    private static  bool grabar;
+    private static bool grabar;
     protected void Page_Load(object sender, EventArgs e)
     {
         //if (ddlDestino.AutoPostBack && pnlRegistro.Enabled == true)
@@ -18,7 +16,7 @@ public partial class ABMViaje : System.Web.UI.Page
         //    habilitar_panelRegistro(true);
         //}
         //else
-           
+
 
         if (!Page.IsPostBack)
         {
@@ -34,7 +32,7 @@ public partial class ABMViaje : System.Web.UI.Page
             cargarComboTransporte();
             GestorViaje.actualizarDisponibles();
         }
-        
+
     }
 
     public void cargarGrilla(bool elim)
@@ -48,7 +46,7 @@ public partial class ABMViaje : System.Web.UI.Page
 
     protected void btnAgregar_Click(object sender, EventArgs e)
     {
-         habilitar_botones("agregar_editar");
+        habilitar_botones("agregar_editar");
         accion("Agregando..");
         mensaje("");
         habilitar_campos(true);
@@ -91,7 +89,7 @@ public partial class ABMViaje : System.Web.UI.Page
 
     public void habilitar_panelRegistro(bool accion)
     {
-         pnlConsulta.Visible = !accion;
+        pnlConsulta.Visible = !accion;
         pnlRegistro.Visible = accion;
     }
 
@@ -125,7 +123,7 @@ public partial class ABMViaje : System.Web.UI.Page
     }
     private void habilitar_campos(Boolean estado)
     {
-        
+
         txtdescripcion.Enabled = estado;
         ddlDestino.Enabled = estado;
         txtCupo.Enabled = estado;
@@ -209,12 +207,14 @@ public partial class ABMViaje : System.Web.UI.Page
     }
     protected void btnGrabar_Click(object sender, EventArgs e)
     {
+        Page.Validate();
+
         limpiarEspacios();
         habilitar_panelRegistro(false);
         accion("Grabando..");
         Viaje h = new Viaje();
 
-        if (validar())
+        if (Page.IsValid && validar())
         {
             if (txtCupo.Text != "")
                 h.cupo = Convert.ToInt32(txtCupo.Text);
@@ -256,7 +256,7 @@ public partial class ABMViaje : System.Web.UI.Page
 
             if (!grabar)
             {
-                h.id = Convert.ToInt32(txtId.Text);  
+                h.id = Convert.ToInt32(txtId.Text);
             }
 
 
@@ -264,8 +264,6 @@ public partial class ABMViaje : System.Web.UI.Page
             cargarGrilla(chk_eliminados.Checked);
             accion("");
         }
-
-    
     }
 
     Regex Validar_numeros = new Regex(@"^[0-9]*$");
@@ -305,7 +303,7 @@ public partial class ABMViaje : System.Web.UI.Page
             return false;
         }
 
-        if (ddlHotel.SelectedValue == "0" || ddlHotel.SelectedValue == "" || ddlHotel.SelectedValue == "-1" )
+        if (ddlHotel.SelectedValue == "0" || ddlHotel.SelectedValue == "" || ddlHotel.SelectedValue == "-1")
         {
             rechazar_grabado(ddlHotel);
             return false;
@@ -334,7 +332,7 @@ public partial class ABMViaje : System.Web.UI.Page
             return false;
         }
 
-        if (txtimagen.Text == "" || GestorABMViaje.existeImagen(txtimagen.Text, out idExistente, out destinoExistente) )
+        if (txtimagen.Text == "" || GestorABMViaje.existeImagen(txtimagen.Text, out idExistente, out destinoExistente) && grabar)
         {
             if (idExistente != 0)
             {
@@ -402,7 +400,7 @@ public partial class ABMViaje : System.Web.UI.Page
         cargarGrilla(chk_eliminados.Checked);
     }
 
-   
+
     public void cargarComboDestino()
     {
         ddlDestino.DataTextField = "descripcion";
@@ -431,12 +429,12 @@ public partial class ABMViaje : System.Web.UI.Page
 
         ddlHotel.DataTextField = "descripcion";
         ddlHotel.DataValueField = "id";
-        if (ddlDestino.SelectedValue!="0")
+        if (ddlDestino.SelectedValue != "0")
         {
             ddlHotel.DataSource = GestorHotel.filtrarHoteles(ddlDestino.SelectedValue);
             ddlHotel.DataBind();
         }
-        
+
         ddlHotel.Items.Insert(0, new ListItem("Elija un Hotel", "0"));
 
     }
@@ -453,13 +451,13 @@ public partial class ABMViaje : System.Web.UI.Page
         txtFechaLlegada.Text = "";
         txtFechaSalida.Text = "";
         txtimagen.Text = "";
-        
+
     }
 
 
     protected void gvViajes_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-         gvViajes.PageIndex = e.NewPageIndex;
+        gvViajes.PageIndex = e.NewPageIndex;
         cargarGrilla(chk_eliminados.Checked);
     }
 
