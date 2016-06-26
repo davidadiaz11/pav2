@@ -19,5 +19,13 @@ public class Paquete
 
     public string descripcion { get; set; }
 
+    public int precio { get; set; }
+
+    public int promocion { get; set; }
+
+    public DateTime fechaSalida { get; set; }
+
+    public DateTime fechaLlegada { get; set; }
+
     public List<ItemPaquete> items { get; set; }
 }

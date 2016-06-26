@@ -9,10 +9,15 @@ public partial class Paquetesw : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        cargarGrilla();
+    }
+
+    private void cargarGrilla()
+    {
         GridView1.DataSource = (List<ItemPaquete>)Session["Paquete"];
         GridView1.DataBind();
     }
-  
+
     protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
     {
         ViewState["GvDatosOrden"] = e.SortExpression;
@@ -28,14 +33,14 @@ public partial class Paquetesw : System.Web.UI.Page
     }
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
-         if (GridView1.SelectedRow == null)
+        if (GridView1.SelectedRow == null)
             mensaje("Debe seleccionar un viaje");
 
         else
         {
-             //no funciona
+            //no funciona
             GridView1.DeleteRow(GridView1.SelectedRow.RowIndex);
-        }   
+        }
     }
 
     private bool consultarCupo(out int? idSinCupo)
@@ -45,7 +50,7 @@ public partial class Paquetesw : System.Web.UI.Page
         int cupo;
         foreach (GridViewRow rowItem in GridView1.Rows)
         {
-            
+
             cantidad = Convert.ToInt32(rowItem.Cells[5].Text);
             cupo = Convert.ToInt32(rowItem.Cells[8].Text);
             if (cantidad > cupo)
@@ -56,16 +61,17 @@ public partial class Paquetesw : System.Web.UI.Page
         }
         return true;
     }
+
     protected void btnComprar_Click(object sender, EventArgs e)
     {
-       
+
         //cuando se compra se debe validar que la cantidad que se esta comprando sea menor al cupo disponble
         int? idSinCupo;
-        if (!consultarCupo(out idSinCupo) && idSinCupo>0)
+        if (!consultarCupo(out idSinCupo) && idSinCupo > 0)
         {
-            mensaje("El viaje con id: "+ idSinCupo + " no posee cupo suficiente.");
+            mensaje("El viaje con id: " + idSinCupo + " no posee cupo suficiente.");
         }
-        //descuenta para cada viaje el cupo disponiblee
+        //descuenta para cada viaje el cupo disponible
         GestorViaje.descontarCupo((List<ItemPaquete>)GridView1.DataSource);
 
         //se debe llamar a un método que ponga en "no disponible" a aquellos viajes con cupo=0
@@ -77,8 +83,13 @@ public partial class Paquetesw : System.Web.UI.Page
         p.items = (List<ItemPaquete>)GridView1.DataSource;
         //SE DEBE CREAR LA TABLA EN BD
         //GestorPaquete.grabar(p);
+        p.descripcion = "Paquete del usuario: ";
+        p.fechaLlegada = Convert.ToDateTime("01/01/2000");
+        p.fechaSalida = Convert.ToDateTime("01/01/2000");
+        p.precio = 9;
+        p.promocion = 7;
+            
 
-         
         //Con el boton comprar pasamos a la compra 
         Response.Redirect("Compra.aspx");
         //la Copmpra tendra un cliente asociado, un id, modo compra(efectivo ó tarjeta) y una fecha
@@ -105,7 +116,7 @@ public partial class Paquetesw : System.Web.UI.Page
 
         foreach (GridViewRow rowItem in GridView1.Rows)
         {
-            total+= Convert.ToInt32(rowItem.Cells[7].Text);
+            total += Convert.ToInt32(rowItem.Cells[7].Text);
         }
     }
 

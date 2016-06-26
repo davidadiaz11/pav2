@@ -32,6 +32,7 @@ public partial class Viajewf : System.Web.UI.Page
         {
             int id = Convert.ToInt32(e.CommandArgument);
 
+
             Viaje v = GestorViaje.buscarPorId(id, false);
             ItemPaquete ip = new ItemPaquete();
             if (v != null)
@@ -51,9 +52,15 @@ public partial class Viajewf : System.Web.UI.Page
             if (Session["Paquete"] != null)
                 paquete = (List<ItemPaquete>)Session["Paquete"];
 
-            paquete.Add(ip);
+            //debe haber un método que verifique si existe el id en la tabla, y si existe q sume uno
+            if (!buscarExistenteEnSession(id, paquete))
+            {
+                paquete.Add(ip);
+            }
+            
+            
             Session["Paquete"] = paquete;
-            Response.Redirect("Paquete.aspx");
+            Response.Redirect(string.Format("Paquete.aspx?id={0}", id));
 
         }
         else if (e.CommandName == "Ver")
@@ -61,5 +68,21 @@ public partial class Viajewf : System.Web.UI.Page
             int id = Convert.ToInt32(e.CommandArgument);
             Response.Redirect(string.Format("DetalleViaje.aspx?id={0}", id));
         }
+    }
+
+    private bool buscarExistenteEnSession(int id, List<ItemPaquete> lista)
+    {
+        if (lista!=null)
+        {
+            foreach (ItemPaquete item in lista)
+            {
+                if (item.id == id && item.cantidad >= 1)
+                {
+                    item.cantidad++;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
