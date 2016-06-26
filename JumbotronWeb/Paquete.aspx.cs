@@ -39,7 +39,10 @@ public partial class Paquetesw : System.Web.UI.Page
         else
         {
             //no funciona
-            GridView1.DeleteRow(GridView1.SelectedRow.RowIndex);
+            List<ItemPaquete> lista = (List<ItemPaquete>)Session["Paquete"];
+            lista.RemoveAt(GridView1.SelectedRow.RowIndex);
+            Session["Paquete"] = lista;
+            cargarGrilla();
         }
     }
 
@@ -64,42 +67,55 @@ public partial class Paquetesw : System.Web.UI.Page
 
     protected void btnComprar_Click(object sender, EventArgs e)
     {
-
-        //cuando se compra se debe validar que la cantidad que se esta comprando sea menor al cupo disponble
-        int? idSinCupo;
-        if (!consultarCupo(out idSinCupo) && idSinCupo > 0)
+        if (GridView1.Rows.Count > 0 )
         {
-            mensaje("El viaje con id: " + idSinCupo + " no posee cupo suficiente.");
+            //cuando se compra se debe validar que la cantidad que se esta comprando sea menor al cupo disponble
+            int? idSinCupo;
+            if (!consultarCupo(out idSinCupo) && idSinCupo > 0)
+            {
+                mensaje("El viaje con id: " + idSinCupo + " no posee cupo suficiente.");
+            }
+
+            //descuenta para cada viaje el cupo disponible
+            //no se debe llamar acá, debe ser llamado en la transacción. 
+            //es decir tampoco llamado sino q tiene q usar esas instrucciones sql dentro de una transaccion
+            //GestorViaje.descontarCupo((List<ItemPaquete>)GridView1.DataSource);
+
+            //se debe llamar a un método que ponga en "no disponible" a aquellos viajes con cupo=0
+            //Esto también debería hacerse en la transaccion
+            //GestorViaje.actualizarDisponibles();
+
+            //graba el paquete con sus detalles de paquete 
+            // graba en viajexPaquete
+            Paquete p = new Paquete();
+            p.id = GestorPaquete.obtenerUltimoId();
+            p.items = (List<ItemPaquete>)GridView1.DataSource;
+            p.descripcion = "Paquete del usuario: ";
+            p.fechaLlegada = Convert.ToDateTime("01/01/2000");
+            p.fechaSalida = Convert.ToDateTime("01/01/2000");
+            p.precio = 9;
+            p.promocion = 7;
+            //creo que este método debe ser llamado desde Compra.aspx, q es cuando se realiza efectivamente la compra
+            //GestorPaquete.grabar(p);    
+
+            //Con el boton comprar pasamos a la compra 
+            List<Paquete> compra = new List<Paquete>();
+            if (Session["Compra"] != null)
+                compra = (List<Paquete>)Session["Compra"];
+            p.id = p.id + compra.Count;
+            compra.Add(p);
+            Session["Compra"] = compra;
+            Response.Redirect("Compra.aspx");
+            //la Copmpra tendra un cliente asociado, un id, modo compra(efectivo ó tarjeta) y una fecha
+
+            //la compra está compuesta por paquetes de ese usuario:
+            //los detalles de Compra tendran un pauqte como item con un precio, cant de viajes
+
+            //las tablas que se modifican son paquete, detallepauete, viaje, jviajeXpaquete, Compra y dettaleCompraç
+
+            //en la grilla habrá un textbox q te permite modificar la cantidad
         }
-        //descuenta para cada viaje el cupo disponible
-        GestorViaje.descontarCupo((List<ItemPaquete>)GridView1.DataSource);
-
-        //se debe llamar a un método que ponga en "no disponible" a aquellos viajes con cupo=0
-        GestorViaje.actualizarDisponibles();
-
-        //graba el paquete con sus detalles de paquete 
-        // graba en viajexPaquete
-        Paquete p = new Paquete();
-        p.items = (List<ItemPaquete>)GridView1.DataSource;
-        //SE DEBE CREAR LA TABLA EN BD
-        //GestorPaquete.grabar(p);
-        p.descripcion = "Paquete del usuario: ";
-        p.fechaLlegada = Convert.ToDateTime("01/01/2000");
-        p.fechaSalida = Convert.ToDateTime("01/01/2000");
-        p.precio = 9;
-        p.promocion = 7;
             
-
-        //Con el boton comprar pasamos a la compra 
-        Response.Redirect("Compra.aspx");
-        //la Copmpra tendra un cliente asociado, un id, modo compra(efectivo ó tarjeta) y una fecha
-
-        //la compra está compuesta por paquetes de ese usuario:
-        //los detalles de Compra tendran un pauqte como item con un precio, cant de viajes
-
-        //las tablas que se modifican son paquete, detallepauete, viaje, jviajeXpaquete, Compra y dettaleCompraç
-
-        //en la grilla habrá un textbox q te permite modificar la cantidad
 
 
     }

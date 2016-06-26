@@ -35,8 +35,6 @@ public class Viaje
 
     public int cupo { get; set; }
 
-    public int paquete { get; set; }
-
     public int transporte { get; set; }
 
     public bool disponible { get; set; }

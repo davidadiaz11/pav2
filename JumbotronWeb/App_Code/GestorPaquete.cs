@@ -28,10 +28,35 @@ public class GestorPaquete
             cmd.Connection = cn;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
-            sql = "insert into Paquete(id,descripcion,items) values(@id,@descripcion,@items)";
-            cmd.Parameters.Add(new SqlParameter("@id",p.id));
+            sql = "insert into Paquete(descripcion, promocion, precio, fechaSalida, fechaLlegada) values(@descripcion, @promocion, @precio, @fechaSalida, @fechaLlegada)";
             cmd.Parameters.Add(new SqlParameter("@descripcion", p.descripcion));
-            cmd.Parameters.Add(new SqlParameter("@items", p.items));
+            cmd.Parameters.Add(new SqlParameter("@promocion", p.promocion));
+            cmd.Parameters.Add(new SqlParameter("@precio", p.precio));
+            cmd.Parameters.Add(new SqlParameter("@fechaSalida", p.fechaSalida));
+            cmd.Parameters.Add(new SqlParameter("@fechaLlegada", p.fechaLlegada));
+
+                //TODO 10.0 esto debería hacerse para grabar en los viajes
+                //esta mal pasado el parametro cantidad... arreglar esto
+            foreach (ItemPaquete itempaq in p.items)
+            {
+                sql = "update Viaje set cupo=cupo-" + itempaq.cantidad + "  where id=@id";
+                cmd.Parameters.Add(new SqlParameter("@paquete", p.id));
+                cmd.Parameters.Add(new SqlParameter("@id", itempaq.id));
+
+                sql = "insert into ViajeXPaquete(idViaje,idPaquete) values(@idViaje, @idPaquete)";
+                cmd.Parameters.Add(new SqlParameter("@idViaje", itempaq.id));
+                cmd.Parameters.Add(new SqlParameter("@idPaquete", p.id));
+
+            }
+            foreach (ItemPaquete itempaq in p.items)
+            {
+                sql = @"update Viaje set disponible=@disponible where fechaSalida <= GETDATE() OR cupo=@cupo";
+                cmd.Parameters.Add(new SqlParameter("@disponible", 0));
+                cmd.Parameters.Add(new SqlParameter("@cupo", 0));
+            }
+
+
+
             cmd.CommandText = sql;
             int filasAfetadas = cmd.ExecuteNonQuery();
             if (filasAfetadas==0)
@@ -39,7 +64,7 @@ public class GestorPaquete
                  throw new Exception("El registro ya existe en la base");
             }
 
-            sql = "insert into ViajeXPaquete";
+            
         }
         catch (Exception)
         {
@@ -50,6 +75,26 @@ public class GestorPaquete
         {
             if (cn != null && cn.State == ConnectionState.Open)
                 cn.Close();
+        }
+    }
+
+    public static int obtenerUltimoId()
+    {
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            cmd.CommandText = " select max(id) from Paquete;";
+            return (int)cmd.ExecuteScalar();
+        }
+        catch (Exception)
+        {
+            
+            throw;
         }
     }
 }
