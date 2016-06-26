@@ -6,11 +6,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <div class="col-lg-12">
-        <h1 class="page-header">Paquete</h1>
+        <h1 class="page-header">Compra</h1>
         <ol class="breadcrumb">
             <li><a href="Inicio.aspx">Inicio</a></li>
-            <li><a href="Viaje.aspx">Viajes</a></li>
-            <li class="active">Paquete</li>
+            <li><a href="Paquete.aspx">Paquete</a></li>
+            <li class="active">Compra</li>
         </ol>
     </div>
 

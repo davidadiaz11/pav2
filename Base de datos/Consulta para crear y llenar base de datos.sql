@@ -100,6 +100,19 @@ eliminado bit);
 --insert into Viaje values ('Viaje 5','viaje_05',5,5000, getdate(),getdate(),5,50,5,5,1,NULL);
 
 create table ViajeXPaquete (
-id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
 idViaje int NOT NULL PRIMARY KEY,
 idPaquete int NOT NULL PRIMARY KEY);
+
+
+create table Usuario (
+id string not null primary key,
+contraseña string not null);
+
+insert into Usuario (id,contraserña) values ('pasajero','asd');
+insert into Usuario (id,contraserña) values ('admin','asd');
+insert into Usuario (id,contraserña) values ('Nico','asd');
+insert into Usuario (id,contraserña) values ('David','asd');
+
+create table PaquetexUsuario (
+idPaquete int NOT NULL PRIMARY KEY,
+idUsuario string NOT NULL PRIMARY KEY);

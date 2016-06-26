@@ -14,6 +14,7 @@ public class GestorUsuarios
     public static string[] ObtenerRoles(string usuario)
     {
         bool? EsAdministrador = false;
+        //TODO 1001: como hacemos acá para obtener el rol??? averiguar esta parte
         //select EsAdministrador from usuarios u where u.nombre=@usuario
 
         if (EsAdministrador == null)

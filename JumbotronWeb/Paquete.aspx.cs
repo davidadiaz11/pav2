@@ -38,7 +38,6 @@ public partial class Paquetesw : System.Web.UI.Page
 
         else
         {
-            //no funciona
             List<ItemPaquete> lista = (List<ItemPaquete>)Session["Paquete"];
             lista.RemoveAt(GridView1.SelectedRow.RowIndex);
             Session["Paquete"] = lista;
@@ -93,10 +92,13 @@ public partial class Paquetesw : System.Web.UI.Page
             p.descripcion = "Paquete del usuario: ";
             p.fechaLlegada = Convert.ToDateTime("01/01/2000");
             p.fechaSalida = Convert.ToDateTime("01/01/2000");
-            p.precio = 9;
+            p.precio = calcularTotal();
             p.promocion = 7;
-            //creo que este método debe ser llamado desde Compra.aspx, q es cuando se realiza efectivamente la compra
+            //forma de recuperar al usuario
+            //string a = HttpContext.Current.User.Identity.Name.ToString();
+            
             //GestorPaquete.grabar(p);    
+            //TODO 1000 Se debe grabar también en PaquetexUsuario
 
             //Con el boton comprar pasamos a la compra 
             List<Paquete> compra = new List<Paquete>();
@@ -115,25 +117,17 @@ public partial class Paquetesw : System.Web.UI.Page
 
             //en la grilla habrá un textbox q te permite modificar la cantidad
         }
-            
-
-
-    }
-    protected void btnSubTotales_Click(object sender, EventArgs e)
-    {
-        //calcula subtotales de los detalles y total del paqute y contamos cuantos viajes hay
-        int total;
-        calcularSubtotales(out total);
     }
 
-    private void calcularSubtotales(out int total)
+    private int calcularTotal()
     {
-        total = 0;
+        int total = 0;
 
         foreach (GridViewRow rowItem in GridView1.Rows)
         {
             total += Convert.ToInt32(rowItem.Cells[7].Text);
         }
+        return total;
     }
 
     public void mensaje(string msj)

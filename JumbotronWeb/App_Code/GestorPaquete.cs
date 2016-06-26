@@ -35,25 +35,34 @@ public class GestorPaquete
             cmd.Parameters.Add(new SqlParameter("@fechaSalida", p.fechaSalida));
             cmd.Parameters.Add(new SqlParameter("@fechaLlegada", p.fechaLlegada));
 
-                //TODO 10.0 esto debería hacerse para grabar en los viajes
-                //esta mal pasado el parametro cantidad... arreglar esto
-            foreach (ItemPaquete itempaq in p.items)
-            {
-                sql = "update Viaje set cupo=cupo-" + itempaq.cantidad + "  where id=@id";
-                cmd.Parameters.Add(new SqlParameter("@paquete", p.id));
-                cmd.Parameters.Add(new SqlParameter("@id", itempaq.id));
 
-                sql = "insert into ViajeXPaquete(idViaje,idPaquete) values(@idViaje, @idPaquete)";
-                cmd.Parameters.Add(new SqlParameter("@idViaje", itempaq.id));
-                cmd.Parameters.Add(new SqlParameter("@idPaquete", p.id));
+            //sql = "insert into PaqueteXUsuario(idPaquete,idUsuario) values (@idPaquete, @idUsuario);";
+            //cmd.Parameters.Add(new SqlParameter("@idPaquete", p.id));
+            //cmd.Parameters.Add(new SqlParameter("@idUsuario", HttpContext.Current.User.Identity.Name.ToString()));
 
-            }
-            foreach (ItemPaquete itempaq in p.items)
-            {
-                sql = @"update Viaje set disponible=@disponible where fechaSalida <= GETDATE() OR cupo=@cupo";
-                cmd.Parameters.Add(new SqlParameter("@disponible", 0));
-                cmd.Parameters.Add(new SqlParameter("@cupo", 0));
-            }
+
+
+            //TODO 10.0 esto debería hacerse para grabar en los viajes
+            //esta mal pasado el parametro cantidad... arreglar esto
+            //foreach (ItemPaquete itempaq in p.items)
+            //{
+            //    sql = "update Viaje set cupo=cupo-" + itempaq.cantidad + "  where id=@id";
+            //    cmd.Parameters.Add(new SqlParameter("@paquete", p.id));
+            //    cmd.Parameters.Add(new SqlParameter("@id", itempaq.id));
+
+            //    sql = "insert into ViajeXPaquete(idViaje,idPaquete) values(@idViaje, @idPaquete);";
+            //    cmd.Parameters.Add(new SqlParameter("@idViaje", itempaq.id));
+            //    cmd.Parameters.Add(new SqlParameter("@idPaquete", p.id));
+            //}
+
+
+            ////esto se debe hacer al comprar efectivamente
+            //foreach (ItemPaquete itempaq in p.items)
+            //{
+            //    sql = @"update Viaje set disponible=@disponible where fechaSalida <= GETDATE() OR cupo=@cupo";
+            //    cmd.Parameters.Add(new SqlParameter("@disponible", 0));
+            //    cmd.Parameters.Add(new SqlParameter("@cupo", 0));
+            //}
 
 
 
