@@ -9,7 +9,6 @@
         <h1 class="page-header">Compra</h1>
         <ol class="breadcrumb">
             <li><a href="Inicio.aspx">Inicio</a></li>
-            <li><a href="Paquete.aspx">Paquete</a></li>
             <li class="active">Compra</li>
         </ol>
     </div>
