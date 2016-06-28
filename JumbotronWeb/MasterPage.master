@@ -47,6 +47,9 @@
                             <a href="Viaje.aspx">Viajes</a>
                         </li>
                         <li>
+                            <a href="InformeViaje.aspx">Informe Viaje</a>
+                        </li>
+                        <li>
                             <a href="FAQ.aspx">FAQ</a>
                         </li>
                         <li>
