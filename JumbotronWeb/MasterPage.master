@@ -50,6 +50,9 @@
                             <a href="InformeViaje.aspx">Informe Viaje</a>
                         </li>
                         <li>
+                            <a href="InformeGastos.aspx">Informe Gastos</a>
+                        </li>
+                        <li>
                             <a href="FAQ.aspx">FAQ</a>
                         </li>
                         <li>
@@ -61,6 +64,9 @@
                                     <asp:Literal ID="litNUsuarios" runat="server"></asp:Literal>
                                 </span>
                             </a>
+                        </li>
+                        <li>       
+                            <asp:LoginStatus ID="LoginStatus1" runat="server" />
                         </li>
                     </ul>
                 </div>

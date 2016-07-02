@@ -17,67 +17,64 @@ public class GestorPaquete
 		//
 	}
 
-    public static void grabar(Paquete p)
+    public static int grabar(Paquete p)
     {
         string sql = "";
+        int idPaquete = -1;
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        SqlTransaction trans = null;
         try
         {
             cn.Open();
+            trans = cn.BeginTransaction();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cn;
+            cmd.Transaction = trans;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
             sql = "insert into Paquete(descripcion, promocion, precio, fechaSalida, fechaLlegada) values(@descripcion, @promocion, @precio, @fechaSalida, @fechaLlegada)";
-            cmd.Parameters.Add(new SqlParameter("@descripcion", p.descripcion));
+            cmd.CommandText = sql;
+            cmd.Parameters.Add(new SqlParameter("@descripcion", "asd"));
             cmd.Parameters.Add(new SqlParameter("@promocion", p.promocion));
             cmd.Parameters.Add(new SqlParameter("@precio", p.precio));
             cmd.Parameters.Add(new SqlParameter("@fechaSalida", p.fechaSalida));
             cmd.Parameters.Add(new SqlParameter("@fechaLlegada", p.fechaLlegada));
+            idPaquete = Convert.ToInt32(cmd.ExecuteScalar()) +1;
 
 
-            //sql = "insert into PaqueteXUsuario(idPaquete,idUsuario) values (@idPaquete, @idUsuario);";
-            //cmd.Parameters.Add(new SqlParameter("@idPaquete", p.id));
-            //cmd.Parameters.Add(new SqlParameter("@idUsuario", HttpContext.Current.User.Identity.Name.ToString()));
-
-
-
-            //TODO 10.0 esto debería hacerse para grabar en los viajes
-            //esta mal pasado el parametro cantidad... arreglar esto
-            //foreach (ItemPaquete itempaq in p.items)
-            //{
-            //    sql = "update Viaje set cupo=cupo-" + itempaq.cantidad + "  where id=@id";
-            //    cmd.Parameters.Add(new SqlParameter("@paquete", p.id));
-            //    cmd.Parameters.Add(new SqlParameter("@id", itempaq.id));
-
-            //    sql = "insert into ViajeXPaquete(idViaje,idPaquete) values(@idViaje, @idPaquete);";
-            //    cmd.Parameters.Add(new SqlParameter("@idViaje", itempaq.id));
-            //    cmd.Parameters.Add(new SqlParameter("@idPaquete", p.id));
-            //}
-
-
-            ////esto se debe hacer al comprar efectivamente
-            //foreach (ItemPaquete itempaq in p.items)
-            //{
-            //    sql = @"update Viaje set disponible=@disponible where fechaSalida <= GETDATE() OR cupo=@cupo";
-            //    cmd.Parameters.Add(new SqlParameter("@disponible", 0));
-            //    cmd.Parameters.Add(new SqlParameter("@cupo", 0));
-            //}
-
-
-
+            cmd.Parameters.Clear();
+            sql = "insert into PaqueteXUsuario(idPaquete,idUsuario) values (@idPaquete, @idUsuario);";
             cmd.CommandText = sql;
-            int filasAfetadas = cmd.ExecuteNonQuery();
-            if (filasAfetadas==0)
+            cmd.Parameters.Add(new SqlParameter("@idPaquete", idPaquete));
+            cmd.Parameters.Add(new SqlParameter("@idUsuario", HttpContext.Current.User.Identity.Name.ToString()));
+            cmd.ExecuteNonQuery();
+
+
+            foreach (ItemPaquete itempaq in p.items)
             {
-                 throw new Exception("El registro ya existe en la base");
+                cmd.Parameters.Clear();
+                sql = "insert into ViajeXPaquete(idViaje,idPaquete) values(@idViaje, @idPaquete);";
+                cmd.CommandText = sql;
+                cmd.Parameters.Add(new SqlParameter("@idViaje", itempaq.id));
+                cmd.Parameters.Add(new SqlParameter("@idPaquete", idPaquete));
+                cmd.ExecuteNonQuery();
             }
 
+            trans.Commit();
             
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            
+            if (trans != null)
+            {
+                trans.Rollback();
+            }
+            if (ex.Message.StartsWith("No hay cupo disponible"))
+                throw;  //vuelve a desencadenar la misma excepcion
+            else
+            {
+                throw new Exception(); 
+            }
             throw;
         }
         finally
@@ -85,6 +82,7 @@ public class GestorPaquete
             if (cn != null && cn.State == ConnectionState.Open)
                 cn.Close();
         }
+        return idPaquete;
     }
 
     public static int obtenerUltimoId()

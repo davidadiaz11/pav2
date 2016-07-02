@@ -9,6 +9,8 @@ public partial class Paquetesw : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Pone en "no disponible" a aquellos viajes con cupo=0, o que ya hayan partido
+        //GestorViaje.actualizarDisponibles();
         cargarGrilla();
     }
 
@@ -74,50 +76,41 @@ public partial class Paquetesw : System.Web.UI.Page
             {
                 mensaje("El viaje con id: " + idSinCupo + " no posee cupo suficiente.");
             }
+            else
+            {
+                //descuenta para cada viaje el cupo disponible
+                //las consultas sql de este método deben realizarse dentro de una transacción en GestorCompra
+                //GestorViaje.descontarCupo((List<ItemPaquete>)GridView1.DataSource);
 
-            //descuenta para cada viaje el cupo disponible
-            //no se debe llamar acá, debe ser llamado en la transacción. 
-            //es decir tampoco llamado sino q tiene q usar esas instrucciones sql dentro de una transaccion
-            //GestorViaje.descontarCupo((List<ItemPaquete>)GridView1.DataSource);
-
-            //se debe llamar a un método que ponga en "no disponible" a aquellos viajes con cupo=0
-            //Esto también debería hacerse en la transaccion
-            //GestorViaje.actualizarDisponibles();
-
-            //graba el paquete con sus detalles de paquete 
-            // graba en viajexPaquete
-            Paquete p = new Paquete();
-            p.id = GestorPaquete.obtenerUltimoId();
-            p.items = (List<ItemPaquete>)GridView1.DataSource;
-            p.descripcion = "Paquete del usuario: ";
-            p.fechaLlegada = Convert.ToDateTime("01/01/2000");
-            p.fechaSalida = Convert.ToDateTime("01/01/2000");
-            p.precio = calcularTotal();
-            p.promocion = 7;
-            //forma de recuperar al usuario
-            //string a = HttpContext.Current.User.Identity.Name.ToString();
+                Paquete p = new Paquete();
+                p.items = (List<ItemPaquete>)GridView1.DataSource;
+                p.descripcion = "Paquete del usuario: ";
+                p.fechaLlegada = Convert.ToDateTime("01/01/2017");
+                p.fechaSalida = Convert.ToDateTime("01/01/2017");
+                p.precio = calcularTotal();
+                p.promocion = 2;
             
-            //GestorPaquete.grabar(p);    
-            //TODO 1000 Se debe grabar también en PaquetexUsuario
+                //graba en Paquete, en ViajeXPaquete y en PaquetexUsuario
+                int idpaquete = GestorPaquete.grabar(p);    
 
-            //Con el boton comprar pasamos a la compra 
-            List<Paquete> compra = new List<Paquete>();
-            if (Session["Compra"] != null)
-                compra = (List<Paquete>)Session["Compra"];
-            p.id = p.id + compra.Count;
-            compra.Add(p);
-            Session["Compra"] = compra;
-            Response.Redirect("Compra.aspx");
-            //la Copmpra tendra un cliente asociado, un id, modo compra(efectivo ó tarjeta) y una fecha
+                List<Paquete> compra = new List<Paquete>();
+                if (Session["Compra"] != null)
+                    compra = (List<Paquete>)Session["Compra"];
+                p.id = idpaquete;
+                compra.Add(p);
+                Session["Compra"] = compra;
+                Response.Redirect("Compra.aspx");
 
-            //la compra está compuesta por paquetes de ese usuario:
-            //los detalles de Compra tendran un pauqte como item con un precio, cant de viajes
+                //la Copmpra tendra un cliente asociado, un id, modo compra(efectivo ó tarjeta) y una fecha
+                //la compra está compuesta por paquetes de ese usuario:
+                //los detalles de Compra tendran un pauqte como item con un precio, cant de viajes
 
-            //las tablas que se modifican son paquete, detallepauete, viaje, jviajeXpaquete, Compra y dettaleCompraç
-
-            //en la grilla habrá un textbox q te permite modificar la cantidad
+                //en la grilla habrá un textbox q te permite modificar la cantidad. NO LLEGAMOS A ESTO, TAMPOCO ES IMPORTANTE
+            }
         }
     }
+
+  
 
     private int calcularTotal()
     {
@@ -129,6 +122,7 @@ public partial class Paquetesw : System.Web.UI.Page
         }
         return total;
     }
+
 
     public void mensaje(string msj)
     {

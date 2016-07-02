@@ -30,6 +30,8 @@ public class GestorUsuarios
         // aqui iria codigo que verificaria si el usuario y clave existe en la base de datos;
         if (usuario.ToLower() == "admin" && clave == "asd") return true;
         if (usuario.ToLower() == "pasajero" && clave == "asd") return true;
+        if (usuario.ToLower() == "nico" && clave == "asd") return true;
+        if (usuario.ToLower() == "david" && clave == "asd") return true;
         return false;
     }
 

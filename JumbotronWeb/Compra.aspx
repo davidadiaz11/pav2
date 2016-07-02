@@ -21,7 +21,7 @@
         <asp:Panel ID="Panel1" runat="server">
             <strong>Paquetes:</strong>
             <table class="table table-bordered">
-                <asp:GridView ID="grilla_compra" runat="server" class="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" AutoGenerateColumns="False">
+                <asp:GridView ID="grilla_compra" runat="server" class="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" AutoGenerateColumns="False" OnSelectedIndexChanged="grilla_compra_SelectedIndexChanged">
                     <Columns>
                         <asp:CommandField ShowSelectButton="True"/>
                         <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id"/>
@@ -35,6 +35,7 @@
             <div class="btn-group-sm">
                 <asp:Button ID="btnAgregar" runat="server" ControlStyle-CssClass="btn-default btn-sm" Text="Agregar" OnClick="btnAgregar_Click" />
                 <asp:Button ID="btnEliminar" runat="server" ControlStyle-CssClass="btn-default btn-sm" Text="Eliminar" OnClick="btnEliminar_Click" />
+                <asp:Button ID="btnComprar" runat="server" OnClick="btnComprar_Click" Text="Comprar" />
             </div>
         </asp:Panel>
     </div>

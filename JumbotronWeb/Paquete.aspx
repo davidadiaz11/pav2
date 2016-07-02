@@ -41,7 +41,7 @@
             <div class="btn-group-sm">
                 <asp:Button ID="btnAgregar" runat="server" ControlStyle-CssClass="btn-default btn-sm" Text="Agregar" OnClick="btnAgregar_Click" />
                 <asp:Button ID="btnEliminar" runat="server" ControlStyle-CssClass="btn-default btn-sm" Text="Eliminar" OnClick="btnEliminar_Click" />
-                <asp:Button ID="btnComprar" runat="server" ControlStyle-CssClass="btn-default btn-sm" Text="Comprar" OnClick="btnComprar_Click" />
+                <asp:Button ID="btnComprar" runat="server" ControlStyle-CssClass="btn-default btn-sm" Text="Siguiente" OnClick="btnComprar_Click" />
             </div>
         </asp:Panel>
     </div>

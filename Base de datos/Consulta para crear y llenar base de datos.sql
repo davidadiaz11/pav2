@@ -73,11 +73,11 @@ precio int,
 fechaSalida date,
 fechaLlegada date);
 
-insert into Paquete values ('desc1',1,1000, getdate(),getdate());
-insert into Paquete values ('desc2',2,2000, getdate(),getdate());
-insert into Paquete values ('desc3',3,3000, getdate(),getdate());
-insert into Paquete values ('desc4',4,4000, getdate(),getdate());
-insert into Paquete values ('desc5',5,5000, getdate(),getdate());
+--insert into Paquete values ('desc1',1,1000, getdate(),getdate());
+--insert into Paquete values ('desc2',2,2000, getdate(),getdate());
+--insert into Paquete values ('desc3',3,3000, getdate(),getdate());
+--insert into Paquete values ('desc4',4,4000, getdate(),getdate());
+--insert into Paquete values ('desc5',5,5000, getdate(),getdate());
 
 create TABLE Viaje (
 id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -100,19 +100,21 @@ eliminado bit);
 --insert into Viaje values ('Viaje 5','viaje_05',5,5000, getdate(),getdate(),5,50,5,5,1,NULL);
 
 create table ViajeXPaquete (
-idViaje int NOT NULL PRIMARY KEY,
-idPaquete int NOT NULL PRIMARY KEY);
+id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+idViaje int NOT NULL,
+idPaquete int NOT NULL);
 
 
 create table Usuario (
-id string not null primary key,
-contraseña string not null);
+id varchar(50) not null primary key,
+contraseña varchar(50) not null);
 
-insert into Usuario (id,contraserña) values ('pasajero','asd');
-insert into Usuario (id,contraserña) values ('admin','asd');
-insert into Usuario (id,contraserña) values ('Nico','asd');
-insert into Usuario (id,contraserña) values ('David','asd');
+insert into Usuario (id,contraseña) values ('pasajero','asd');
+insert into Usuario (id,contraseña) values ('admin','asd');
+insert into Usuario (id,contraseña) values ('Nico','asd');
+insert into Usuario (id,contraseña) values ('David','asd');
 
 create table PaquetexUsuario (
-idPaquete int NOT NULL PRIMARY KEY,
-idUsuario string NOT NULL PRIMARY KEY);
+id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+idPaquete int NOT NULL,
+idUsuario varchar(50) NOT NULL);
