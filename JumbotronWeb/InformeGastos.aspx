@@ -10,7 +10,7 @@
                  <tr>
                      <td>Precio Maximo:</td>
                      <td>
-                         <asp:TextBox ID="txt_monto" runat="server"></asp:TextBox>
+                         <asp:TextBox ID="txt_precio" runat="server"></asp:TextBox>
                      </td>
                  </tr>
                  <tr>
@@ -22,7 +22,7 @@
                  <tr>
                      <td>Paquete:</td>
                      <td>
-                         <asp:DropDownList ID="ddl_Paquete" runat="server" CssClass="form-control"  Width="148px">
+                         <asp:DropDownList ID="ddl_paquete" runat="server" CssClass="form-control"  Width="148px">
                          </asp:DropDownList>
 
                      </td>

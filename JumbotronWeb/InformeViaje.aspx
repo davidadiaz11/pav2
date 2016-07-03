@@ -6,23 +6,23 @@
          <div>
              <table class="nav-justified">
                  <tr>
-                     <td>Precio Maximo:</td>
+                     <td>Precio Máximo:</td>
                      <td>
-                         <asp:TextBox ID="txt_precion_informeViaje" runat="server"></asp:TextBox>
+                         <asp:TextBox ID="txt_precio" runat="server"></asp:TextBox>
                      </td>
                  </tr>
                  <tr>
-                     <td class="auto-style1">Cupo Maximo</td>
+                     <td class="auto-style1">Cupo Máximo: </td>
                      <td class="auto-style1">
-                         <asp:TextBox ID="txy_cupo_informeViaje" runat="server"></asp:TextBox>
+                         <asp:TextBox ID="txt_cupo" runat="server"></asp:TextBox>
                      </td>
                  </tr>
                  <tr>
-                     <td>Destino:</td>
+                     <td>País:</td>
                      <td>
                         
 
-                         <asp:DropDownList ID="ddlDestinoInformeViaje" runat="server" CssClass="form-control" AutoPostBack="True" Width="148px">
+                         <asp:DropDownList ID="ddlPais" runat="server" CssClass="form-control" AutoPostBack="True" Width="148px">
                          </asp:DropDownList>
 
                      </td>
