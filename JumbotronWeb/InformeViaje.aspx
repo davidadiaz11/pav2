@@ -26,6 +26,11 @@
                          </asp:DropDownList>
 
                      </td>
+                     <tr>
+                        <td>
+                            <asp:Button ID="btnBuscar" runat="server" Text="Buscar" />
+                        </td>
+                     </tr>
                  </tr>
              </table>
          </div>

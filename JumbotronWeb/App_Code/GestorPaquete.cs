@@ -39,7 +39,8 @@ public class GestorPaquete
             cmd.Parameters.Add(new SqlParameter("@precio", p.precio));
             cmd.Parameters.Add(new SqlParameter("@fechaSalida", p.fechaSalida));
             cmd.Parameters.Add(new SqlParameter("@fechaLlegada", p.fechaLlegada));
-            idPaquete = Convert.ToInt32(cmd.ExecuteScalar()) +1;
+            cmd.ExecuteNonQuery();
+            idPaquete = obtenerUltimoId();
 
 
             cmd.Parameters.Clear();
@@ -95,7 +96,7 @@ public class GestorPaquete
             cmd.Connection = cn;
             cmd.Parameters.Clear();
             cmd.Connection = cn;
-            cmd.CommandText = " select max(id) from Paquete;";
+            cmd.CommandText = " select max(id) as ultimo from Paquete;";
             return (int)cmd.ExecuteScalar();
         }
         catch (Exception)
