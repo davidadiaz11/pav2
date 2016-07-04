@@ -14,8 +14,12 @@ public partial class InformeGastos : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        cargarCombo();
-        cargarGrilla();
+        if (!Page.IsPostBack)
+        {
+            cargarCombo();
+            cargarGrilla();
+        }
+
     }
 
     public void cargarGrilla()
@@ -24,8 +28,9 @@ public partial class InformeGastos : System.Web.UI.Page
         precio = txt_precio.Text;
         fecha = txt_fecha.Text;
         
+        string usuario = GestorUsuarios.buscarIdUusario(Convert.ToInt32(ddl_usuario.SelectedIndex));
 
-        grilla_gastos.DataSource = GestorInformeGastos.filtrar(precio, fecha);
+        grilla_gastos.DataSource = GestorInformeGastos.filtrar(precio, fecha, usuario);
         grilla_gastos.DataBind();
     }
     protected void btn_buscar_Click(object sender, EventArgs e)

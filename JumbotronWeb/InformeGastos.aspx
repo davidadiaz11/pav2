@@ -32,6 +32,9 @@
      </head>
 
     <body>
+         <div>
+             <asp:Button ID="btn_buscar" runat="server" OnClick="btn_buscar_Click" Text="Buscar" />
+         </div>
          <asp:GridView ID="grilla_gastos" runat="server" CssClass="table table-responsive table-bordered table-hover" CellPadding="4" DataKeyNames="id" GridLines="None" AutoGenerateColumns="False" >
                 <Columns>
                     <asp:CommandField ShowSelectButton="True" />
@@ -42,9 +45,6 @@
                 </Columns>
                 <SelectedRowStyle BackColor="Silver" />
             </asp:GridView>
-         <div>
-             <asp:Button ID="btn_buscar" runat="server" OnClick="btn_buscar_Click" Text="Buscar" />
-         </div>
     </body>
 
 </asp:Content>

@@ -26,7 +26,7 @@ public class GestorInformeGastos
     }
 
 
-    public static  DataTable filtrar(string precio, string fecha)
+    public static  DataTable filtrar(string precio, string fecha, string usuario)
     {
 
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
@@ -48,30 +48,88 @@ public class GestorInformeGastos
             cmd.CommandText = sql;
 
 
-            if (precio != "" && fecha != "")
+            if (precio != "" && fecha != ""  && usuario!="" )
             {
-                sql = "select * from Compra where montoTotal<=@montoTotal and fecha=@fecha ;";
+
+                sql = "select id, montoTotal, fecha, cantPaquetes from Compra co join CompraXUsuario cu on  cu.idCompra=co.id where cu.idUsuario=@usuario and montoTotal<=@montoTotal and fecha=@fecha ;";
                 cmd.CommandText = sql;
+                cmd.Parameters.Clear();
                 cmd.Parameters.Add(new SqlParameter("@montoTotal", precio));
                 cmd.Parameters.Add(new SqlParameter("@fecha", fecha));
+                cmd.Parameters.Add(new SqlParameter("@usuario", usuario));
                 //cmd.Parameters.Add(new SqlParameter("@destino", destino));
             }
 
-            if (precio != "" && fecha == "")
+            if (precio == "" && fecha == "" && usuario != "")
+            {
+
+                sql = "select id, montoTotal, fecha, cantPaquetes from Compra co join CompraXUsuario cu on  cu.idCompra=co.id where cu.idUsuario=@usuario;";
+                cmd.CommandText = sql;
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add(new SqlParameter("@usuario",usuario));
+                //cmd.Parameters.Add(new SqlParameter("@destino", destino));
+            }
+
+            if (precio != "" && fecha == "" && usuario != "")
+            {
+
+                sql = "select id, montoTotal, fecha, cantPaquetes from Compra co join CompraXUsuario cu on  cu.idCompra=co.id where cu.idUsuario=@usuario and montoTotal<=@montoTotal;";
+                cmd.CommandText = sql;
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add(new SqlParameter("@montoTotal", precio));
+                cmd.Parameters.Add(new SqlParameter("@usuario", usuario));
+                
+            }
+
+            if (precio == "" && fecha != "" && usuario != "")
+            {
+
+                sql = "select id, montoTotal, fecha, cantPaquetes from Compra co join CompraXUsuario cu on  cu.idCompra=co.id where cu.idUsuario=@usuario and fecha=@fecha;";
+                cmd.CommandText = sql;
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add(new SqlParameter("@fecha", fecha));
+                cmd.Parameters.Add(new SqlParameter("@usuario", usuario));
+            
+            }
+
+            //if (precio != "" && fecha != "" )
+            //{
+            //    sql = "select * from Compra where montoTotal<=@montoTotal and fecha=@fecha ;";
+            //    cmd.CommandText = sql;
+            //    cmd.Parameters.Clear();
+            //    cmd.Parameters.Add(new SqlParameter("@montoTotal", precio));
+            //    cmd.Parameters.Add(new SqlParameter("@fecha", fecha));
+            //    //cmd.Parameters.Add(new SqlParameter("@destino", destino));
+            //}
+
+            if (precio != "" && fecha == "" && usuario=="" )
             {
                 sql = "select * from Compra where montoTotal<=@montoTotal;";
                 cmd.CommandText = sql;
+                cmd.Parameters.Clear();
                 cmd.Parameters.Add(new SqlParameter("@montoTotal", precio));
                 //cmd.Parameters.Add(new SqlParameter("@destino", destino));
             }
 
-            if (precio == "" && fecha != "")
+            if (precio != "" && fecha != "" && usuario == "")
+            {
+                sql = "select * from Compra where montoTotal<=@montoTotal and fecha=@fecha;";
+                cmd.CommandText = sql;
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add(new SqlParameter("@montoTotal", precio));
+                //cmd.Parameters.Add(new SqlParameter("@destino", destino));
+            }
+
+            if (precio == "" && fecha != "" && usuario=="")
             {
                 sql = "select * from Compra where fecha=@fecha ;";
                 cmd.CommandText = sql;
+                cmd.Parameters.Clear();
                 cmd.Parameters.Add(new SqlParameter("@fecha", fecha));
                 //cmd.Parameters.Add(new SqlParameter("@destino", destino));
             }
+
+            dt.Load(cmd.ExecuteReader());
 
 
         }

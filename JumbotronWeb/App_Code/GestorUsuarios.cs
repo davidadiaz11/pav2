@@ -57,7 +57,7 @@ public class GestorUsuarios
 
             SqlDataReader dr = cmd.ExecuteReader();
 
-            int i = 0;
+            int i = 1;
             while (dr.Read())
             {
 
@@ -91,6 +91,19 @@ public class GestorUsuarios
         return listaUsuario;
     }
 
+    public static string buscarIdUusario(int valorCombo)
+    {
+        List<Usuario> listaUsuario = obtenerUsuarios();
+
+        foreach (Usuario u in listaUsuario)
+        {
+            if (valorCombo == u.num)
+            {
+                return u.id;
+            }
+        }
+        return "";
+    }
     
 
 
