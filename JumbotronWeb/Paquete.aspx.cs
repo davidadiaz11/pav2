@@ -104,7 +104,6 @@ public partial class Paquetesw : System.Web.UI.Page
                 //la Copmpra tendra un cliente asociado, un id, modo compra(efectivo ó tarjeta) y una fecha
                 //la compra está compuesta por paquetes de ese usuario:
                 //los detalles de Compra tendran un pauqte como item con un precio, cant de viajes
-
                 //en la grilla habrá un textbox q te permite modificar la cantidad. NO LLEGAMOS A ESTO, TAMPOCO ES IMPORTANTE
             }
         }

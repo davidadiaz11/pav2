@@ -73,8 +73,16 @@ public partial class Compra : System.Web.UI.Page
         int mt = Convert.ToInt32(lblImporteTOTAL.Text);
         int cp = Convert.ToInt32(lblCantPaq.Text);
 
-        string a = GestorCompra.comprar(mt ,cp);
+        List<ItemPaquete> lis = cargarLista();
+
+        List<Paquete> lispaquete = (List < Paquete >) Session["Compra"];
+
+        string a = GestorCompra.comprar(lis, lispaquete, mt ,cp);
         mensaje(a);
+
+        Session["Compra"] = null;
+        Session["listaItem"] = null;
+        Session["Paquete"] = null;
     }
 
     public int cantidadPaquetes()
@@ -82,5 +90,10 @@ public partial class Compra : System.Web.UI.Page
         return grilla_compra.Rows.Count;
     }
 
+    public List<ItemPaquete> cargarLista()
+    {
+        List<ItemPaquete> lista = (List<ItemPaquete>)Session["listaItem"];
 
+        return lista;
+     }
 }

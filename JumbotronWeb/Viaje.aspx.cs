@@ -57,6 +57,8 @@ public partial class Viajewf : System.Web.UI.Page
             {
                 paquete.Add(ip);
             }
+
+            agregarItemPaqueteALista(ip);
             
             
             Session["Paquete"] = paquete;
@@ -84,5 +86,25 @@ public partial class Viajewf : System.Web.UI.Page
             }
         }
         return false;
+    }
+
+    public void agregarItemPaqueteALista(ItemPaquete ipaq)
+    {
+        List<ItemPaquete> lista;
+
+        if ( Session["listaItem"] == null)
+	    {
+	         lista = new List<ItemPaquete>();
+
+             Session["listaItem"] = lista;
+	    }
+
+
+        lista = (List<ItemPaquete>)Session["listaItem"];
+
+        lista.Add(ipaq);
+
+        Session["listaItem"] = lista;
+
     }
 }

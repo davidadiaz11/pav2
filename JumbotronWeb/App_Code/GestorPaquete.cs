@@ -39,9 +39,20 @@ public class GestorPaquete
             cmd.Parameters.Add(new SqlParameter("@precio", p.precio));
             cmd.Parameters.Add(new SqlParameter("@fechaSalida", p.fechaSalida));
             cmd.Parameters.Add(new SqlParameter("@fechaLlegada", p.fechaLlegada));
-            idPaquete = Convert.ToInt32(cmd.ExecuteScalar()) +1;
-           
+            cmd.ExecuteNonQuery();
 
+
+
+            cmd.Parameters.Clear();
+            cmd.CommandText = " select max(id) 'id' from Paquete;";
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                idPaquete = (int)dr["id"];
+            }
+            dr.Close();
+           
+                                                                                                                                                          
             cmd.Parameters.Clear();
             sql = "insert into PaqueteXUsuario(idPaquete,idUsuario) values (@idPaquete, @idUsuario);";
             cmd.CommandText = sql;
@@ -74,23 +85,29 @@ public class GestorPaquete
         return idPaquete;
     }
 
-    public static int obtenerUltimoId()
-    {
-        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
-        try
-        {
-            cn.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = cn;
-            cmd.Parameters.Clear();
-            cmd.Connection = cn;
-            cmd.CommandText = " select max(id) from Paquete;";
-            return (int)cmd.ExecuteScalar();
-        }
-        catch (Exception)
-        {
-            
-            throw;
-        }
-    }
+    //public static int obtenerUltimoId()
+    //{
+    //   int  idPaquete =-1;
+    //    SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+    //    try
+    //    {
+    //        cn.Open();
+    //        SqlCommand cmd = new SqlCommand();
+    //        cmd.Connection = cn;
+    //        cmd.Parameters.Clear();
+    //        cmd.Connection = cn;
+    //        cmd.CommandText = " select max(id) 'id' from Paquete;";
+    //        SqlDataReader dr = cmd.ExecuteReader();
+    //        while (dr.Read())
+    //        {
+    //            idPaquete = (int)dr["id"];
+    //        }
+    //        dr.Close();
+    //    }
+    //    catch (Exception)
+    //    {
+    //        throw;
+    //    }
+    //    return idPaquete;
+    //}
 }

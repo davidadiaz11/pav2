@@ -66,9 +66,10 @@ public class GestorCompra
 
 
 
-    //List<ItemPaquete> lista,
-    public static string comprar( int montoTotal, int cantPaquetes)
+
+    public static string  comprar(List<ItemPaquete> lista, List<Paquete> listpaquete, int montoTotal, int cantPaquetes)
     {
+
          string sql = "";
          int idCompra=-1;   
         SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
@@ -90,6 +91,25 @@ public class GestorCompra
             cmd.Parameters.Add(new SqlParameter("@cantPaquetes", cantPaquetes));
             cmd.ExecuteNonQuery();
 
+           
+
+
+            foreach (ItemPaquete item in lista)
+            {
+                sql = "update Viaje set cupo=cupo-" + item.cantidad + " where id=@id";
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add(new SqlParameter("@id", item.id));
+                cmd.CommandText = sql;
+                int i = cmd.ExecuteNonQuery();
+                if (i == 0)
+                {
+                    return "No hay cupo disponible para la cantidad solicitada en el viaje" + item.id;
+                    throw new Exception();
+                    
+                }
+            }
+
+            cmd.Parameters.Clear();
             sql = "select max(id) 'id' from Compra;";
             cmd.CommandText = sql;
             SqlDataReader dr = cmd.ExecuteReader();
@@ -106,6 +126,21 @@ public class GestorCompra
             cmd.Parameters.Add(new SqlParameter("@idCompra", idCompra));
             cmd.Parameters.Add(new SqlParameter("@idUsuario", HttpContext.Current.User.Identity.Name.ToString()));
             cmd.ExecuteNonQuery();
+
+
+           
+            foreach (Paquete item in listpaquete)
+            {
+                int idpaq = item.id;
+
+                sql = "insert into PAqueteXCompra(idCompra,idPaquete) values (@idCompra, @idPaquete);";
+                cmd.CommandText = sql;
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add(new SqlParameter("@idCompra", idCompra));
+                cmd.Parameters.Add(new SqlParameter("@idPaquete", idpaq));
+                cmd.ExecuteNonQuery();
+            }
+
 
             trans.Commit();
             
@@ -137,15 +172,5 @@ public class GestorCompra
 
 
 
-    //foreach (ItemPaquete item in lista)
-    //{
-    //    sql = "update Viaje set cupo=cupo-" + item.cantidad + " where id=@id";
-    //    cmd.Parameters.Add(new SqlParameter("@id", item.id));
-    //    cmd.CommandText = sql;
-    //    int i = cmd.ExecuteNonQuery();
-    //    if (i == 0)
-    //    {
-    //        throw new Exception();
-    //    }
-    //}
+ 
 
