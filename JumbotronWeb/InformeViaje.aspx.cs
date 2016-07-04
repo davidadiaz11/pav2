@@ -41,6 +41,7 @@ public partial class InformeViaje : System.Web.UI.Page
         gvViajesInforme.DataBind();
     }
 
+
     private void cargarCombo()
     {
         ddlDestinoInforme.DataTextField = "descripcion";

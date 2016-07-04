@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -34,6 +36,62 @@ public class GestorUsuarios
         if (usuario.ToLower() == "david" && clave == "asd") return true;
         return false;
     }
+
+    public static List<Usuario> obtenerUsuarios()
+    {
+        
+        List<Usuario> listaUsuario = new List<Usuario>();
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        Usuario h2 = null;
+
+        try
+        {
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.Connection = cn;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            string sql = "select id from Usuario;";
+            cmd.CommandText = sql;     
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            int i = 0;
+            while (dr.Read())
+            {
+
+
+                h2 = new Usuario();
+                h2.id = (string)dr["id"];
+                h2.num = i++;
+
+        
+
+                listaUsuario.Add(h2);
+            }
+
+
+            dr.Close();
+
+
+        }
+
+        catch (Exception)
+        {
+            throw;
+        }
+
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+
+        return listaUsuario;
+    }
+
+    
 
 
 }

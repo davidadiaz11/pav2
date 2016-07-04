@@ -3,7 +3,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-    <head> <h3> Informe de Gastos por Usuario</h3>
+    <head> <h3> Informe de Compras</h3>
          <h4> Filtros:</h4>
          <div>
              <table class="nav-justified">
@@ -16,13 +16,13 @@
                  <tr>
                      <td class="auto-style1">Fecha: </td>
                      <td class="auto-style1">
-                         <asp:TextBox ID="txt_fecha" runat="server"></asp:TextBox>
+                         <asp:TextBox ID="txt_fecha" runat="server" Height="26px"></asp:TextBox>
                      </td>
                  </tr>
                  <tr>
-                     <td>Paquete:</td>
+                     <td>Usuario:</td>
                      <td>
-                         <asp:DropDownList ID="ddl_paquete" runat="server" CssClass="form-control"  Width="148px">
+                         <asp:DropDownList ID="ddl_usuario" runat="server" CssClass="form-control"  Width="148px">
                          </asp:DropDownList>
 
                      </td>
@@ -36,15 +36,15 @@
                 <Columns>
                     <asp:CommandField ShowSelectButton="True" />
                     <asp:BoundField DataField="id" HeaderText="ID" SortExpression="id" />
-                    <asp:BoundField DataField="descripcion" HeaderText="Descrip" SortExpression="descripcion" />
-                    <asp:BoundField DataField="precio" HeaderText="Precio" SortExpression="precio" />
-                    <asp:BoundField DataField="fechaSalida" HeaderText="Fecha Salida" SortExpression="fechaSalida" />
-                    <asp:BoundField DataField="fechaLlegada" HeaderText="Fecha Lleg" SortExpression="fechaLlegada" />
-                    <asp:BoundField DataField="destinoNombre" HeaderText="Destino" SortExpression="destinoNombre" />
-                    <asp:BoundField DataField="cupo" HeaderText="Cupo" SortExpression="cupo" />
+                    <asp:BoundField DataField="montoTotal" HeaderText="Monto total" SortExpression="precio" />
+                    <asp:BoundField DataField="cantPaquetes" HeaderText="Cant Paquetes" />
+                    <asp:BoundField DataField="fecha" HeaderText="Fecha Compra" />
                 </Columns>
                 <SelectedRowStyle BackColor="Silver" />
             </asp:GridView>
+         <div>
+             <asp:Button ID="btn_buscar" runat="server" OnClick="btn_buscar_Click" Text="Buscar" />
+         </div>
     </body>
 
 </asp:Content>
