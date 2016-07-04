@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Web;
 
 /// <summary>
 /// Descripción breve de GestrorCompra
@@ -63,19 +64,88 @@ public class GestorCompra
     
     }
 
-    public static void comprar(List<ItemPaquete> lista)
+
+
+    //List<ItemPaquete> lista,
+    public static string comprar( int montoTotal, int cantPaquetes)
     {
-        //foreach (ItemPaquete item in lista)
-        //{
-        //    sql = "update Viaje set cupo=cupo-" + item.cantidad + " where id=@id";
-        //    cmd.Parameters.Add(new SqlParameter("@id", item.id));
-        //    cmd.CommandText = sql;
-        //    int i = cmd.ExecuteNonQuery();
-        //    if (i == 0)
-        //    {
-        //        throw new Exception();
-        //    }
-        //}
+         string sql = "";
+         int idCompra=-1;   
+        SqlConnection cn = new SqlConnection(GestorHotel.CadenaConexion);
+        SqlTransaction trans = null;
+        try
+        {
+
+            cn.Open();
+            trans = cn.BeginTransaction();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+            cmd.Transaction = trans;
+            cmd.Parameters.Clear();
+            cmd.Connection = cn;
+            sql = "insert into Compra(fecha, montoTotal, cantPaquetes) values(@fecha, @montoTotal, @cantPaquetes)";
+            cmd.CommandText = sql;
+            cmd.Parameters.Add(new SqlParameter("@fecha", DateTime.Today));
+            cmd.Parameters.Add(new SqlParameter("@montoTotal", montoTotal));
+            cmd.Parameters.Add(new SqlParameter("@cantPaquetes", cantPaquetes));
+            cmd.ExecuteNonQuery();
+
+            sql = "select max(id) 'id' from Compra;";
+            cmd.CommandText = sql;
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                 idCompra = (int)dr["id"];
+            }
+            dr.Close();
+
+
+            cmd.Parameters.Clear();
+            sql = "insert into CompraXUsuario(idCompra,idUsuario) values (@idCompra, @idUsuario);";
+            cmd.CommandText = sql;
+            cmd.Parameters.Add(new SqlParameter("@idCompra", idCompra));
+            cmd.Parameters.Add(new SqlParameter("@idUsuario", HttpContext.Current.User.Identity.Name.ToString()));
+            cmd.ExecuteNonQuery();
+
+            trans.Commit();
+            
+        }
+        catch (Exception ex)
+        {
+            if (trans != null)
+            {
+                trans.Rollback();
+            }
+            if (ex.Message.StartsWith("Error"))
+                throw;  //vuelve a desencadenar la misma excepcion
+            else
+            {
+                throw new Exception(); 
+            }
+            throw;
+        }
+        finally
+        {
+            if (cn != null && cn.State == ConnectionState.Open)
+                cn.Close();
+        }
+        return "La compra se realizo con exito";
+        
+    }
+       
     }
 
-}
+
+
+    //foreach (ItemPaquete item in lista)
+    //{
+    //    sql = "update Viaje set cupo=cupo-" + item.cantidad + " where id=@id";
+    //    cmd.Parameters.Add(new SqlParameter("@id", item.id));
+    //    cmd.CommandText = sql;
+    //    int i = cmd.ExecuteNonQuery();
+    //    if (i == 0)
+    //    {
+    //        throw new Exception();
+    //    }
+    //}
+

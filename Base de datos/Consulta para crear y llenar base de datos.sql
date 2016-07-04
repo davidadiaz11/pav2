@@ -118,3 +118,16 @@ create table PaquetexUsuario (
 id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
 idPaquete int NOT NULL,
 idUsuario varchar(50) NOT NULL);
+
+create table Compra(
+ id int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+ fecha date,
+ montoTotal int,
+ cantPaquetes int
+);
+
+create table PAqueteXCompra(
+idCompra int FOREIGN KEY REFERENCES Compra(id),
+ idPaquete int FOREIGN KEY REFERENCES Paquete(id),
+ PRIMARY KEY(idCompra, idPaquete)
+);

@@ -40,7 +40,7 @@ public class GestorPaquete
             cmd.Parameters.Add(new SqlParameter("@fechaSalida", p.fechaSalida));
             cmd.Parameters.Add(new SqlParameter("@fechaLlegada", p.fechaLlegada));
             idPaquete = Convert.ToInt32(cmd.ExecuteScalar()) +1;
-
+           
 
             cmd.Parameters.Clear();
             sql = "insert into PaqueteXUsuario(idPaquete,idUsuario) values (@idPaquete, @idUsuario);";
@@ -48,17 +48,6 @@ public class GestorPaquete
             cmd.Parameters.Add(new SqlParameter("@idPaquete", idPaquete));
             cmd.Parameters.Add(new SqlParameter("@idUsuario", HttpContext.Current.User.Identity.Name.ToString()));
             cmd.ExecuteNonQuery();
-
-
-            foreach (ItemPaquete itempaq in p.items)
-            {
-                cmd.Parameters.Clear();
-                sql = "insert into ViajeXPaquete(idViaje,idPaquete) values(@idViaje, @idPaquete);";
-                cmd.CommandText = sql;
-                cmd.Parameters.Add(new SqlParameter("@idViaje", itempaq.id));
-                cmd.Parameters.Add(new SqlParameter("@idPaquete", idPaquete));
-                cmd.ExecuteNonQuery();
-            }
 
             trans.Commit();
             

@@ -32,10 +32,27 @@
                 </asp:GridView>
             </table>
 
+            <table class="nav-justified">
+                <tr>
+                    <td>
+                        <table class="nav-justified">
+                            <tr>
+                                <td>Cantidad de Paquetes:
+                                    <asp:Label ID="lblCantPaq" runat="server"></asp:Label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Importe TOTAL:
+                                    <asp:Label ID="lblImporteTOTAL" runat="server"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
             <div class="btn-group-sm">
-                <asp:Button ID="btnAgregar" runat="server" ControlStyle-CssClass="btn-default btn-sm" Text="Agregar" OnClick="btnAgregar_Click" />
-                <asp:Button ID="btnEliminar" runat="server" ControlStyle-CssClass="btn-default btn-sm" Text="Eliminar" OnClick="btnEliminar_Click" />
+                <asp:Button ID="btnAgregar" runat="server" ControlStyle-CssClass="btn-default btn-sm" OnClick="btnAgregar_Click" Text="Agregar" />
+                <asp:Button ID="btnEliminar" runat="server" ControlStyle-CssClass="btn-default btn-sm" OnClick="btnEliminar_Click" Text="Eliminar" />
                 <asp:Button ID="btnComprar" runat="server" OnClick="btnComprar_Click" Text="Comprar" />
+                <div>
+                </div>
             </div>
         </asp:Panel>
     </div>
